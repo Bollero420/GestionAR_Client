@@ -1,58 +1,48 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
-const Navigator = {
-  main: '/main',
-  attendances: '/attendances',
-  grades: '/grades',
-  sign_in: '/signIn',
-  student_form: '/studentForm',
-  reports: '/reports',
-  student_qualification: '/studentQualification',
-  students: '/students',
-  subjects: '/subjects'
-}
+import { NAVIGATOR } from './utils/constants';
+import SignInScreen from './components/SignIn/SignInScreen';
+import MainMenuScreen from './components/MainMenu/MainMenuScreen';
+import StudentsManagementScreen from './components/StudentsManagement/StudentsManagementScreen';
+import AttendancesManagementScreen from './components/AttendancesManagement/AttendancesManagementScreen';
+import StudentQualificationManagementScreen from './components/StudentQualificationManagement/StudentQualificationManagementScreen';
 
 const Routes = () => (
     <Switch>
-      <Redirect exact push from="/" to={Navigator.main} />
-      <Route exact path={Navigator.main}>
-        <h1>Main Section</h1>
-        <p>Menu principal</p>
+      <Redirect exact push from="/" to={NAVIGATOR.main} />
+      <Route exact path={NAVIGATOR.main}>
+        <MainMenuScreen />
       </Route>
-      <Route exact path={Navigator.grades}>
-        <h1>Grades Section</h1>
-        <p>Tabla de Grados</p>
+      <Route exact path={NAVIGATOR.attendances}>
+        <AttendancesManagementScreen />
       </Route>
-      <Route exact path={Navigator.attendances}>
-        <h1>Attendances Section</h1>
-        <p>Tabla de Asistencias</p>
-      </Route>
-      <Route exact path={Navigator.subjects}>
-        <h1>Subjects Section</h1>
-        <p>Tabla de Materias</p>
-      </Route>
-      <Route exact path={Navigator.student_form}>
+      <Route exact path={NAVIGATOR.student_form}>
         <h1>Student Form Section</h1>
         <p>Formulario de Inscripción Alumno</p>
       </Route>
-      <Route exact path={Navigator.reports}>
+      <Route exact path={NAVIGATOR.reports}>
         <h1>Reports Section</h1>
       </Route>
-      <Route exact path={Navigator.sign_in}>
-        <h1>SignIn Section</h1>
+      <Route exact path={NAVIGATOR.sign_in}>
+        <SignInScreen />
       </Route>
-      <Route exact path={`${Navigator.students}`}>
-        <h1>Students Section</h1>
-        <p>Tabla de Alumnos</p>
+      <Route exact path={`${NAVIGATOR.students}`}>
+        <StudentsManagementScreen />
       </Route>
-      <Route exact path={`${Navigator.students}/:id`}>
+      <Route exact path={`${NAVIGATOR.students}/:id`}>
         <h1>Student Profile Section</h1>
         <p>Perfil del Estudiante</p>
       </Route>
-      <Route exact path={`${Navigator.student_qualification}/:id`}>
+      <Route exact path={NAVIGATOR.student_qualification}>
+        <StudentQualificationManagementScreen />
+      </Route>
+      <Route exact path={`${NAVIGATOR.student_qualification}/:id`}>
         <h1>Student Qualification Section</h1>
         <p>Formulario con las calificaciones y observaciones del Estudiante</p>
+      </Route>
+      <Route exact path={NAVIGATOR.forgot_password}>
+        <h1>ForgotPassword Section</h1>
+        <p>To be Develop</p>
       </Route>
     </Switch>
 );
