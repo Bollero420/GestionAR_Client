@@ -1,36 +1,36 @@
-import React, { useMemo, useState } from "react";
-import classNames from "classnames";
-import { useHistory } from "react-router";
-import { GRADES_COLUMNS, NAVIGATOR, STUDENTS_COLUMNS } from "../../../../utils/constants";
-import { ColumnHeader, Table, TableBody, TableHead, TableRow } from "../../../UI/Table";
-import StudentsQualificationTableBodyRow from "./StudentsQualificationTableBodyRow";
-import { SortKey } from "../../../../interfaces/Table";
-import { useGrades } from "../../../../hooks/useGrades";
+import React, { useMemo, useState } from 'react';
+import classNames from 'classnames';
+import { useHistory } from 'react-router';
+import { GRADES_COLUMNS, NAVIGATOR, STUDENTS_COLUMNS } from '../../../../utils/constants';
+import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
+import { SortKey } from '../../../../interfaces/Table';
+import { useGrades } from '../../../../hooks/useGrades';
 
-type StudentsQualificationTableProps = {
-  grade?:any,
-  subject?:any,
+type Props = {
+  grade?: any;
+  subject?: any;
   handleGradePick: (grade: any) => void;
-}
+};
 
-const StudentsQualificationTable = () => {
+const StudentsQualificationTable = ({ grade, subject, handleGradePick }: Props) => {
   const history = useHistory();
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
   const isLoading = false;
   const studentQualifications = [];
-//  const { data, isLoading } = useStudentsQualification();
+  //  const { data, isLoading } = useStudentsQualification();
 
-//  const grades = useMemo(() => {
-//    return data ?? []
-//  },[data])
+  //  const grades = useMemo(() => {
+  //    return data ?? []
+  //  },[data])
 
   /**
- * Called when table heading is clicked.
- * @param {String} sortKey - string for what column to sort by
- */
-    const handleSort = (sortKey) => () => {
+   * Called when table heading is clicked.
+   * @param {SortKey} sortKey - value for what column to sort by
+   */
+  const handleSort = (sortKey: SortKey) => () => {
     if (!sortKey) {
       return;
     }
@@ -49,7 +49,7 @@ const StudentsQualificationTable = () => {
     setSortOrder(newSortDirection);
   };
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -67,7 +67,7 @@ const StudentsQualificationTable = () => {
                   className={classNames(
                     'cursor-pointer',
                     index === 0 && 'pl-6',
-                    index === GRADES_COLUMNS.length - 1 && 'pr-6',
+                    index === GRADES_COLUMNS.length - 1 && 'pr-6'
                   )}
                 >
                   {column.title}
@@ -76,7 +76,7 @@ const StudentsQualificationTable = () => {
                 <ColumnHeader key={index} isAction={true} className={index === GRADES_COLUMNS.length - 1 && 'pr-6'}>
                   {column.title}
                 </ColumnHeader>
-              ),
+              )
             )}
           </TableRow>
         </TableHead>

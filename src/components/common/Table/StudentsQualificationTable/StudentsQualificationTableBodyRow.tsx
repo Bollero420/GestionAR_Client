@@ -1,15 +1,21 @@
-import React from "react";
-import { ALL_GRADES_OPTIONS } from "../../../../utils/constants";
-import { TableRow } from "../../../UI/Table";
+import React from 'react';
+import { TableRow } from '../../../UI/Table';
 
 const StudentsQualificationTableBodyRow = ({ studentQualification }) => {
-const { student, completed } = studentQualification;
+  const { student, completed } = studentQualification;
 
   return (
     <TableRow>
-      <td className="py-4">
-        <div className="text-sm">{student.lastname}, {student.firstname}</div>
+      <td className="py-4"></td>
+      <td>
+        <div className="text-sm">
+          {student.lastname}, {student.firstname}
+        </div>
+      </td>
+      <td>
         <div className="text-sm">{student.regristration_number}</div>
+      </td>
+      <td>
         <div className="text-sm">{completed}</div>
       </td>
     </TableRow>

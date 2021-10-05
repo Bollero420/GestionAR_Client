@@ -1,30 +1,32 @@
-import React, { useMemo, useState } from "react";
-import classNames from "classnames";
-import { useHistory } from "react-router";
+import React, { useMemo, useState } from 'react';
+import classNames from 'classnames';
+import { useHistory } from 'react-router';
 import { useStudents } from '../../../../hooks/useStudents';
-import { NAVIGATOR, STUDENTS_COLUMNS } from "../../../../utils/constants";
-import { ColumnHeader, Table, TableBody, TableHead, TableRow } from "../../../UI/Table";
-import { SortKey } from "../../../../interfaces/Table";
-import StudentsTableBodyRow from "./StudentsTableBodyRow";
+import { NAVIGATOR, STUDENTS_COLUMNS } from '../../../../utils/constants';
+import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import { SortKey } from '../../../../interfaces/Table';
+import StudentsTableBodyRow from './StudentsTableBodyRow';
 
+type Props = {
+  gradeNumber: number;
+};
 
-
-const StudentsTable = ({gradeNumber}) => {
+const StudentsTable = ({ gradeNumber }: Props) => {
   const history = useHistory();
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
-  
+
   const { data, isLoading } = useStudents(gradeNumber);
 
   const students = useMemo(() => {
-    return data ?? []
-  },[data])
+    return data ?? [];
+  }, [data]);
 
   /**
- * Called when table heading is clicked.
- * @param {String} sortKey - string for what column to sort by
- */
-    const handleSort = (sortKey) => () => {
+   * Called when table heading is clicked.
+   * @param {String} sortKey - string for what column to sort by
+   */
+  const handleSort = (sortKey) => () => {
     if (!sortKey) {
       return;
     }
@@ -43,9 +45,10 @@ const StudentsTable = ({gradeNumber}) => {
     setSortOrder(newSortDirection);
   };
 
-  const redirectToProfile = (studentId: string) => history.push(`${NAVIGATOR.students}/:${studentId}`, { from: NAVIGATOR.students });
+  const redirectToProfile = (studentId: string) =>
+    history.push(`${NAVIGATOR.students}/:${studentId}`, { from: NAVIGATOR.students });
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -63,7 +66,7 @@ const StudentsTable = ({gradeNumber}) => {
                   className={classNames(
                     'cursor-pointer',
                     index === 0 && 'pl-6',
-                    index === STUDENTS_COLUMNS.length - 1 && 'pr-6',
+                    index === STUDENTS_COLUMNS.length - 1 && 'pr-6'
                   )}
                 >
                   {column.title}
@@ -72,7 +75,7 @@ const StudentsTable = ({gradeNumber}) => {
                 <ColumnHeader key={index} isAction={true} className={index === STUDENTS_COLUMNS.length - 1 && 'pr-6'}>
                   {column.title}
                 </ColumnHeader>
-              ),
+              )
             )}
           </TableRow>
         </TableHead>
@@ -85,11 +88,7 @@ const StudentsTable = ({gradeNumber}) => {
             </tr>
           )}
           {students.map((student) => (
-            <StudentsTableBodyRow
-              key={student.id}
-              student={student}
-              redirectToProfile={redirectToProfile}
-            />
+            <StudentsTableBodyRow key={student.id} student={student} redirectToProfile={redirectToProfile} />
           ))}
         </TableBody>
       </Table>

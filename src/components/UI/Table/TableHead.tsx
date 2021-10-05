@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 interface Props {
-  children?: React.ReactNode;;
+  children?: React.ReactNode;
 }
 
 const TableHead: FC<Props> = ({ children }: Props) => {

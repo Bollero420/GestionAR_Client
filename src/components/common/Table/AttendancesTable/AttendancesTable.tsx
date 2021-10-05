@@ -1,28 +1,57 @@
-import React, { useMemo, useState } from "react";
-import classNames from "classnames";
-import { useHistory } from "react-router";
-import { ATTENDANCES_COLUMNS } from "../../../../utils/constants";
-import { ColumnHeader, Table, TableBody, TableHead, TableRow } from "../../../UI/Table";
-import AttendancesTableBodyRow from "./AttendancesTableBodyRow";
-import { SortKey } from "../../../../interfaces/Table";
-import { useAttendances } from "../../../../hooks/useAttendances";
+import React, { useMemo, useState } from 'react';
+import classNames from 'classnames';
+import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
+import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import AttendancesTableBodyRow from './AttendancesTableBodyRow';
+import { SortKey } from '../../../../interfaces/Table';
+import { useAttendances } from '../../../../hooks/useAttendances';
 
-const AttendancesTable = ({grade, subject}) => {
-  const history = useHistory();
+type Props = {
+  grade: any;
+  subject: any;
+};
+
+const AttendancesTable = ({ grade, subject }: Props) => {
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
-  
-  const { data, isLoading } = useAttendances(grade, subject);
+
+  //? Probably will need to set form state on useEffect after components gets data from query
+  const [formValues, setFormValues] = useState<{ student_id: string; state: boolean }[]>([]);
+
+  const handleClick = (student_id: string, state: boolean) => {
+    const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
+    if (valueIndex !== -1) {
+      setFormValues((prevState) => [
+        ...prevState.slice(0, valueIndex),
+        { student_id, state },
+        ...prevState.slice(valueIndex + 1),
+      ]);
+    } else {
+      setFormValues((prevState) => [...prevState, { student_id, state }]);
+    }
+  };
+
+  const handleSubmit = (formValues) => {
+    const request = formValues.map((val) => ({
+      student_id: val.id,
+      subject_id: subject.id,
+      state: val.value,
+    }));
+
+    //! To.DO Add mutation for attendance creation.
+  };
+
+  const { data, isLoading } = useAttendances(grade?.id, subject?.id);
 
   const attendances = useMemo(() => {
-    return data ?? []
-  },[data])
+    return data ?? [];
+  }, [data]);
 
   /**
- * Called when table heading is clicked.
- * @param {String} sortKey - string for what column to sort by
- */
-    const handleSort = (sortKey) => () => {
+   * Called when table heading is clicked.
+   * @param {SortKey} sortKey - value for what column to sort by
+   */
+  const handleSort = (sortKey: SortKey) => () => {
     if (!sortKey) {
       return;
     }
@@ -41,7 +70,7 @@ const AttendancesTable = ({grade, subject}) => {
     setSortOrder(newSortDirection);
   };
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -59,32 +88,33 @@ const AttendancesTable = ({grade, subject}) => {
                   className={classNames(
                     'cursor-pointer',
                     index === 0 && 'pl-6',
-                    index === ATTENDANCES_COLUMNS.length - 1 && 'pr-6',
+                    index === ATTENDANCES_COLUMNS.length - 1 && 'pr-6'
                   )}
                 >
                   {column.title}
                 </ColumnHeader>
               ) : (
-                <ColumnHeader key={index} isAction={true} className={index === ATTENDANCES_COLUMNS.length - 1 && 'pr-6'}>
+                <ColumnHeader
+                  key={index}
+                  isAction={true}
+                  className={index === ATTENDANCES_COLUMNS.length - 1 && 'pr-6'}
+                >
                   {column.title}
                 </ColumnHeader>
-              ),
+              )
             )}
           </TableRow>
         </TableHead>
         <TableBody>
           {!attendances.length && (
             <tr>
-              <td colSpan={6}>
+              <td colSpan={ATTENDANCES_COLUMNS.length}>
                 <div className="p-4 text-sm text-center font-bold">No Data Found</div>
               </td>
             </tr>
           )}
           {attendances.map((attendance) => (
-            <AttendancesTableBodyRow
-              key={attendance.id}
-              attendance={attendance}
-            />
+            <AttendancesTableBodyRow key={attendance.id} attendance={attendance} handleClick={handleClick} />
           ))}
         </TableBody>
       </Table>
