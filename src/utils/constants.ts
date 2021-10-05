@@ -8,9 +8,8 @@ export const NAVIGATOR = {
   student_qualification: '/management/studentQualification',
   students: '/management/students',
   subjects: '/subjects',
-  forgot_password: '/forgotPassword'
-}
-
+  forgot_password: '/forgotPassword',
+};
 
 export const ALL_GRADES_OPTIONS = [
   {
@@ -31,34 +30,30 @@ export const ALL_GRADES_OPTIONS = [
   {
     title: '6to',
   },
-]
+];
 
 export const MAIN_MENU_OPTIONS = [
   {
     title: 'Gestion de Asistencias',
-    nextScreen: NAVIGATOR.attendances
+    nextScreen: NAVIGATOR.attendances,
   },
   {
     title: 'Gestion de Calificaciones',
-    nextScreen: NAVIGATOR.student_qualification
+    nextScreen: NAVIGATOR.student_qualification,
   },
   {
     title: 'Gestion de Alumnos',
-    nextScreen: NAVIGATOR.students
+    nextScreen: NAVIGATOR.students,
   },
   {
     title: 'Gestion de Reportes',
-    nextScreen: NAVIGATOR.reports
+    nextScreen: NAVIGATOR.reports,
   },
-]
-
+];
 
 export const STUDENTS_COLUMNS = [
   {
-    sortKey: {
-      first: 'firstName',
-      second: 'lastName',
-    },
+    sortKey: 'firstName',
     title: 'Nombre y Apellido',
   },
   {
@@ -73,11 +68,25 @@ export const STUDENTS_COLUMNS = [
     sortKey: 'shift',
     title: 'Turno',
   },
-]
+];
 
 export const ATTENDANCES_COLUMNS = [
-
-]
+  {
+    sortKey: {
+      first: 'student',
+      second: 'firstName',
+    },
+    title: 'Nombre y Apellido',
+  },
+  {
+    sortKey: 'registration_number',
+    title: 'Legajo',
+  },
+  {
+    sortKey: 'state',
+    title: 'Estado',
+  },
+];
 
 export const GRADES_COLUMNS = [
   {
@@ -91,8 +100,8 @@ export const GRADES_COLUMNS = [
   {
     sortKey: 'shift',
     title: 'Turno',
-  }
-]
+  },
+];
 
 export const GRADES = [
   {
@@ -119,19 +128,19 @@ export const GRADES = [
     section: 'A',
     shift: 'TARDE',
   },
-]
+];
 
 export const SUBJECTS = [
   {
     id: '00',
-    subject_name: 'CS.Naturales',
+    name: 'CS.Naturales',
   },
   {
     id: '01',
-    subject_name: 'Matematica',
+    name: 'Matematica',
   },
   {
     id: '02',
-    subject_name: 'Lengua',
+    name: 'Lengua',
   },
-]
+];
