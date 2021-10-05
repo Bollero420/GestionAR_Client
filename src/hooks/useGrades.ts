@@ -3,8 +3,8 @@ import { axios } from '../config/axiosConfig';
 import { GRADES } from '../utils/constants';
 
 const getGrades = async () => {
-  const response = await axios.get(`/grades/`);
   return GRADES;
+  const response = await axios.get(`/grades/`);
   return response.data;
 };
 

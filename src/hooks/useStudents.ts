@@ -2,16 +2,18 @@ import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
 const getStudents = async (gradeNumber: number) => {
-  const response = await axios.get(`/students/`, {params: {
-    gradeNumber
-  }});
-  return [];
-  return response.data;
+  const response = await axios.get(`/students/`, {
+    params: {
+      gradeNumber,
+    },
+  });
+  return response?.data || [];
 };
 
-export const useStudents = (gradeNumber: number) => {
+export const useStudents = (gradeNumber?: number) => {
   return useQuery<any[], Error>(['students', { gradeNumber }], () => getStudents(gradeNumber), {
     keepPreviousData: true,
+    enabled: !!gradeNumber,
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
   });
 };
