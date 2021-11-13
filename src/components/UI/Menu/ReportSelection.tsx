@@ -1,19 +1,18 @@
 import React from 'react';
-import { ALL_GRADES_OPTIONS } from '../../../utils/constants';
+import { ALL_REPORTS_OPTIONS } from '../../../utils/constants';
 
 type Props = {
-  handleGradePick: (grade: number) => void;
+  handleReportPick: (report: string) => void;
 };
 
-const GradeSelection = ({ handleGradePick }: Props) => {
+const GradeSelection = ({ handleReportPick }: Props) => {
   return (
     <div>
-      <p className="text-left">Grado</p>
       {React.Children.toArray(
-        ALL_GRADES_OPTIONS.map((menu_option, index) => (
+        ALL_REPORTS_OPTIONS.map((menu_option) => (
           <button
             className="border border-black rounded-lg bg-white min-w-max w-full p-3 my-2"
-            onClick={() => handleGradePick(index)}
+            onClick={() => handleReportPick(menu_option.title)}
           >
             {menu_option.title}
           </button>

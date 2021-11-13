@@ -1,4 +1,3 @@
-import React from 'react';
 import Badge, { Size, Variant } from '../../../UI/Badge/Badge';
 
 type Props = {

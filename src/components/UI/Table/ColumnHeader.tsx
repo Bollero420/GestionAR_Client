@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { SortKey } from '../../../interfaces/Table';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { TableRow } from '../../../UI/Table';
 
 const StudentsQualificationTableBodyRow = ({ studentQualification }) => {

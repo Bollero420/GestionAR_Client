@@ -16,7 +16,8 @@ const StudentsTable = ({ gradeNumber }: Props) => {
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
-  const { data, isLoading } = useStudents(gradeNumber);
+  // !To.DO utilizar el id del grade  y no el number.
+  const { data, isLoading } = useStudents(gradeNumber.toString());
 
   const students = useMemo(() => {
     return data ?? [];
@@ -46,7 +47,7 @@ const StudentsTable = ({ gradeNumber }: Props) => {
   };
 
   const redirectToProfile = (studentId: string) =>
-    history.push(`${NAVIGATOR.students}/:${studentId}`, { from: NAVIGATOR.students });
+    history.push(`${NAVIGATOR.students}/${studentId}`, { from: NAVIGATOR.students });
 
   if (isLoading) return <p>Loading...</p>;
 

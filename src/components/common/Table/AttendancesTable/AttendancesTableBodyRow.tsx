@@ -1,4 +1,3 @@
-import React from 'react';
 import { Badge, Size, Variant } from '../../../UI/Badge/Badge';
 import { TableRow } from '../../../UI/Table';
 import { AttendanceState } from './AttendaceState';
@@ -10,20 +9,18 @@ type Props = {
 };
 
 const AttendancesTableBodyRow = ({ attendance, isForm, handleClick }: Props) => {
-  const { student, state } = attendance;
+  const { student_id, student_name, registration_number, state } = attendance;
   return (
     <TableRow>
-      <td className="py-4">
-        <div className="text-sm">
-          {student.lastName}, {student.firstName}
-        </div>
+      <td className="py-4 pl-6">
+        <div className="text-sm">{student_name}</div>
       </td>
       <td>
-        <div className="text-sm">{student.registration_number}</div>
+        <div className="text-sm">{registration_number}</div>
       </td>
       {isForm ? (
-        <td>
-          <AttendanceState student_id={student?.id} state={state} handleClick={handleClick} />
+        <td className="pr-6 w-52">
+          <AttendanceState student_id={student_id} state={state} handleClick={handleClick} />
         </td>
       ) : (
         <td>

@@ -1,10 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
 import { useAttendances } from '../../../../hooks/useAttendances';
+import { useStudents } from '../../../../hooks/useStudents';
+import { useGenerateAttendaces } from '../../../../hooks/useGenerateAttendaces';
+import { useHistory } from 'react-router';
 
 type Props = {
   grade: any;
@@ -12,40 +15,70 @@ type Props = {
 };
 
 const AttendancesTable = ({ grade, subject }: Props) => {
+  const history = useHistory();
+
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
-  //? Probably will need to set form state on useEffect after components gets data from query
-  const [formValues, setFormValues] = useState<{ student_id: string; state: boolean }[]>([]);
+  const [formValues, setFormValues] = useState<any>([]);
+
+  const { data, isLoading, isSuccess, isError } = useStudents(grade?.id);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      //set form values for Today attendance
+      const values = data.map((std) => ({
+        student_id: std._id,
+        student_name: std.lastName + ', ' + std.firstName,
+        registration_number: std.registration_number,
+        state: false,
+      }));
+
+      setFormValues(values);
+    }
+  }, [isSuccess, data]);
 
   const handleClick = (student_id: string, state: boolean) => {
     const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
+
     if (valueIndex !== -1) {
+      const selectedAttendance = formValues[valueIndex];
       setFormValues((prevState) => [
         ...prevState.slice(0, valueIndex),
-        { student_id, state },
+        { ...selectedAttendance, state },
         ...prevState.slice(valueIndex + 1),
       ]);
-    } else {
-      setFormValues((prevState) => [...prevState, { student_id, state }]);
     }
   };
 
-  const handleSubmit = (formValues) => {
+  const handleSubmit = () => {
     const request = formValues.map((val) => ({
       student_id: val.id,
       subject_id: subject.id,
       state: val.value,
     }));
 
+    generateAttendances(request);
+
     //! To.DO Add mutation for attendance creation.
   };
 
-  const { data, isLoading } = useAttendances(grade?.id, subject?.id);
+  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
+  // entonces traemos los alumnos, si no traemos las asistencias
+  // const { data, isLoading } = useAttendances(grade?.id, subject?.id, new Date());
 
-  const attendances = useMemo(() => {
-    return data ?? [];
-  }, [data]);
+  const {
+    mutateAsync: generateAttendances,
+    isLoading: isLoadingMutation,
+    isSuccess: isSuccessMutation,
+    isError: isErrorMutation,
+  } = useGenerateAttendaces();
+
+  useEffect(() => {
+    if (isSuccessMutation) {
+      history.goBack();
+    }
+  }, [isSuccessMutation]);
 
   /**
    * Called when table heading is clicked.
@@ -106,18 +139,28 @@ const AttendancesTable = ({ grade, subject }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {!attendances.length && (
+          {!formValues.length && (
             <tr>
               <td colSpan={ATTENDANCES_COLUMNS.length}>
                 <div className="p-4 text-sm text-center font-bold">No Data Found</div>
               </td>
             </tr>
           )}
-          {attendances.map((attendance) => (
-            <AttendancesTableBodyRow key={attendance.id} attendance={attendance} handleClick={handleClick} />
+          {formValues.map((attendance) => (
+            <AttendancesTableBodyRow
+              isForm
+              key={formValues.student_id}
+              attendance={attendance}
+              handleClick={handleClick}
+            />
           ))}
         </TableBody>
       </Table>
+      <div>
+        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8" onClick={handleSubmit}>
+          Finalizar Asistencia
+        </button>
+      </div>
     </div>
   );
 };

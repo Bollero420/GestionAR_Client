@@ -18,7 +18,7 @@ const GradesTable = ({ grade, subject, handleGradePick }: Props) => {
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
-  const { data, isLoading } = useGrades();
+  const { data, isLoading, isSuccess, isError } = useGrades();
 
   const grades = useMemo(() => {
     return data ?? [];

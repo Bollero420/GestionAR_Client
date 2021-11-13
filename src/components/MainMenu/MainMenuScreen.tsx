@@ -8,19 +8,21 @@ const MainMenuScreen = () => {
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
-        <h1 className="mb-10 text-2xl font-bold uppercase">Menu Principal</h1>
-        <div>
-          {React.Children.toArray(
-            MAIN_MENU_OPTIONS.map(({nextScreen, title}) => (
-              <button
-                className="border border-black rounded-lg bg-white min-w-max w-full p-3 my-2"
-                onClick={() => handleRedirect(nextScreen)}
-              >{title}</button>
-            ))
-          )}
-        </div>
+      <h1 className="mb-10 text-2xl font-bold uppercase">Menu Principal</h1>
+      <div>
+        {React.Children.toArray(
+          MAIN_MENU_OPTIONS.map(({ nextScreen, title }) => (
+            <button
+              className="border border-black rounded-lg bg-white min-w-max w-full p-3 my-2"
+              onClick={() => handleRedirect(nextScreen)}
+            >
+              {title}
+            </button>
+          ))
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default MainMenuScreen;
