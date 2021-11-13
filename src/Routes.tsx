@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { NAVIGATOR } from './utils/constants';
 import SignInScreen from './components/SignIn/SignInScreen';
@@ -7,10 +6,15 @@ import StudentsManagementScreen from './components/StudentsManagement/StudentsMa
 import AttendancesManagementScreen from './components/AttendancesManagement/AttendancesManagementScreen';
 import StudentQualificationManagementScreen from './components/StudentQualificationManagement/StudentQualificationManagementScreen';
 import StudentProfile from './components/StudentProfile/StudentProfileScreen';
+import ForgotPasswordScreen from './components/ForgotPassword/ForgotPasswordScreen';
+import ReportsManagementScreen from './components/ReportsManagement/ReportsManagementScreen';
 
 const Routes = () => (
   <Switch>
-    <Redirect exact push from="/" to={NAVIGATOR.main} />
+    <Redirect exact push from="/" to={NAVIGATOR.sign_in} />
+    <Route exact path={NAVIGATOR.sign_in}>
+      <SignInScreen />
+    </Route>
     <Route exact path={NAVIGATOR.main}>
       <MainMenuScreen />
     </Route>
@@ -22,10 +26,7 @@ const Routes = () => (
       <p>Formulario de Inscripción Alumno</p>
     </Route>
     <Route exact path={NAVIGATOR.reports}>
-      <h1>Reports Section</h1>
-    </Route>
-    <Route exact path={NAVIGATOR.sign_in}>
-      <SignInScreen />
+      <ReportsManagementScreen />
     </Route>
     <Route exact path={`${NAVIGATOR.students}`}>
       <StudentsManagementScreen />
@@ -41,8 +42,7 @@ const Routes = () => (
       <p>Formulario con las calificaciones y observaciones del Estudiante</p>
     </Route>
     <Route exact path={NAVIGATOR.forgot_password}>
-      <h1>ForgotPassword Section</h1>
-      <p>To be Develop</p>
+      <ForgotPasswordScreen />
     </Route>
   </Switch>
 );
