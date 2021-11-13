@@ -13,13 +13,13 @@ export const NAVIGATOR = {
 
 export const ALL_GRADES_OPTIONS = [
   {
-    title: '1er',
+    title: '1ero',
   },
   {
     title: '2ndo',
   },
   {
-    title: '3er',
+    title: '3ero',
   },
   {
     title: '4to',
@@ -30,6 +30,13 @@ export const ALL_GRADES_OPTIONS = [
   {
     title: '6to',
   },
+];
+
+export const ALL_REPORTS_OPTIONS = [
+  { title: 'Reportes Mensuales' },
+  { title: 'Reportes Bimestrales' },
+  { title: 'Reportes Anual - Inicial' },
+  { title: 'Reportes Anual - Final' },
 ];
 
 export const MAIN_MENU_OPTIONS = [
@@ -105,25 +112,25 @@ export const GRADES_COLUMNS = [
 
 export const GRADES = [
   {
-    id: '00',
+    id: '1',
     level: 1,
     section: 'A',
     shift: 'TARDE',
   },
   {
-    id: '01',
+    id: '2',
     level: 3,
     section: 'B',
     shift: 'TARDE',
   },
   {
-    id: '02',
+    id: '3',
     level: 5,
     section: 'B',
     shift: 'MAÑANA',
   },
   {
-    id: '03',
+    id: '4',
     level: 6,
     section: 'A',
     shift: 'TARDE',

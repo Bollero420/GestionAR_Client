@@ -1,12 +1,21 @@
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
-const getAttendances = async (gradeId, subjectId) => {
-  const response = await axios.get(`/attendances/`);
-  return response?.data || [];
+const getAttendances = async (gradeId: string, subjectId: string) => {
+  try {
+    const response = await axios.get(`/attendances/`, {
+      params: {
+        gradeId,
+        subjectId,
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log('getAttendances - error -->', error);
+  }
 };
 
-export const useAttendances = (gradeId, subjectId) => {
+export const useAttendances = (gradeId: string, subjectId: string) => {
   return useQuery<any[], Error>(['grades', { gradeId, subjectId }], () => getAttendances(gradeId, subjectId), {
     keepPreviousData: true,
     enabled: !!subjectId && !!gradeId,

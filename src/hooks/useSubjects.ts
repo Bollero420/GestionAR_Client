@@ -1,9 +1,7 @@
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
-import { SUBJECTS } from '../utils/constants';
 
 const getSubjects = async (gradeNumber: number) => {
-  return SUBJECTS;
   const response = await axios.get(`/subjects/`, {
     params: {
       gradeNumber,

@@ -1,11 +1,13 @@
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
-import { GRADES } from '../utils/constants';
 
 const getGrades = async () => {
-  return GRADES;
-  const response = await axios.get(`/grades/`);
-  return response.data;
+  try {
+    const response = await axios.get(`/grades/`);
+    return response.data;
+  } catch (error) {
+    console.log('error ->', error);
+  }
 };
 
 export const useGrades = () => {
