@@ -9,7 +9,7 @@ const StudentsTableBodyRow = ({ student, redirectToProfile }: Props) => {
   return (
     <TableRow
       className="cursor-pointer hover:bg-black hover:bg-opacity-20"
-      onClick={() => redirectToProfile(student.id)}
+      onClick={() => redirectToProfile(student._id)}
     >
       <td className="py-4 pl-6">
         <div className="text-sm">

@@ -110,6 +110,24 @@ export const GRADES_COLUMNS = [
   },
 ];
 
+export const SUBJECT_QUALIFICATION_COLUMNS = [
+  {
+    sortKey: {
+      first: 'student',
+      second: 'firstName',
+    },
+    title: 'Nombre y Apellido',
+  },
+  {
+    sortKey: 'registration_number',
+    title: 'Legajo',
+  },
+  {
+    sortKey: 'qualification',
+    title: 'Calificación',
+  },
+];
+
 export const GRADES = [
   {
     id: '1',

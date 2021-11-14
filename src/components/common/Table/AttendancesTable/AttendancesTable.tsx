@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
@@ -55,18 +55,20 @@ const AttendancesTable = ({ grade, subject }: Props) => {
     }
   }, [isSuccess, data]);
 
-  const handleClick = (student_id: string, state: boolean) => {
-    const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
-
-    if (valueIndex !== -1) {
-      const selectedAttendance = formValues[valueIndex];
-      setFormValues((prevState) => [
-        ...prevState.slice(0, valueIndex),
-        { ...selectedAttendance, state },
-        ...prevState.slice(valueIndex + 1),
-      ]);
-    }
-  };
+  const handleClick = useCallback(
+    (student_id: string, state: boolean) => {
+      const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
+      if (valueIndex !== -1) {
+        const selectedAttendance = formValues[valueIndex];
+        setFormValues((prevState) => [
+          ...prevState.slice(0, valueIndex),
+          { ...selectedAttendance, state },
+          ...prevState.slice(valueIndex + 1),
+        ]);
+      }
+    },
+    [formValues]
+  );
 
   const handleSubmit = () => {
     const request = formValues.map((val) => ({
