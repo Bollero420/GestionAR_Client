@@ -120,3 +120,7 @@ mock.onGet('/students/', { params: { grade_id: '7' } }).reply(200, [
 mock.onPost('/auth/signIn').reply(200);
 
 mock.onPost('/attendances/add').reply(200);
+
+mock.onPost('/auth/signOut').reply(200);
+
+mock.onPost('/subjectQualifications/add').reply(200);
