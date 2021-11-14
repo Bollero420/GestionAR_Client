@@ -5,12 +5,14 @@ import AttendancesTable from '../common/Table/AttendancesTable/AttendancesTable'
 import SubjectSelection from '../UI/Menu/SubjectSelection';
 import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
+import DatePicker from '../UI/DatePicker';
 
 const AttendancesManagementScreen = () => {
   const history = useHistory();
   const [step, setStep] = useState(0);
   const [selectedGrade, setSelectedGrade] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleGradePick = useCallback(
     (grade) => {
@@ -56,9 +58,16 @@ const AttendancesManagementScreen = () => {
       <div className="fixed top-2 left-2">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <h1 className="mb-10 text-2xl font-bold uppercase">
-        Gestion de Asistencias{selectedGrade !== null ? ` - ${handleGrade()}` : ''}
-      </h1>
+      <div className=" flex flex-row items-center mb-10">
+        <h1 className="text-2xl font-bold uppercase pr-4">
+          Gestion de Asistencias{selectedGrade !== null ? ` - ${handleGrade()}` : ''}
+        </h1>
+        {step === 2 && (
+          <div className="py-4 max-w-xs">
+            <DatePicker onChange={(date) => setSelectedDate(date)} selected={selectedDate} borderRight />
+          </div>
+        )}
+      </div>
       <div className="flex justify-center">{component}</div>
     </div>
   );

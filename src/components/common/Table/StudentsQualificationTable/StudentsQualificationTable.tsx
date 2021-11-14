@@ -1,25 +1,91 @@
-import React, { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useHistory } from 'react-router';
-import { GRADES_COLUMNS, NAVIGATOR, STUDENTS_COLUMNS } from '../../../../utils/constants';
+import { SUBJECT_QUALIFICATION_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
-import { useGrades } from '../../../../hooks/useGrades';
+import { useStudents } from '../../../../hooks/useStudents';
+import { useGenerateSubjectQualification } from '../../../../hooks/useGenerateSubjectQualification';
 
 type Props = {
   grade?: any;
   subject?: any;
-  handleGradePick: (grade: any) => void;
 };
 
-const StudentsQualificationTable = ({ grade, subject, handleGradePick }: Props) => {
+export enum QUALIFICATION {
+  NS = 'NS',
+  S = 'S',
+  B = 'B',
+  MB = 'MB',
+  EXC = 'EXC',
+}
+
+const StudentsQualificationTable = ({ grade, subject }: Props) => {
   const history = useHistory();
+
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
-  const isLoading = false;
-  const studentQualifications = [];
+  const [formValues, setFormValues] = useState<any>([]);
+
+  const { data, isLoading, isSuccess, isError } = useStudents(grade?.id);
+
+  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
+  // entonces traemos los alumnos, si no traemos las asistencias
+  // const { data, isLoading } = useStudentsQualifications(grade?.id, subject?.id, new Date());
+
+  const {
+    mutateAsync: generateSubjectQualification,
+    isLoading: isLoadingMutation,
+    isSuccess: isSuccessMutation,
+    isError: isErrorMutation,
+  } = useGenerateSubjectQualification();
+
+  useEffect(() => {
+    if (isSuccessMutation) {
+      history.goBack();
+    }
+  }, [isSuccessMutation]);
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      //set form values for Today attendance
+      const values = data.map((std) => ({
+        student_id: std._id,
+        student_name: std.lastName + ', ' + std.firstName,
+        registration_number: std.registration_number,
+        qualitifaction: null,
+      }));
+
+      setFormValues(values);
+    }
+  }, [isSuccess, data]);
+
+  const handleClick = (student_id: string, qualification: QUALIFICATION) => {
+    const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
+
+    if (valueIndex !== -1) {
+      const selectedQualification = formValues[valueIndex];
+      setFormValues((prevState) => [
+        ...prevState.slice(0, valueIndex),
+        { ...selectedQualification, qualification },
+        ...prevState.slice(valueIndex + 1),
+      ]);
+    }
+  };
+
+  const handleSubmit = () => {
+    const request = formValues.map((val) => ({
+      student_id: val.id,
+      subject_id: subject.id,
+      bimonthly_date: new Date(),
+      value: val.qualification,
+    }));
+    console.log(request);
+    generateSubjectQualification(request);
+  };
+
   //  const { data, isLoading } = useStudentsQualification();
 
   //  const grades = useMemo(() => {
@@ -56,7 +122,7 @@ const StudentsQualificationTable = ({ grade, subject, handleGradePick }: Props) 
       <Table>
         <TableHead>
           <TableRow>
-            {GRADES_COLUMNS.map((column, index) =>
+            {SUBJECT_QUALIFICATION_COLUMNS.map((column, index) =>
               column.sortKey ? (
                 <ColumnHeader
                   key={index}
@@ -67,13 +133,17 @@ const StudentsQualificationTable = ({ grade, subject, handleGradePick }: Props) 
                   className={classNames(
                     'cursor-pointer',
                     index === 0 && 'pl-6',
-                    index === GRADES_COLUMNS.length - 1 && 'pr-6'
+                    index === SUBJECT_QUALIFICATION_COLUMNS.length - 1 && 'pr-6'
                   )}
                 >
                   {column.title}
                 </ColumnHeader>
               ) : (
-                <ColumnHeader key={index} isAction={true} className={index === GRADES_COLUMNS.length - 1 && 'pr-6'}>
+                <ColumnHeader
+                  key={index}
+                  isAction={true}
+                  className={index === SUBJECT_QUALIFICATION_COLUMNS.length - 1 && 'pr-6'}
+                >
                   {column.title}
                 </ColumnHeader>
               )
@@ -81,21 +151,28 @@ const StudentsQualificationTable = ({ grade, subject, handleGradePick }: Props) 
           </TableRow>
         </TableHead>
         <TableBody>
-          {!studentQualifications.length && (
+          {!formValues.length && (
             <tr>
               <td colSpan={6}>
                 <div className="p-4 text-sm text-center font-bold">No Data Found</div>
               </td>
             </tr>
           )}
-          {studentQualifications.map((student_qualification) => (
+          {formValues.map((student_qualification) => (
             <StudentsQualificationTableBodyRow
+              isTeacher
+              handleClick={handleClick}
               key={student_qualification.id}
               studentQualification={student_qualification}
             />
           ))}
         </TableBody>
       </Table>
+      <div>
+        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8" onClick={handleSubmit}>
+          Finalizar Calificación
+        </button>
+      </div>
     </div>
   );
 };

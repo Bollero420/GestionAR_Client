@@ -4,7 +4,7 @@ import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
-import { useAttendances } from '../../../../hooks/useAttendances';
+// import { useAttendances } from '../../../../hooks/useAttendances';
 import { useStudents } from '../../../../hooks/useStudents';
 import { useGenerateAttendaces } from '../../../../hooks/useGenerateAttendaces';
 import { useHistory } from 'react-router';
@@ -23,6 +23,23 @@ const AttendancesTable = ({ grade, subject }: Props) => {
   const [formValues, setFormValues] = useState<any>([]);
 
   const { data, isLoading, isSuccess, isError } = useStudents(grade?.id);
+
+  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
+  // entonces traemos los alumnos, si no traemos las asistencias
+  // const { data, isLoading } = useAttendances(grade?.id, subject?.id, new Date());
+
+  const {
+    mutateAsync: generateAttendances,
+    isLoading: isLoadingMutation,
+    isSuccess: isSuccessMutation,
+    isError: isErrorMutation,
+  } = useGenerateAttendaces();
+
+  useEffect(() => {
+    if (isSuccessMutation) {
+      history.goBack();
+    }
+  }, [isSuccessMutation]);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -59,26 +76,7 @@ const AttendancesTable = ({ grade, subject }: Props) => {
     }));
 
     generateAttendances(request);
-
-    //! To.DO Add mutation for attendance creation.
   };
-
-  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
-  // entonces traemos los alumnos, si no traemos las asistencias
-  // const { data, isLoading } = useAttendances(grade?.id, subject?.id, new Date());
-
-  const {
-    mutateAsync: generateAttendances,
-    isLoading: isLoadingMutation,
-    isSuccess: isSuccessMutation,
-    isError: isErrorMutation,
-  } = useGenerateAttendaces();
-
-  useEffect(() => {
-    if (isSuccessMutation) {
-      history.goBack();
-    }
-  }, [isSuccessMutation]);
 
   /**
    * Called when table heading is clicked.

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ALL_GRADES_OPTIONS } from '../../utils/constants';
 import GradeSelection from '../UI/Menu/GradeSelection';
 import StudentsTable from '../common/Table/StudentsTable/StudentsTable';
