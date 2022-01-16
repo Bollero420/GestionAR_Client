@@ -22,6 +22,7 @@ mock.onGet(/students\/\d+/).reply((config) => {
       birth_date: '22-03-2013',
       registration_number: '12345',
       grade_id: {
+        _id: '1',
         shift: 'M',
         section: 'A',
         level: '2',
@@ -100,12 +101,16 @@ mock.onGet('/students/', { params: { grade_id: '1' } }).reply(200, [
     lastName: 'Cordero',
     firstName: 'Matias',
     registration_number: '34234',
-    section: 'B',
-    shift: 'T',
+    grade_id: {
+      _id: '1',
+      level: 1,
+      section: 'B',
+      shift: 'T',
+    },
   },
 ]);
 
-mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
+mock.onGet('/students/', { params: { grade_id: '2', subject_id: undefined } }).reply(200, [
   {
     _id: '17',
     lastName: 'Pedro',
@@ -114,7 +119,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'M',
   },
-
   {
     _id: '286',
     lastName: 'Toblerini',
@@ -123,7 +127,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'M',
   },
-
   {
     _id: '299',
     lastName: 'Surin',
@@ -132,7 +135,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'T',
   },
-
   {
     _id: '443',
     lastName: 'Antini',
@@ -141,7 +143,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'B',
     shift: 'M',
   },
-
   {
     _id: '482',
     lastName: 'Raschetti',
@@ -150,7 +151,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'B',
     shift: 'T',
   },
-
   {
     _id: '759',
     lastName: 'Benitez',
@@ -159,7 +159,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'M',
   },
-
   {
     _id: '119',
     lastName: 'Gomez',
@@ -168,7 +167,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'M',
   },
-
   {
     _id: '12',
     lastName: 'Colozzo',
@@ -177,7 +175,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'B',
     shift: 'M',
   },
-
   {
     _id: '67',
     lastName: 'Dominguez',
@@ -186,7 +183,6 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     section: 'A',
     shift: 'T',
   },
-
   {
     _id: '72',
     lastName: 'Bengochea',
@@ -196,7 +192,8 @@ mock.onGet('/students/', { params: { grade_id: '2' } }).reply(200, [
     shift: 'M',
   },
 ]);
-mock.onGet('/students/', { params: { grade_id: '3' } }).reply(200, [
+
+mock.onGet('/students/', { params: { grade_id: '3', subject_id: '02' } }).reply(200, [
   {
     _id: '23',
     lastName: 'Rolon',
@@ -206,7 +203,8 @@ mock.onGet('/students/', { params: { grade_id: '3' } }).reply(200, [
     shift: 'M',
   },
 ]);
-mock.onGet('/students/', { params: { grade_id: '4' } }).reply(200, [
+
+mock.onGet('/students/', { params: { grade_id: '4', subject_id: '00' } }).reply(200, [
   {
     _id: '122',
     lastName: 'Amarillo',
@@ -216,7 +214,8 @@ mock.onGet('/students/', { params: { grade_id: '4' } }).reply(200, [
     shift: 'T',
   },
 ]);
-mock.onGet('/students/', { params: { grade_id: '5' } }).reply(200, [
+
+mock.onGet('/students/', { params: { grade_id: '5', subject_id: '01' } }).reply(200, [
   {
     _id: '47',
     lastName: 'Lucero',
@@ -226,7 +225,8 @@ mock.onGet('/students/', { params: { grade_id: '5' } }).reply(200, [
     shift: 'T',
   },
 ]);
-mock.onGet('/students/', { params: { grade_id: '6' } }).reply(200, [
+
+mock.onGet('/students/', { params: { grade_id: '6', subject_id: '00' } }).reply(200, [
   {
     _id: '234',
     lastName: 'Rojas',
@@ -235,7 +235,6 @@ mock.onGet('/students/', { params: { grade_id: '6' } }).reply(200, [
     section: 'A',
     shift: 'M',
   },
-
   {
     _id: '998',
     lastName: 'Maldonado',
@@ -245,7 +244,8 @@ mock.onGet('/students/', { params: { grade_id: '6' } }).reply(200, [
     shift: 'T',
   },
 ]);
-mock.onGet('/students/', { params: { grade_id: '7' } }).reply(200, [
+
+mock.onGet('/students/', { params: { grade_id: '7', subject_id: '01' } }).reply(200, [
   {
     _id: '98',
     lastName: 'Bondero',
