@@ -1,41 +1,32 @@
 import { ChangeEvent } from 'react';
+import { QUALIFICATION_OPTIONS } from '../../../../utils/constants';
 import Badge, { Size, Variant } from '../../../UI/Badge/Badge';
 import Select from '../../../UI/Select';
 import { TableRow } from '../../../UI/Table';
-import { QUALIFICATION } from './StudentsQualificationTable';
+import { QUALIFICATION } from './StudentsQualificationFormTable';
 
 type Props = {
   isTeacher: boolean;
-  handleClick: (id: string, value: QUALIFICATION) => void;
-  studentQualification: any;
+  handleSelectOnChange?: (id: string, value: QUALIFICATION) => void;
+  studentQualification?: any;
+  handleClick?: (student: any) => void;
 };
 
-const StudentsQualificationTableBodyRow = ({ isTeacher, handleClick, studentQualification }: Props) => {
-  const options = [
-    {
-      value: QUALIFICATION.EXC,
-      label: QUALIFICATION.EXC,
-    },
-    {
-      value: QUALIFICATION.MB,
-      label: QUALIFICATION.MB,
-    },
-    {
-      value: QUALIFICATION.B,
-      label: QUALIFICATION.B,
-    },
-    {
-      value: QUALIFICATION.S,
-      label: QUALIFICATION.S,
-    },
-    {
-      value: QUALIFICATION.NS,
-      label: QUALIFICATION.NS,
-    },
-  ];
+const StudentsQualificationTableBodyRow = ({
+  isTeacher,
+  handleSelectOnChange,
+  studentQualification,
+  handleClick,
+}: Props) => {
   const { student_id, student_name, registration_number, qualification } = studentQualification;
 
-  const onChange = (e: ChangeEvent<any>) => handleClick(student_id, e.target.value as QUALIFICATION);
+  const onChange = (e: ChangeEvent<any>) => handleSelectOnChange(student_id, e.target.value as QUALIFICATION);
+
+  const onBadgeClick = () =>
+    handleClick({
+      _id: student_id,
+      fullName: student_name,
+    });
 
   return (
     <TableRow>
@@ -50,14 +41,18 @@ const StudentsQualificationTableBodyRow = ({ isTeacher, handleClick, studentQual
           <Select
             value={qualification}
             placeholder="Calificar"
-            options={options}
+            options={QUALIFICATION_OPTIONS}
             name={'qualification'}
             onChange={onChange}
           />
         </td>
       ) : (
         <td className="pr-6">
-          <Badge size={Size.SMALL} variant={qualification !== null ? Variant.SUCCESS : Variant.ERROR}>
+          <Badge
+            size={Size.SMALL}
+            variant={qualification !== null ? Variant.SUCCESS : Variant.ERROR}
+            handleBadgeClick={onBadgeClick}
+          >
             <p className="font-sen-bold capitalize text-gray-600">
               {qualification !== null ? 'Completado' : 'Incompleto'}
             </p>

@@ -22,7 +22,7 @@ const AttendancesTable = ({ grade, subject }: Props) => {
 
   const [formValues, setFormValues] = useState<any>([]);
 
-  const { data, isLoading, isSuccess, isError } = useStudents(grade?.id);
+  const { data, isLoading, isSuccess, isError } = useStudents(grade?._id);
 
   // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
   // entonces traemos los alumnos, si no traemos las asistencias

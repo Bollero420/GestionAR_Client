@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useHistory } from 'react-router';
-import { SUBJECT_QUALIFICATION_COLUMNS } from '../../../../utils/constants';
+import { SUBJECT_QUALIFICATION_FORM_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
@@ -21,7 +21,7 @@ export enum QUALIFICATION {
   EXC = 'EXC',
 }
 
-const StudentsQualificationTable = ({ grade, subject }: Props) => {
+const StudentsQualificationFormTable = ({ grade, subject }: Props) => {
   const history = useHistory();
 
   const [sortBy, setSortBy] = useState<SortKey>('');
@@ -29,7 +29,7 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
 
   const [formValues, setFormValues] = useState<any>([]);
 
-  const { data, isLoading, isSuccess, isError } = useStudents(grade?.id);
+  const { data, isLoading, isSuccess, isError } = useStudents(grade?._id, subject?._id);
 
   // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
   // entonces traemos los alumnos, si no traemos las asistencias
@@ -55,14 +55,14 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
         student_id: std._id,
         student_name: std.lastName + ', ' + std.firstName,
         registration_number: std.registration_number,
-        qualitifaction: null,
+        qualification: null,
       }));
 
       setFormValues(values);
     }
   }, [isSuccess, data]);
 
-  const handleClick = (student_id: string, qualification: QUALIFICATION) => {
+  const handleSelectOnChange = (student_id: string, qualification: QUALIFICATION) => {
     const valueIndex = formValues.findIndex((form) => form.student_id === student_id);
 
     if (valueIndex !== -1) {
@@ -122,7 +122,7 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
       <Table>
         <TableHead>
           <TableRow>
-            {SUBJECT_QUALIFICATION_COLUMNS.map((column, index) =>
+            {SUBJECT_QUALIFICATION_FORM_COLUMNS.map((column, index) =>
               column.sortKey ? (
                 <ColumnHeader
                   key={index}
@@ -133,7 +133,7 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
                   className={classNames(
                     'cursor-pointer',
                     index === 0 && 'pl-6',
-                    index === SUBJECT_QUALIFICATION_COLUMNS.length - 1 && 'pr-6'
+                    index === SUBJECT_QUALIFICATION_FORM_COLUMNS.length - 1 && 'pr-6'
                   )}
                 >
                   {column.title}
@@ -142,7 +142,7 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
                 <ColumnHeader
                   key={index}
                   isAction={true}
-                  className={index === SUBJECT_QUALIFICATION_COLUMNS.length - 1 && 'pr-6'}
+                  className={index === SUBJECT_QUALIFICATION_FORM_COLUMNS.length - 1 && 'pr-6'}
                 >
                   {column.title}
                 </ColumnHeader>
@@ -161,7 +161,7 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
           {formValues.map((student_qualification) => (
             <StudentsQualificationTableBodyRow
               isTeacher
-              handleClick={handleClick}
+              handleSelectOnChange={handleSelectOnChange}
               key={student_qualification.id}
               studentQualification={student_qualification}
             />
@@ -177,4 +177,4 @@ const StudentsQualificationTable = ({ grade, subject }: Props) => {
   );
 };
 
-export default StudentsQualificationTable;
+export default StudentsQualificationFormTable;
