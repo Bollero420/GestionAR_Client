@@ -1,3 +1,5 @@
+import { QUALIFICATION } from '../components/common/Table/StudentsQualificationTable/StudentsQualificationFormTable';
+
 export const NAVIGATOR = {
   main: '/main',
   attendances: '/management/attendances',
@@ -110,7 +112,7 @@ export const GRADES_COLUMNS = [
   },
 ];
 
-export const SUBJECT_QUALIFICATION_COLUMNS = [
+export const SUBJECT_QUALIFICATION_FORM_COLUMNS = [
   {
     sortKey: {
       first: 'student',
@@ -128,27 +130,45 @@ export const SUBJECT_QUALIFICATION_COLUMNS = [
   },
 ];
 
+export const SUBJECT_QUALIFICATION_COLUMNS = [
+  {
+    sortKey: {
+      first: 'student',
+      second: 'firstName',
+    },
+    title: 'Nombre y Apellido',
+  },
+  {
+    sortKey: 'registration_number',
+    title: 'Legajo',
+  },
+  {
+    sortKey: 'state',
+    title: 'Estado',
+  },
+];
+
 export const GRADES = [
   {
-    id: '1',
+    _id: '1',
     level: 1,
     section: 'A',
     shift: 'TARDE',
   },
   {
-    id: '2',
+    _id: '2',
     level: 3,
     section: 'B',
     shift: 'TARDE',
   },
   {
-    id: '3',
+    _id: '3',
     level: 5,
     section: 'B',
     shift: 'MAÑANA',
   },
   {
-    id: '4',
+    _id: '4',
     level: 6,
     section: 'A',
     shift: 'TARDE',
@@ -157,15 +177,57 @@ export const GRADES = [
 
 export const SUBJECTS = [
   {
-    id: '00',
+    _id: '00',
     name: 'CS.Naturales',
   },
   {
-    id: '01',
+    _id: '01',
     name: 'Matematica',
   },
   {
-    id: '02',
+    _id: '02',
     name: 'Lengua',
+  },
+];
+
+export const QUALIFICATION_OPTIONS = [
+  {
+    value: QUALIFICATION.EXC,
+    label: QUALIFICATION.EXC,
+  },
+  {
+    value: QUALIFICATION.MB,
+    label: QUALIFICATION.MB,
+  },
+  {
+    value: QUALIFICATION.B,
+    label: QUALIFICATION.B,
+  },
+  {
+    value: QUALIFICATION.S,
+    label: QUALIFICATION.S,
+  },
+  {
+    value: QUALIFICATION.NS,
+    label: QUALIFICATION.NS,
+  },
+];
+
+export const OBSERVATIONS = [
+  {
+    title: 'Demuestra preocupación y esfuerzo personal',
+    key: 'worry_and_effort',
+  },
+  {
+    title: 'Participa con responsabilidad en trabajo grupal',
+    key: 'group_responsibility',
+  },
+  {
+    title: 'Evidencia actitudes de solidaridad y colaboración',
+    key: 'solidarity_and_collaboration',
+  },
+  {
+    title: 'Respeta las normas de convivencia',
+    key: 'respect_rules',
   },
 ];
