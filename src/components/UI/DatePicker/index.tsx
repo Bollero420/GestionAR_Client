@@ -22,12 +22,12 @@ const getBlankDays = (currentMont?, currentYear?) => {
   return getArrayNumber(dayOfWeek);
 };
 
-interface State {
+type State = {
   year: number;
   month: number;
   daysOfMonth: number[];
   blankDays: number[];
-}
+};
 
 const date = new Date();
 const initialState: State = {
@@ -37,10 +37,10 @@ const initialState: State = {
   blankDays: getArrayNumber(new Date(date.getFullYear(), date.getMonth()).getDay()),
 };
 
-interface Action {
+type Action = {
   type: string;
   day?: number;
-}
+};
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -79,7 +79,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-interface Props {
+type Props = {
   placeholder?: string;
   borderLeft?: boolean;
   borderRight?: boolean;
@@ -91,7 +91,7 @@ interface Props {
   isProcessing?: boolean;
   datePickerContainerStyles?: string;
   dateInputInnerClassName?: string;
-}
+};
 
 const formatDateForDisplay = (date: Date) => {
   if (!date) return '';

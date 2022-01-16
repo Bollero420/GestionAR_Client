@@ -11,9 +11,9 @@ const ImageContainer = styled.div<{ marginRight?: boolean }>`
   }
 `;
 
-interface Props {
+type Props = {
   marginRight?: boolean;
-}
+};
 
 const DatePickerImage = ({ marginRight }: Props) => (
   <ImageContainer

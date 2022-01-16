@@ -1,14 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import styled from 'styled-components';
 import DatePickerImage from './DatePickerImage';
 
-const Input = styled.input<{ borderLeft?: boolean; borderRight?: boolean }>`
-  border-right: ${(props) => !props.borderRight && 'md:none'};
-  border-left: ${(props) => !props.borderLeft && 'md:none'};
-`;
-
-interface Props {
+type Props = {
   borderLeft?: boolean;
   borderRight?: boolean;
   setShowDatePicker: (prevState) => void;
@@ -18,7 +12,7 @@ interface Props {
   children?: React.ReactNode;
   childrenClassName?: string;
   dateInputInnerClassName?: string;
-}
+};
 
 const DatePickerInput = React.forwardRef<HTMLButtonElement, Props>(
   (

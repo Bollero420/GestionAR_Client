@@ -2,7 +2,7 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { SortKey } from '../../../interfaces/Table';
 
-interface ColumnHeaderProps {
+type ColumnHeaderProps = {
   sortColumn?: (sortKey: SortKey) => () => void;
   sortKey?: SortKey;
   sortDirection?: string;
@@ -10,7 +10,7 @@ interface ColumnHeaderProps {
   children?: React.ReactNode;
   className?: string;
   isAction?: boolean;
-}
+};
 
 const ColumnHeader = ({
   sortColumn,

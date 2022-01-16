@@ -42,7 +42,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
             ref={ref}
             onBlur={onBlur}
             className="
-              relative py-2 pl-3 w-full bg-white-400 rounded border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
+            relative py-2 pl-3 w-full bg-white-400 rounded border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
           >
             <span className={classNames('py-2 text-xs text-black placeholder-black', !selected && 'text-gray-400')}>
               {selected?.label || placeholder}

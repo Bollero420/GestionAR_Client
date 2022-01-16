@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 
-interface Props {
+type Props = {
   currentPage: number;
   totalPages: number;
   pageNeighbours: number;
@@ -11,7 +11,7 @@ interface Props {
   onGoToPage: any;
   totalResults: number;
   limit: number;
-}
+};
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -179,7 +179,7 @@ const Pagination: FC<Props> = ({
                     currentPage !== page
                       ? 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium dark:bg-gray-900 dark:border-gray-700'
                       : '',
-                    '',
+                    ''
                   )}
                   onClick={() => onGoToPage(page)}
                 >

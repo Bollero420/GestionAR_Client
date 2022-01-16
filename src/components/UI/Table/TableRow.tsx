@@ -1,9 +1,9 @@
-interface Props {
+type Props = {
   key?: string;
   children?: React.ReactNode;
   // All other props
   [x: string]: any;
-}
+};
 
 const TableRow = ({ children, ...rest }: Props) => {
   return (

@@ -16,13 +16,6 @@ export enum Variant {
   ERROR = 'ERROR',
 }
 
-type Props = {
-  variant: Variant;
-  size: Size;
-  handleBadgeClick?: () => void;
-  children?: ReactNode;
-};
-
 const SIZE_MAPS: Record<Size, string> = {
   [Size.SMALL]: 'px-2 py-0.5 text-xs',
   [Size.LARGE]: 'px-3 py-1 text-base',
@@ -48,24 +41,28 @@ const VARIANT_MAPS: Record<Variant, string> = {
   [Variant.WARNING]: 'bg-yellow-100',
 };
 
-export function Badge(props: Props) {
-  const { children, size, variant, handleBadgeClick } = props;
-  return (
-    <span
-      className={classNames(
-        'inline-flex items-center rounded font-medium whitespace-no-wrap',
-        SIZE_MAPS[size],
-        VARIANT_MAPS[variant]
-      )}
-      onClick={handleBadgeClick && handleBadgeClick}
-    >
-      <svg className={classNames('mr-1.5 h-2 w-2', DOT_COLOR[variant])} fill="currentColor" viewBox="0 0 8 8">
-        <circle cx="4" cy="4" r="3" />
-      </svg>
-      {children}
-    </span>
-  );
-}
+type Props = {
+  variant: Variant;
+  size: Size;
+  handleBadgeClick?: () => void;
+  children?: ReactNode;
+};
+
+export const Badge = ({ children, size, variant, handleBadgeClick }: Props) => (
+  <span
+    className={classNames(
+      'inline-flex items-center rounded font-medium whitespace-no-wrap cursor-pointer',
+      SIZE_MAPS[size],
+      VARIANT_MAPS[variant]
+    )}
+    onClick={handleBadgeClick && handleBadgeClick}
+  >
+    <svg className={classNames('mr-1.5 h-2 w-2', DOT_COLOR[variant])} fill="currentColor" viewBox="0 0 8 8">
+      <circle cx="4" cy="4" r="3" />
+    </svg>
+    {children}
+  </span>
+);
 
 Badge.size = Size;
 Badge.variant = Variant;

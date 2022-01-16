@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { DAYS } from '../../../utils/date-picker-data';
 
-interface Props {
+type Props = {
   month: string;
   year: number;
   daysOfMonth: number[];
@@ -13,7 +13,7 @@ interface Props {
   isToday: (day) => boolean;
   isSelectedDate: (day) => boolean;
   onDayClick: (day) => void;
-}
+};
 
 const DatePickerCalendar = React.forwardRef((props: Props, ref: any) => {
   const {

@@ -1,6 +1,6 @@
-interface Props {
+type Props = {
   children?: React.ReactNode;
-}
+};
 
 const Table = ({ children }: Props) => {
   return (
