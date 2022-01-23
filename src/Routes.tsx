@@ -8,6 +8,7 @@ import StudentQualificationManagementScreen from './components/StudentQualificat
 import StudentProfile from './components/StudentProfile/StudentProfileScreen';
 import ForgotPasswordScreen from './components/ForgotPassword/ForgotPasswordScreen';
 import ReportsManagementScreen from './components/ReportsManagement/ReportsManagementScreen';
+import StudentFormScreen from './components/StudentForm/StudentFormScreen';
 
 const Routes = () => (
   <Switch>
@@ -22,8 +23,7 @@ const Routes = () => (
       <AttendancesManagementScreen />
     </Route>
     <Route exact path={NAVIGATOR.student_form}>
-      <h1>Student Form Section</h1>
-      <p>Formulario de Inscripción Alumno</p>
+      <StudentFormScreen />
     </Route>
     <Route exact path={NAVIGATOR.reports}>
       <ReportsManagementScreen />

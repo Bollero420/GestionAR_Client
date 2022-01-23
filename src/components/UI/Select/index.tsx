@@ -20,7 +20,7 @@ export type Props = {
 };
 
 const Select = forwardRef<HTMLButtonElement, Props>(
-  ({ name, options, value, onChange, onBlur, placeholder = 'Select...', disabled }, ref) => {
+  ({ name, options, value, onChange, onBlur, placeholder = 'Seleccionar...', disabled }, ref) => {
     const optionMap = useMemo(() => new Map<Option['value'], Option>(options.map((o) => [o.value, o])), [options]);
     const selected = optionMap.get(value);
 
@@ -42,7 +42,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
             ref={ref}
             onBlur={onBlur}
             className="
-            relative py-2 pl-3 w-full bg-white-400 rounded border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
+            relative py-2 pl-2 w-full bg-white-400 rounded h-10  bg-white border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
           >
             <span className={classNames('py-2 text-xs text-black placeholder-black', !selected && 'text-gray-400')}>
               {selected?.label || placeholder}

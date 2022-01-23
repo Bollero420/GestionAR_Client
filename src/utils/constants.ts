@@ -231,3 +231,127 @@ export const OBSERVATIONS = [
     key: 'respect_rules',
   },
 ];
+
+export const GRADES_SELECT_OPTIONS = [
+  {
+    value: 1,
+    label: '1',
+  },
+  {
+    value: 2,
+    label: '2',
+  },
+  {
+    value: 3,
+    label: '3',
+  },
+  {
+    value: 4,
+    label: '4',
+  },
+  {
+    value: 5,
+    label: '5',
+  },
+  {
+    value: 6,
+    label: '6',
+  },
+  {
+    value: 7,
+    label: '7',
+  },
+];
+
+export const SECTION_SELECT_OPTIONS = [
+  {
+    value: 'A',
+    label: 'A',
+  },
+  {
+    value: 'B',
+    label: 'B',
+  },
+];
+
+export const SHIFT_SELECT_OPTIONS = [
+  {
+    value: 'M',
+    label: 'Mañana',
+  },
+  {
+    value: 'T',
+    label: 'Tarde',
+  },
+];
+
+export const YES_AND_NO_OPTIONS = [
+  {
+    value: 'YES',
+    label: 'Si',
+  },
+  {
+    value: 'NO',
+    label: 'No',
+  },
+];
+
+export const GENDER_OPTIONS = [
+  {
+    value: 'FEMENINO',
+    label: 'Femenino',
+  },
+  {
+    value: 'MASCULINO',
+    label: 'Masculino',
+  },
+];
+
+export const CIVIL_STATUS_OPTIONS = [
+  {
+    value: 'SINGLE',
+    label: 'Soltero/a',
+  },
+  {
+    value: 'MARRIED',
+    label: 'Casado/a',
+  },
+  {
+    value: 'DIVORCED',
+    label: 'Divorciado/a',
+  },
+  {
+    value: 'WIDOWER',
+    label: 'Viudo/a',
+  },
+];
+
+export const EDUCATIONAL_LEVEL_OPTIONS = [
+  {
+    value: 'PRIMARY',
+    label: 'Primaria',
+  },
+  {
+    value: 'SECONDARY',
+    label: 'Secundaria',
+  },
+  {
+    value: 'UNIVERSITY',
+    label: 'Universidad',
+  },
+];
+
+export const OTHER_INFO_OPTIONS = [
+  {
+    value: 'ACTIVE',
+    label: 'Activo',
+  },
+  {
+    value: 'RETIRED',
+    label: 'Jubilado',
+  },
+  {
+    value: 'PLAN',
+    label: 'Plan o beneficiosocial',
+  },
+];

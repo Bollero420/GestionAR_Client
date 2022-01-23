@@ -9,6 +9,9 @@ module.exports = {
       minWidth: {
         'qualification-options': '6.875rem',
       },
+      maxWidth: {
+        'student-form-section': '48rem',
+      },
     },
   },
   variants: {
