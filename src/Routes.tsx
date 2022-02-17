@@ -38,8 +38,7 @@ const Routes = () => (
       <StudentQualificationManagementScreen />
     </Route>
     <Route exact path={`${NAVIGATOR.student_qualification}/:id`}>
-      <h1>Student Qualification Section</h1>
-      <p>Formulario con las calificaciones y observaciones del Estudiante</p>
+      <StudentQualificationManagementScreen isTeacher={true} />
     </Route>
     <Route exact path={NAVIGATOR.forgot_password}>
       <ForgotPasswordScreen />
