@@ -7,7 +7,9 @@ import {
   GENDER_OPTIONS,
   GRADES_SELECT_OPTIONS,
   OTHER_INFO_OPTIONS,
+  REPEATING_QUANTITY_OPTIONS,
   SECTION_SELECT_OPTIONS,
+  SERVICE_OPTIONS,
   SHIFT_SELECT_OPTIONS,
   YES_AND_NO_OPTIONS,
 } from '../../utils/constants';
@@ -22,6 +24,8 @@ type Form = {
   };
   firstName: string;
   lastName: string;
+  emailAddress: string;
+  integrated: string;
   dni: string;
   gender: string;
   birth_date: string;
@@ -281,6 +285,12 @@ const StudentFormScreen = () => {
             <Input register={register} label="Nombre" name="firstName" errorMessage={formErrors?.firstName?.message} />
             <Input register={register} label="Apellido" name="lastName" errorMessage={formErrors?.lastName?.message} />
             <Input register={register} label="DNI" name="dni" errorMessage={formErrors?.dni?.message} />
+            <Input
+              register={register}
+              label="Email"
+              name="emailAddress"
+              errorMessage={formErrors?.emailAddress?.message}
+            />
             <ControlledSelect
               name="gender"
               control={control}
@@ -308,9 +318,16 @@ const StudentFormScreen = () => {
               errorMessage={formErrors?.previous_school?.message}
             />
             <ControlledSelect
-              name="repeating_quantity"
+              name="integrated"
               control={control}
               options={YES_AND_NO_OPTIONS}
+              label="En Proyecto de Integracion "
+              errorMessage={formErrors?.repeating_quantity?.message}
+            />
+            <ControlledSelect
+              name="repeating_quantity"
+              control={control}
+              options={REPEATING_QUANTITY_OPTIONS}
               label="Repitente"
               errorMessage={formErrors?.repeating_quantity?.message}
             />
@@ -372,8 +389,8 @@ const StudentFormScreen = () => {
             <ControlledSelect
               name="school_dining"
               control={control}
-              options={YES_AND_NO_OPTIONS}
-              label="Asistira al comedor escolar"
+              options={SERVICE_OPTIONS}
+              label="Servicio Alimenticio"
               errorMessage={formErrors?.school_dining?.message}
             />
             <ControlledSelect
@@ -394,8 +411,8 @@ const StudentFormScreen = () => {
           <div className="flex flex-col justify-center">
             {watchHasSiblings === 'YES' &&
               siblings_fields.map((sibling, i) => (
-                <div className="flex flex-col">
-                  <div className="flex flex-row items-center mb-2" key={'student_sibling -' + i + sibling?.id}>
+                <div className="flex flex-col" key={'student_sibling -' + i + sibling?.id}>
+                  <div className="flex flex-row items-center mb-2">
                     <div className="border border-black rounded-lg flex flex-row flex-wrap bg-white self-center">
                       <Input
                         register={register}

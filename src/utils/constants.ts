@@ -296,6 +296,44 @@ export const YES_AND_NO_OPTIONS = [
   },
 ];
 
+export const SERVICE_OPTIONS = [
+  {
+    value: '1',
+    label: 'Copa de Leche',
+  },
+  {
+    value: '2',
+    label: 'Almuerzo',
+  },
+  {
+    value: '3',
+    label: 'Ambos',
+  },
+];
+
+export const REPEATING_QUANTITY_OPTIONS = [
+  {
+    value: '0',
+    label: 'No',
+  },
+  {
+    value: '1',
+    label: '1 vez',
+  },
+  {
+    value: '2',
+    label: '2 veces',
+  },
+  {
+    value: '3',
+    label: '3 veces',
+  },
+  {
+    value: '4',
+    label: '4 veces',
+  },
+];
+
 export const GENDER_OPTIONS = [
   {
     value: 'FEMENINO',
