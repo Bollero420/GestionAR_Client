@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
-const BASE_URL = '/auth';
+const BASE_URL = '/students';
 
 const registerStudent = async (req) => {
   try {
-    const response = await axios.post(`${BASE_URL}/students/add`, req);
+    const response = await axios.post(`${BASE_URL}/add`, req);
     return response.data;
   } catch (error) {
     console.log('registerStudent - error ->', error);

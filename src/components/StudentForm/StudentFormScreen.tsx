@@ -57,6 +57,8 @@ type Form = {
         section: string;
         shift: string;
       };
+      gender: string;
+      birth_date: string;
     }
   ];
   student_tutors: [
@@ -102,6 +104,8 @@ const StudentFormScreen = () => {
             section: '',
             shift: '',
           },
+          gender: '',
+          birth_date: '',
         },
       ],
       student_tutors: [
@@ -156,6 +160,8 @@ const StudentFormScreen = () => {
         section: '',
         shift: '',
       },
+      gender: '',
+      birth_date: '',
     });
 
   const addTutor = () =>
@@ -189,6 +195,8 @@ const StudentFormScreen = () => {
             section: '',
             shift: '',
           },
+          gender: '',
+          birth_date: '',
         },
       ]);
     } else {
@@ -434,6 +442,21 @@ const StudentFormScreen = () => {
                         name={`siblings.${i}.dni`}
                         errorMessage={''}
                         // errorMessage={formErrors?.siblings[i]?.dni?.message}
+                      />
+                      <ControlledSelect
+                        name={`siblings.${i}.gender`}
+                        control={control}
+                        options={GENDER_OPTIONS}
+                        label="Sexo"
+                        errorMessage={''}
+                        // errorMessage={formErrors?.siblings[i]?.gender?.message}
+                      />
+                      <ControlledDatePicker
+                        name={`siblings.${i}.birth_date`}
+                        control={control}
+                        label="Fecha de Nacimiento"
+                        errorMessage={''}
+                        // errorMessage={formErrors?.siblings[i]?.birth_date?.message}
                       />
                       <div className="flex flex-row items-center">
                         <ControlledSelect
