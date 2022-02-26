@@ -63,7 +63,10 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
   if (isTeacher) {
     if (step === 1)
       component = <SubjectSelection gradeNumber={selectedGrade.level} handleSubjectPick={handleSubjectPick} />;
-    if (step === 2) component = <StudentsQualificationFormTable grade={selectedGrade} subject={selectedSubject} />;
+    if (step === 2)
+      component = (
+        <StudentsQualificationFormTable grade={selectedGrade} subject={selectedSubject} date={selectedDate} />
+      );
   } else {
     if (step === 1)
       component = <StudentQualificationTable grade={selectedGrade} handleStudentPick={handleStudentPick} />;

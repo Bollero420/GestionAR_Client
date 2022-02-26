@@ -3,9 +3,9 @@ import { axios } from '../config/axiosConfig';
 
 const BASE_URL = '/auth';
 
-const signOut = async (req) => {
+const signOut = async () => {
   try {
-    const response = await axios.post(`${BASE_URL}/signOut`, req);
+    const response = await axios.get(`${BASE_URL}/signOut`);
     return response.data;
   } catch (error) {
     console.log('signOut - error ->', error);
@@ -13,7 +13,7 @@ const signOut = async (req) => {
 };
 
 export const useSignOut = () => {
-  return useMutation<any, Error, any>((req) => signOut(req), {
+  return useMutation<any, Error, any>(signOut, {
     mutationKey: 'signOut',
   });
 };

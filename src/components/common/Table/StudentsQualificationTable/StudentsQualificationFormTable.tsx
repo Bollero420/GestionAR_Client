@@ -5,12 +5,13 @@ import { SUBJECT_QUALIFICATION_FORM_COLUMNS } from '../../../../utils/constants'
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
-import { useStudents } from '../../../../hooks/useStudents';
 import { useGenerateSubjectQualification } from '../../../../hooks/useGenerateSubjectQualification';
+import { useSubjectQualifications } from '../../../../hooks/useSubjectQualifications';
 
 type Props = {
   grade?: any;
   subject?: any;
+  date: string | Date;
 };
 
 export enum QUALIFICATION {
@@ -21,26 +22,23 @@ export enum QUALIFICATION {
   EXC = 'EXC',
 }
 
-const StudentsQualificationFormTable = ({ grade, subject }: Props) => {
+const StudentsQualificationFormTable = ({ grade, subject, date }: Props) => {
   const history = useHistory();
 
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
   const [formValues, setFormValues] = useState<any>([]);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const { data, isLoading, isSuccess, isError } = useStudents(grade?._id, subject?._id);
-
-  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
-  // entonces traemos los alumnos, si no traemos las asistencias
-  // const { data, isLoading } = useStudentsQualifications(grade?.id, subject?.id, new Date());
+  const { data, isLoading, isSuccess } = useSubjectQualifications(grade?._id, subject?._id, date);
 
   const {
     mutateAsync: generateSubjectQualification,
     isLoading: isLoadingMutation,
     isSuccess: isSuccessMutation,
     isError: isErrorMutation,
-  } = useGenerateSubjectQualification();
+  } = useGenerateSubjectQualification(isEdit);
 
   useEffect(() => {
     if (isSuccessMutation) {
@@ -50,15 +48,8 @@ const StudentsQualificationFormTable = ({ grade, subject }: Props) => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      //set form values for Today attendance
-      const values = data.map((std) => ({
-        student_id: std._id,
-        student_name: std.lastName + ', ' + std.firstName,
-        registration_number: std.registration_number,
-        qualification: null,
-      }));
-
-      setFormValues(values);
+      setFormValues(data.qualifications);
+      setIsEdit(data.isEdit);
     }
   }, [isSuccess, data]);
 
@@ -75,22 +66,18 @@ const StudentsQualificationFormTable = ({ grade, subject }: Props) => {
     }
   };
 
-  const handleSubmit = () => {
-    const request = formValues.map((val) => ({
-      student_id: val.id,
-      subject_id: subject.id,
-      bimonthly_date: new Date(),
-      value: val.qualification,
-    }));
-    console.log(request);
-    generateSubjectQualification(request);
+  const handleSubmit = async () => {
+    const request = {
+      qualifications: formValues.map((val) => ({
+        _id: val._id ?? null,
+        student_id: val.student_id,
+        subject_id: subject._id,
+        bimonthly_date: val.bimonthly_date ?? new Date(),
+        value: val.qualification,
+      })),
+    };
+    await generateSubjectQualification(request);
   };
-
-  //  const { data, isLoading } = useStudentsQualification();
-
-  //  const grades = useMemo(() => {
-  //    return data ?? []
-  //  },[data])
 
   /**
    * Called when table heading is clicked.

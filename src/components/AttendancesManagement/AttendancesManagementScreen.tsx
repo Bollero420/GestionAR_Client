@@ -51,7 +51,7 @@ const AttendancesManagementScreen = () => {
   if (step === 0) component = <GradesTable handleGradePick={handleGradePick} />;
   if (step === 1)
     component = <SubjectSelection gradeNumber={selectedGrade.level} handleSubjectPick={handleSubjectPick} />;
-  if (step === 2) component = <AttendancesTable grade={selectedGrade} subject={selectedSubject} />;
+  if (step === 2) component = <AttendancesTable grade={selectedGrade} subject={selectedSubject} date={selectedDate} />;
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">

@@ -3,7 +3,12 @@ import { axios } from '../config/axiosConfig';
 
 const BASE_URL = '/auth';
 
-const signIn = async (req) => {
+type Request = {
+  username: string;
+  password: string;
+};
+
+const signIn = async (req: Request) => {
   try {
     const response = await axios.post(`${BASE_URL}/signIn`, req);
     return response.data;

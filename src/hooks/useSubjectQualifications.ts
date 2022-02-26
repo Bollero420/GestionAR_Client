@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
-const BASE_URL = '/attendances';
+const BASE_URL = '/subjectQualifications';
 
-const getAttendances = async (gradeId: string, subjectId: string, date: string | Date) => {
+const getSubjectQualifications = async (gradeId: string, subjectId: string, date: string | Date) => {
   try {
     const response = await axios.get(`${BASE_URL}/`, {
       params: {
@@ -18,10 +18,10 @@ const getAttendances = async (gradeId: string, subjectId: string, date: string |
   }
 };
 
-export const useAttendances = (gradeId: string, subjectId: string, date: string | Date) => {
-  return useQuery<{ attendances: []; isEdit: boolean }, Error>(
-    ['grades', { gradeId, subjectId, date }],
-    () => getAttendances(gradeId, subjectId, date),
+export const useSubjectQualifications = (gradeId: string, subjectId: string, date: string | Date) => {
+  return useQuery<{ qualifications: []; isEdit: boolean }, Error>(
+    ['subject_qualifications', { gradeId, subjectId, date }],
+    () => getSubjectQualifications(gradeId, subjectId, date),
     {
       keepPreviousData: true,
       enabled: !!subjectId && !!gradeId && !!date,

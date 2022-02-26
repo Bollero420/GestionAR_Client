@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useStudentQualificationAndObservations } from '../../hooks/useStudentQualificationAndObservations';
 import { OBSERVATIONS } from '../../utils/constants';
@@ -24,6 +24,33 @@ const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
     control,
     reset,
   } = useForm();
+
+  useEffect(() => {
+    if (isSuccess && studentQualificationAndObservations) {
+      const qualificationsInitialData = studentQualificationAndObservations.qualifications.reduce(
+        (accum: any, current: any) => {
+          return {
+            ...accum,
+            [current.qualifications.subject_id.subject_name]: current.qualifications.subject_id.value,
+          };
+        },
+        {}
+      );
+
+      const observationsInitialData = {
+        worry_and_effort: studentQualificationAndObservations.observation.worry_and_effort,
+        group_responsibility: studentQualificationAndObservations.observation.group_responsibility,
+        solidarity_and_collaboration: studentQualificationAndObservations.observation.solidarity_and_collaboration,
+        respect_rules: studentQualificationAndObservations.observation.respect_rules,
+        description: studentQualificationAndObservations.observation.description,
+      };
+
+      reset({
+        ...qualificationsInitialData,
+        ...observationsInitialData,
+      });
+    }
+  }, [isSuccess]);
 
   const onSubmit = (data: any) => {
     console.log({ data });

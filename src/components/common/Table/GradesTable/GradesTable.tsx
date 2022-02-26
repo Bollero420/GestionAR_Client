@@ -8,13 +8,10 @@ import { SortKey } from '../../../../interfaces/Table';
 import { useGrades } from '../../../../hooks/useGrades';
 
 type Props = {
-  grade?: any;
-  subject?: any;
   handleGradePick: (grade: any) => void;
 };
 
-const GradesTable = ({ grade, subject, handleGradePick }: Props) => {
-  const history = useHistory();
+const GradesTable = ({ handleGradePick }: Props) => {
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 

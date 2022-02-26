@@ -4,36 +4,34 @@ import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
-// import { useAttendances } from '../../../../hooks/useAttendances';
-import { useStudents } from '../../../../hooks/useStudents';
-import { useGenerateAttendaces } from '../../../../hooks/useGenerateAttendaces';
+import { useAttendances } from '../../../../hooks/useAttendances';
+import { useGenerateAttendances } from '../../../../hooks/useGenerateAttendances';
 import { useHistory } from 'react-router';
 
 type Props = {
   grade: any;
   subject: any;
+  date: string | Date;
 };
 
-const AttendancesTable = ({ grade, subject }: Props) => {
+const AttendancesTable = ({ grade, subject, date }: Props) => {
   const history = useHistory();
 
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
   const [formValues, setFormValues] = useState<any>([]);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const { data, isLoading, isSuccess, isError } = useStudents(grade?._id);
-
-  // Este es para editar asistencias. Necesitamos manejar fechas tambien, si es el dia de hoy,
-  // entonces traemos los alumnos, si no traemos las asistencias
-  // const { data, isLoading } = useAttendances(grade?.id, subject?.id, new Date());
+  // if today attendances is not found, returns list of students with false state on attendance;
+  const { data, isLoading, isSuccess } = useAttendances(grade?._id, subject?._id, date);
 
   const {
     mutateAsync: generateAttendances,
     isLoading: isLoadingMutation,
     isSuccess: isSuccessMutation,
     isError: isErrorMutation,
-  } = useGenerateAttendaces();
+  } = useGenerateAttendances(isEdit); // TODO add boolean handler
 
   useEffect(() => {
     if (isSuccessMutation) {
@@ -43,15 +41,8 @@ const AttendancesTable = ({ grade, subject }: Props) => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      //set form values for Today attendance
-      const values = data.map((std) => ({
-        student_id: std._id,
-        student_name: std.lastName + ', ' + std.firstName,
-        registration_number: std.registration_number,
-        state: false,
-      }));
-
-      setFormValues(values);
+      setFormValues(data.attendances);
+      setIsEdit(data.isEdit);
     }
   }, [isSuccess, data]);
 
@@ -71,12 +62,14 @@ const AttendancesTable = ({ grade, subject }: Props) => {
   );
 
   const handleSubmit = () => {
-    const request = formValues.map((val) => ({
-      student_id: val.id,
-      subject_id: subject.id,
-      state: val.value,
-    }));
-
+    const request = {
+      attendances: formValues.map((val: any) => ({
+        _id: val._id ?? null,
+        student_id: val.student_id,
+        subject_id: subject._id,
+        state: val.state,
+      })),
+    };
     generateAttendances(request);
   };
 
