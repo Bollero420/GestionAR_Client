@@ -31,7 +31,7 @@ const AttendancesTable = ({ grade, subject, date }: Props) => {
     isLoading: isLoadingMutation,
     isSuccess: isSuccessMutation,
     isError: isErrorMutation,
-  } = useGenerateAttendances(isEdit); // TODO add boolean handler
+  } = useGenerateAttendances(isEdit);
 
   useEffect(() => {
     if (isSuccessMutation) {

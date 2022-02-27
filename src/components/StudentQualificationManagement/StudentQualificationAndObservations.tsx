@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+
 import { useStudentQualificationAndObservations } from '../../hooks/useStudentQualificationAndObservations';
+import { useGenerateStudentQualificationAndObservations } from '../../hooks/useGenerateStudentQualificationAndObservations';
+
 import { OBSERVATIONS } from '../../utils/constants';
 import TextArea from '../UI/TextArea';
 import { QualificationRow } from './QualificationRow';
@@ -18,6 +21,13 @@ const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
   } = useStudentQualificationAndObservations(selectedStudent?._id);
 
   const {
+    mutateAsync: generateStudentQualificationAndObservations,
+    isLoading: isLoadingMutation,
+    isSuccess: isSuccessMutation,
+    isError: isErrorMutation,
+  } = useGenerateStudentQualificationAndObservations(selectedStudent?._id);
+
+  const {
     handleSubmit: reactFormHandleSubmit,
     formState: { errors: formErrors },
     register,
@@ -31,7 +41,7 @@ const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
         (accum: any, current: any) => {
           return {
             ...accum,
-            [current.qualifications.subject_id.subject_name]: current.qualifications.subject_id.value,
+            [current.subject_id.subject_name.toLowerCase()]: current.value,
           };
         },
         {}
@@ -52,8 +62,30 @@ const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
     }
   }, [isSuccess]);
 
-  const onSubmit = (data: any) => {
-    console.log({ data });
+  const onSubmit = async (data: any) => {
+    const request: any = {
+      isEdit: false,
+      observation: {
+        description: data.description,
+        worry_and_effort: data.worry_and_effort,
+        respect_rules: data.respect_rules,
+        solidarity_and_collaboration: data.solidarity_and_collaboration,
+        group_responsibility: data.group_responsibility,
+      },
+      qualifications: studentQualificationAndObservations.qualifications.map((q) => ({
+        _id: q._id ?? null,
+        subject_id: q.subject_id._id,
+        value: data[q.subject_id.subject_name.toLowerCase()],
+        bimonthly_date: q.bimonthly_date ?? new Date(),
+      })),
+    };
+
+    if (studentQualificationAndObservations.observation._id) {
+      request.observation._id = studentQualificationAndObservations.observation._id;
+      request.isEdit = true;
+    }
+
+    await generateStudentQualificationAndObservations(data);
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -64,7 +96,7 @@ const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
         <p className="flex-1">Materia</p>
         <p>Calificacion</p>
         <div>
-          {studentQualificationAndObservations?.subjectQualification?.map((subjQualification) => (
+          {studentQualificationAndObservations?.subjectQualification?.map((subjQualification: any) => (
             <QualificationRow
               name={subjQualification.subject_id.subject_name}
               title={subjQualification.subject_id.subject_name}
