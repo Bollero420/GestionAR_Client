@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import classNames from 'classnames';
+
 import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
+
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';
+
 import { SortKey } from '../../../../interfaces/Table';
+
 import { useAttendances } from '../../../../hooks/useAttendances';
 import { useGenerateAttendances } from '../../../../hooks/useGenerateAttendances';
-import { useHistory } from 'react-router';
+
 
 type Props = {
   grade: any;

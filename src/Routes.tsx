@@ -1,5 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 import { NAVIGATOR } from './utils/constants';
+
 import SignInScreen from './components/SignIn/SignInScreen';
 import MainMenuScreen from './components/MainMenu/MainMenuScreen';
 import StudentsManagementScreen from './components/StudentsManagement/StudentsManagementScreen';
@@ -11,39 +13,41 @@ import ReportsManagementScreen from './components/ReportsManagement/ReportsManag
 import StudentFormScreen from './components/StudentForm/StudentFormScreen';
 
 const Routes = () => (
-  <Switch>
-    <Redirect exact push from="/" to={NAVIGATOR.sign_in} />
-    <Route exact path={NAVIGATOR.sign_in}>
-      <SignInScreen />
-    </Route>
-    <Route exact path={NAVIGATOR.main}>
-      <MainMenuScreen />
-    </Route>
-    <Route exact path={NAVIGATOR.attendances}>
-      <AttendancesManagementScreen />
-    </Route>
-    <Route exact path={NAVIGATOR.student_form}>
-      <StudentFormScreen />
-    </Route>
-    <Route exact path={NAVIGATOR.reports}>
-      <ReportsManagementScreen />
-    </Route>
-    <Route exact path={`${NAVIGATOR.students}`}>
-      <StudentsManagementScreen />
-    </Route>
-    <Route exact path={`${NAVIGATOR.students}/:id`}>
-      <StudentProfile />
-    </Route>
-    <Route exact path={NAVIGATOR.student_qualification}>
-      <StudentQualificationManagementScreen />
-    </Route>
-    <Route exact path={`${NAVIGATOR.student_qualification}/:id`}>
-      <StudentQualificationManagementScreen isTeacher={true} />
-    </Route>
-    <Route exact path={NAVIGATOR.forgot_password}>
-      <ForgotPasswordScreen />
-    </Route>
-  </Switch>
+  <>
+    <Switch>
+      <Redirect exact push from="/" to={NAVIGATOR.sign_in} />
+      <Route exact path={NAVIGATOR.sign_in}>
+        <SignInScreen />
+      </Route>
+      <Route exact path={NAVIGATOR.main}>
+        <MainMenuScreen />
+      </Route>
+      <Route exact path={NAVIGATOR.attendances}>
+        <AttendancesManagementScreen />
+      </Route>
+      <Route exact path={NAVIGATOR.student_form}>
+        <StudentFormScreen />
+      </Route>
+      <Route exact path={NAVIGATOR.reports}>
+        <ReportsManagementScreen />
+      </Route>
+      <Route exact path={`${NAVIGATOR.students}`}>
+        <StudentsManagementScreen />
+      </Route>
+      <Route exact path={`${NAVIGATOR.students}/:id`}>
+        <StudentProfile />
+      </Route>
+      <Route exact path={NAVIGATOR.student_qualification}>
+        <StudentQualificationManagementScreen isTeacher={false}/>
+      </Route>
+      {/* <Route exact path={`${NAVIGATOR.student_qualification}/:id`}>
+        <StudentQualificationManagementScreen isTeacher={false} />
+      </Route> */}
+      <Route exact path={NAVIGATOR.forgot_password}>
+        <ForgotPasswordScreen />
+      </Route>
+    </Switch>
+  </>
 );
 
 export default Routes;

@@ -32,7 +32,7 @@ const generateStudentQualificationAndObservations = async (req: Request, student
 
 export const useGenerateStudentQualificationAndObservations = (student_id: string) => {
   return useMutation<any, Error, Request>(
-    (req) => generateStudentQualificationAndObservations(req, isEdit, student_id),
+    (req) => generateStudentQualificationAndObservations(req, student_id),
     {
       mutationKey: 'generateAttendances',
     }

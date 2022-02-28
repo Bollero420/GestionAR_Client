@@ -653,7 +653,7 @@ const Input = ({ register, name, label, errorMessage, ...rest }) => (
       <p className="pr-2">{label}</p>
       <input {...register(name)} {...rest} className="border-black border rounded h-10 p-2 " />
     </div>
-    {errorMessage && <span className="text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
 );
 
@@ -665,7 +665,7 @@ const ControlledSelect = ({ name, control, options, label, errorMessage }) => (
         <Controller name={name} control={control} render={({ field }) => <Select {...field} options={options} />} />
       </div>
     </div>
-    {errorMessage && <span className="text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
 );
 
@@ -681,6 +681,6 @@ const ControlledDatePicker = ({ name, control, label, errorMessage }) => (
         )}
       />
     </div>
-    {errorMessage && <span className="text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
 );

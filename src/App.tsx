@@ -10,6 +10,7 @@ import { useRefreshToken } from './hooks/useRefreshToken';
 import './hooks/mockedHooks';
 
 import { getCookie } from './utils/helper';
+import { NAVIGATOR } from './utils/constants';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,21 +22,10 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  useEffect(() => {
-    if (getCookie('refresh_token')) {
-      if (window.location.href.includes('/signIn')) {
-        signOut({});
-      } else {
-        refreshToken({});
-      }
-    }
-  }, []);
-
-  const { mutateAsync: signOut } = useSignOut();
-  const { mutateAsync: refreshToken } = useRefreshToken();
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Token />
       <Router>
         <Routes />
       </Router>
@@ -43,5 +33,21 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
+const Token = () => {
+  const { mutateAsync: signOut } = useSignOut();
+  const { mutateAsync: refreshToken } = useRefreshToken();
+
+  useEffect(() => {
+    if (getCookie('refresh_token')) {
+      if (window.location.href.includes(NAVIGATOR.sign_in)) {
+        signOut({});
+      } else {
+        refreshToken({});
+      }
+    }
+  }, [refreshToken, signOut]);
+  return <></>;
+}
 
 export default App;
