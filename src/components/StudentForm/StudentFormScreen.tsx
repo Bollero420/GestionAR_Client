@@ -8,6 +8,8 @@ import {
   GRADES_SELECT_OPTIONS,
   OTHER_INFO_OPTIONS,
   REPEATING_QUANTITY_OPTIONS,
+  requiredEmailValidation,
+  requiredValidation,
   SECTION_SELECT_OPTIONS,
   SERVICE_OPTIONS,
   SHIFT_SELECT_OPTIONS,
@@ -232,7 +234,7 @@ const StudentFormScreen = () => {
 
   const onSubmit = (data: any) => {
     console.log({ registerStudent: data });
-    // registerStudent(request);
+    registerStudent(data);
   };
 
   const watchDisability = watch('disability', 'NO');
@@ -250,7 +252,7 @@ const StudentFormScreen = () => {
         </div>
       </div>
     );
-
+    
   return (
     <form
       className="flex flex-col items-center h-screen bg-yellow-100 max-h-screen"
@@ -266,6 +268,7 @@ const StudentFormScreen = () => {
           <ControlledSelect
             control={control}
             label="Grado"
+            rules={requiredValidation}
             options={GRADES_SELECT_OPTIONS}
             name="grade.level"
             errorMessage={formErrors?.grade?.level?.message}
@@ -273,6 +276,7 @@ const StudentFormScreen = () => {
           <ControlledSelect
             control={control}
             label="Secc."
+            rules={requiredValidation}
             options={SECTION_SELECT_OPTIONS}
             name="grade.section"
             errorMessage={formErrors?.grade?.section?.message}
@@ -280,6 +284,7 @@ const StudentFormScreen = () => {
           <ControlledSelect
             control={control}
             label="Turno"
+            rules={requiredValidation}
             options={SHIFT_SELECT_OPTIONS}
             name="grade.shift"
             errorMessage={formErrors?.grade?.shift?.message}
@@ -290,18 +295,38 @@ const StudentFormScreen = () => {
         <div className="border border-black rounded-lg flex flex-col my-3 p-2 mx-2">
           <h1 className="text-center font-bold">Datos Personales del Alumno</h1>
           <div className="flex flex-row flex-wrap">
-            <Input register={register} label="Nombre" name="firstName" errorMessage={formErrors?.firstName?.message} />
-            <Input register={register} label="Apellido" name="lastName" errorMessage={formErrors?.lastName?.message} />
-            <Input register={register} label="DNI" name="dni" errorMessage={formErrors?.dni?.message} />
+            <Input
+              register={register}
+              label="Nombre"
+              name="firstName"
+              rules={requiredValidation}
+              errorMessage={formErrors?.firstName?.message}
+            />
+            <Input
+              register={register}
+              label="Apellido"
+              name="lastName"
+              rules={requiredValidation}
+              errorMessage={formErrors?.lastName?.message}
+            />
+            <Input
+              register={register}
+              label="DNI"
+              name="dni"
+              rules={requiredValidation}
+              errorMessage={formErrors?.dni?.message}
+            />
             <Input
               register={register}
               label="Email"
               name="emailAddress"
+              rules={requiredEmailValidation}
               errorMessage={formErrors?.emailAddress?.message}
             />
             <ControlledSelect
               name="gender"
               control={control}
+              rules={requiredValidation}
               options={GENDER_OPTIONS}
               label="Sexo"
               errorMessage={formErrors?.gender?.message}
@@ -309,30 +334,41 @@ const StudentFormScreen = () => {
             <ControlledDatePicker
               name="birth_date"
               control={control}
+              rules={requiredValidation}
               label="Fecha de Nacimiento"
               errorMessage={formErrors?.birth_date?.message}
             />
-            <Input register={register} label="Localidad" name="location" errorMessage={formErrors?.location?.message} />
+            <Input
+              register={register}
+              rules={requiredValidation}              
+              label="Localidad"
+              name="location"
+              errorMessage={formErrors?.location?.message}
+            />
             <Input
               register={register}
               label="Nacionalidad"
+              rules={requiredValidation}
               name="country"
               errorMessage={formErrors?.country?.message}
             />
             <Input
               register={register}
+              rules={requiredValidation}
               label="Escuela a la que asistió"
               name="previous_school"
               errorMessage={formErrors?.previous_school?.message}
             />
             <ControlledSelect
               name="integrated"
+              rules={requiredValidation}
               control={control}
               options={YES_AND_NO_OPTIONS}
               label="En Proyecto de Integracion "
               errorMessage={formErrors?.repeating_quantity?.message}
             />
             <ControlledSelect
+              rules={requiredValidation}
               name="repeating_quantity"
               control={control}
               options={REPEATING_QUANTITY_OPTIONS}
@@ -342,31 +378,58 @@ const StudentFormScreen = () => {
           </div>
           <div className="flex flex-row flex-wrap items-center">
             <h2 className="pl-2 pr-2 font-bold">Domicilio:</h2>
-            <Input register={register} label="Calle" name="address" errorMessage={formErrors?.address?.message} />
-            <Input register={register} label="Piso" name="floor" errorMessage={formErrors?.floor?.message} />
-            <Input register={register} label="Depto" name="apartment" errorMessage={formErrors?.apartment?.message} />
+            <Input
+              rules={requiredValidation}
+              register={register}
+              label="Calle"
+              name="address"
+              errorMessage={formErrors?.address?.message}
+            />
+            <Input
+              rules={requiredValidation}
+              register={register}
+              label="Piso"
+              name="floor"
+              errorMessage={formErrors?.floor?.message}
+            />
+            <Input
+              rules={requiredValidation}
+              register={register}
+              label="Depto"
+              name="apartment"
+              errorMessage={formErrors?.apartment?.message}
+            />
             <Input
               register={register}
               label="Barrio"
+              rules={requiredValidation}
               name="neighborhood"
               errorMessage={formErrors?.neighborhood?.message}
             />
             <Input
               register={register}
               label="Localidad"
+              rules={requiredValidation}
               name="address_location"
               errorMessage={formErrors?.address_location?.message}
             />
-            <Input register={register} label="Telefono" name="phone" errorMessage={formErrors?.phone?.message} />
+            <Input
+              rules={requiredValidation}
+              register={register}
+              label="Telefono" name="phone"
+              errorMessage={formErrors?.phone?.message}
+              />
             <Input
               register={register}
               label="Telefono alt."
               name="alternative_phone"
+              rules={requiredValidation}
               errorMessage={formErrors?.alternative_phone?.message}
             />
             <ControlledSelect
               name="school_radio"
               control={control}
+              rules={requiredValidation}
               options={YES_AND_NO_OPTIONS}
               label="Pertenece al radio escolar"
               errorMessage={formErrors?.school_radio?.message}
@@ -374,6 +437,7 @@ const StudentFormScreen = () => {
             <Input
               register={register}
               label="Centro de Salud"
+              rules={requiredValidation}
               name="medical_center"
               errorMessage={formErrors?.medical_center?.message}
             />
@@ -381,6 +445,7 @@ const StudentFormScreen = () => {
             <ControlledSelect
               name="disability"
               control={control}
+              rules={requiredValidation}
               options={YES_AND_NO_OPTIONS}
               label="Discapacidad"
               errorMessage={formErrors?.disability?.message}
@@ -391,6 +456,7 @@ const StudentFormScreen = () => {
                 register={register}
                 label="Tipo de discapacidad"
                 name="disability_type"
+                rules={requiredValidation}
                 errorMessage={formErrors?.disability_type?.message}
               />
             )}
@@ -398,6 +464,7 @@ const StudentFormScreen = () => {
               name="school_dining"
               control={control}
               options={SERVICE_OPTIONS}
+              rules={requiredValidation}
               label="Servicio Alimenticio"
               errorMessage={formErrors?.school_dining?.message}
             />
@@ -405,6 +472,7 @@ const StudentFormScreen = () => {
               name="cooperator"
               control={control}
               options={YES_AND_NO_OPTIONS}
+              rules={requiredValidation}
               label="Se asocia a cooperadora"
               errorMessage={formErrors?.cooperator?.message}
             />
@@ -412,6 +480,7 @@ const StudentFormScreen = () => {
               name="has_siblings"
               control={control}
               options={YES_AND_NO_OPTIONS}
+              rules={requiredValidation}
               label="Tiene hermanos en la escuela?"
               errorMessage={formErrors?.has_siblings?.message}
             />
@@ -426,62 +495,62 @@ const StudentFormScreen = () => {
                         register={register}
                         label="Nombre"
                         name={`siblings.${i}.firstName`}
-                        errorMessage={''}
-                        // errorMessage={formErrors?.siblings[i]?.firstName?.message}
+                        rules={requiredValidation}
+                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.firstName?.message}
                       />
                       <Input
                         register={register}
                         label="Apellido"
                         name={`siblings.${i}.lastName`}
-                        errorMessage={''}
-                        // errorMessage={formErrors?.siblings[i]?.lastName?.message}
+                        rules={requiredValidation}
+                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.lastName?.message}
                       />
                       <Input
                         register={register}
                         label="DNI"
                         name={`siblings.${i}.dni`}
-                        errorMessage={''}
-                        // errorMessage={formErrors?.siblings[i]?.dni?.message}
+                        rules={requiredValidation}
+                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.dni?.message}
                       />
                       <ControlledSelect
                         name={`siblings.${i}.gender`}
                         control={control}
                         options={GENDER_OPTIONS}
+                        rules={requiredValidation}
                         label="Sexo"
-                        errorMessage={''}
-                        // errorMessage={formErrors?.siblings[i]?.gender?.message}
+                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.gender?.message}
                       />
                       <ControlledDatePicker
                         name={`siblings.${i}.birth_date`}
                         control={control}
                         label="Fecha de Nacimiento"
-                        errorMessage={''}
-                        // errorMessage={formErrors?.siblings[i]?.birth_date?.message}
+                        rules={requiredValidation}
+                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.birth_date?.message}
                       />
                       <div className="flex flex-row items-center">
                         <ControlledSelect
                           control={control}
                           label="Grado"
+                          rules={requiredValidation}
                           options={GRADES_SELECT_OPTIONS}
                           name={`siblings.${i}.grade.level`}
-                          errorMessage={''}
-                          //   errorMessage={formErrors?.siblings[i]?.grade?.level?.message}
+                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.level?.message}
                         />
                         <ControlledSelect
                           control={control}
                           label="Secc."
+                          rules={requiredValidation}
                           options={SECTION_SELECT_OPTIONS}
                           name={`siblings.${i}.grade.section`}
-                          errorMessage={''}
-                          //   errorMessage={formErrors?.siblings[i]?.grade?.section.message}
+                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.section.message}
                         />
                         <ControlledSelect
                           control={control}
                           label="Turno"
+                          rules={requiredValidation}
                           options={SHIFT_SELECT_OPTIONS}
                           name={`siblings.${i}.grade.shift`}
-                          errorMessage={''}
-                          //   errorMessage={formErrors?.siblings[i]?.grade?.shift?.message}
+                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.shift?.message}
                         />
                       </div>
                     </div>
@@ -516,117 +585,120 @@ const StudentFormScreen = () => {
                 <Input
                   register={register}
                   label="Nombre"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.firstName`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.firstName?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.firstName?.message}
                 />
                 <Input
                   register={register}
                   label="Apellido"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.lastName`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.lastName?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.lastName?.message}
                 />
                 <Input
                   register={register}
                   label="DNI"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.dni`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.dni?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.dni?.message}
                 />
                 <ControlledSelect
                   name={`student_tutors.${i}.gender`}
                   control={control}
                   options={GENDER_OPTIONS}
+                  rules={requiredValidation}
                   label="Sexo"
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.gender?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.gender?.message}
                 />
                 <ControlledDatePicker
                   name={`student_tutors.${i}.birth_date`}
                   control={control}
+                  rules={requiredValidation}
                   label="Fecha de Nacimiento"
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.birth_date?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.birth_date?.message}
                 />
                 <Input
                   register={register}
                   label="Nacido en"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.location`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.location?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.location?.message}
                 />
                 <ControlledSelect
                   name={`student_tutors.${i}.civil_status`}
                   control={control}
+                  rules={requiredValidation}
                   options={CIVIL_STATUS_OPTIONS}
                   label="Estado Civil"
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.civil_status?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.civil_status?.message}
                 />
                 <Input
                   register={register}
                   label="Ocupacion"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.job`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.job?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.job?.message}
                 />
 
                 <Input
                   register={register}
                   label="Telefono Fijo"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.phone`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.phone?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.phone?.message}
                 />
 
                 <Input
                   register={register}
                   label="Celular"
+                  rules={requiredValidation}
                   name={`student_tutors.${i}.alternative_phone`}
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.alternative_phone?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.alternative_phone?.message}
                 />
                 <div className="flex flex-row flex-wrap items-center">
                   <h2 className="pl-2 pr-2 font-bold">Domicilio:</h2>
                   <Input
                     register={register}
                     label="Calle"
+                    rules={requiredValidation}
                     name={`student_tutors.${i}.address`}
-                    errorMessage={''}
-                    // errorMessage={formErrors?.student_tutors[i]?.address?.message}
+
+                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.address?.message}
                   />
                   <Input
                     register={register}
                     label="Piso"
+                    rules={requiredValidation}
                     name={`student_tutors.${i}.floor`}
-                    errorMessage={''}
-                    // errorMessage={formErrors?.student_tutors[i]?.floor?.message}
+
+                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.floor?.message}
                   />
                   <Input
                     register={register}
                     label="Depto"
+                    rules={requiredValidation}
                     name={`student_tutors.${i}.apartment`}
-                    errorMessage={''}
-                    // errorMessage={formErrors?.student_tutors[i]?.apartment?.message}
+
+                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.apartment?.message}
                   />
                 </div>
                 <ControlledSelect
                   name={`student_tutors.${i}.educational_level`}
                   control={control}
+                  rules={requiredValidation}
                   options={EDUCATIONAL_LEVEL_OPTIONS}
                   label="Tipo Escolaridad"
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.educational_level?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.educational_level?.message}
                 />
 
                 <ControlledSelect
                   name={`student_tutors.${i}.other_info`}
                   control={control}
+                  rules={requiredValidation}
                   options={OTHER_INFO_OPTIONS}
                   label="Ocupación Laboral"
-                  errorMessage={''}
-                  // errorMessage={formErrors?.student_tutors[i]?.other_info?.message}
+                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.other_info?.message}
                 />
               </div>
               {i === tutors_items.length - 1 && tutors_items.length < 3 && (
@@ -647,34 +719,35 @@ const StudentFormScreen = () => {
 
 export default StudentFormScreen;
 
-const Input = ({ register, name, label, errorMessage, ...rest }) => (
+const Input = ({ register, name, label, errorMessage, rules, ...rest }) => (
   <div className="flex flex-col my-2">
     <div className="flex flex-row items-center pl-2">
       <p className="pr-2">{label}</p>
-      <input {...register(name)} {...rest} className="border-black border rounded h-10 p-2 " />
+      <input {...register(name, rules)} {...rest} className="border-black border rounded h-10 p-2 " />
     </div>
     {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
 );
 
-const ControlledSelect = ({ name, control, options, label, errorMessage }) => (
+const ControlledSelect = ({ name, control, options, label, errorMessage, rules }) => (
   <div className="flex flex-col my-2">
     <div className="flex flex-row items-center pl-2 pr-1">
       <p className="mr-2">{label}</p>
       <div className="min-w-qualification-options">
-        <Controller name={name} control={control} render={({ field }) => <Select {...field} options={options} />} />
+        <Controller rules={rules} name={name} control={control} render={({ field }) => <Select {...field} options={options} />} />
       </div>
     </div>
     {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
 );
 
-const ControlledDatePicker = ({ name, control, label, errorMessage }) => (
+const ControlledDatePicker = ({ name, control, label, errorMessage, rules }) => (
   <div className="flex flex-col my-2">
     <div className="flex flex-row items-center pl-2">
       <p className="mr-2">{label}</p>
       <Controller
         name={name}
+        rules={rules}
         control={control}
         render={({ field }) => (
           <DatePicker {...field} onChange={(date) => field.onChange(date)} selected={field.value} borderRight />

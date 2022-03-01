@@ -70,7 +70,7 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
   } else {
     if (step === 1)
       component = <StudentQualificationTable grade={selectedGrade} handleStudentPick={handleStudentPick} />;
-    if (step === 2) component = <StudentQualificationAndObservations selectedStudent={selectedStudent} />;
+    if (step === 2) component = <StudentQualificationAndObservations selectedStudent={selectedStudent} date={selectedDate}/>;
   }
 
   return (

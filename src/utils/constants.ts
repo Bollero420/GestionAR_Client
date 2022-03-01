@@ -393,3 +393,18 @@ export const OTHER_INFO_OPTIONS = [
     label: 'Plan o beneficiosocial',
   },
 ];
+
+export const requiredValidation = { required: 'Requerido' };
+
+const emailValidation = {
+  pattern: {
+    value:
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    message: 'Mail invalido',
+  },
+};
+
+export const requiredEmailValidation = {
+  ...requiredValidation,
+  ...emailValidation,
+};

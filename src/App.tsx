@@ -21,9 +21,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => {
-
-  return (
+const App = () => (
     <QueryClientProvider client={queryClient}>
       <Token />
       <Router>
@@ -32,7 +30,6 @@ const App = () => {
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
-};
 
 const Token = () => {
   const { mutateAsync: signOut } = useSignOut();
@@ -46,7 +43,7 @@ const Token = () => {
         refreshToken({});
       }
     }
-  }, [refreshToken, signOut]);
+  }, []);
   return <></>;
 }
 

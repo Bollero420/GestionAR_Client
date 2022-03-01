@@ -10,15 +10,16 @@ import { QualificationRow } from './QualificationRow';
 
 type Props = {
   selectedStudent?: any;
+  date: string | Date;
 };
 
-const StudentQualificationAndObservations = ({ selectedStudent }: Props) => {
+const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) => {
   const {
     data: studentQualificationAndObservations,
     isLoading,
     isSuccess,
     isError,
-  } = useStudentQualificationAndObservations(selectedStudent?._id);
+  } = useStudentQualificationAndObservations(selectedStudent?._id, date);
 
   const {
     mutateAsync: generateStudentQualificationAndObservations,
