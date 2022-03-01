@@ -8,16 +8,15 @@ import { SortKey } from '../../../../interfaces/Table';
 import StudentsTableBodyRow from './StudentsTableBodyRow';
 
 type Props = {
-  gradeNumber: number;
+  gradeId: string;
 };
 
-const StudentsTable = ({ gradeNumber }: Props) => {
+const StudentsTable = ({ gradeId }: Props) => {
   const history = useHistory();
   const [sortBy, setSortBy] = useState<SortKey>('');
   const [sortOrder, setSortOrder] = useState('');
 
-  // !To.DO utilizar el id del grade  y no el number.
-  const { data, isLoading } = useStudents(gradeNumber.toString());
+  const { data, isLoading } = useStudents(gradeId);
 
   const students = useMemo(() => {
     return data ?? [];
