@@ -40,6 +40,9 @@ const AttendancesManagementScreen = () => {
 
   const handleGoBack = () => {
     if (step === 1 || step === 2) {
+      if (step === 1) {
+        setSelectedGrade(null)
+      }
       setStep((prevValue) => prevValue - 1);
     } else {
       history.goBack();
@@ -50,11 +53,11 @@ const AttendancesManagementScreen = () => {
 
   if (step === 0) component = <GradesTable handleGradePick={handleGradePick} />;
   if (step === 1)
-    component = <SubjectSelection gradeNumber={selectedGrade.level} handleSubjectPick={handleSubjectPick} />;
+    component = <SubjectSelection handleSubjectPick={handleSubjectPick} />;
   if (step === 2) component = <AttendancesTable grade={selectedGrade} subject={selectedSubject} date={selectedDate} />;
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
+    <div className="no-scroll flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
       <div className="fixed top-2 left-2">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>

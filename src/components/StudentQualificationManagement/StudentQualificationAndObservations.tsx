@@ -15,7 +15,7 @@ type Props = {
 
 const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) => {
   const {
-    data: studentQualificationAndObservations,
+    data,
     isLoading,
     isSuccess,
     isError,
@@ -37,8 +37,8 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
   } = useForm();
 
   useEffect(() => {
-    if (isSuccess && studentQualificationAndObservations) {
-      const qualificationsInitialData = studentQualificationAndObservations.qualifications.reduce(
+    if (isSuccess && data.qualifications && data.observation) {
+      const qualificationsInitialData = data?.qualifications?.reduce(
         (accum: any, current: any) => {
           return {
             ...accum,
@@ -49,11 +49,11 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
       );
 
       const observationsInitialData = {
-        worry_and_effort: studentQualificationAndObservations.observation.worry_and_effort,
-        group_responsibility: studentQualificationAndObservations.observation.group_responsibility,
-        solidarity_and_collaboration: studentQualificationAndObservations.observation.solidarity_and_collaboration,
-        respect_rules: studentQualificationAndObservations.observation.respect_rules,
-        description: studentQualificationAndObservations.observation.description,
+        worry_and_effort: data?.observation.worry_and_effort,
+        group_responsibility: data?.observation.group_responsibility,
+        solidarity_and_collaboration: data?.observation.solidarity_and_collaboration,
+        respect_rules: data.observation?.respect_rules,
+        description: data.observation?.description,
       };
 
       reset({
@@ -73,7 +73,7 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
         solidarity_and_collaboration: data.solidarity_and_collaboration,
         group_responsibility: data.group_responsibility,
       },
-      qualifications: studentQualificationAndObservations.qualifications.map((q) => ({
+      qualifications: data.qualifications.map((q) => ({
         _id: q._id ?? null,
         subject_id: q.subject_id._id,
         value: data[q.subject_id.subject_name.toLowerCase()],
@@ -81,8 +81,8 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
       })),
     };
 
-    if (studentQualificationAndObservations.observation._id) {
-      request.observation._id = studentQualificationAndObservations.observation._id;
+    if (data.observation._id) {
+      request.observation._id = data.observation._id;
       request.isEdit = true;
     }
 
@@ -93,47 +93,57 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
 
   return (
     <form onSubmit={reactFormHandleSubmit(onSubmit)}>
-      <div className="flex flex-row justify-between items-center flex-1">
-        <p className="flex-1">Materia</p>
-        <p>Calificacion</p>
-        <div>
-          {studentQualificationAndObservations?.subjectQualification?.map((subjQualification: any) => (
+
+    <div className='flex flex-row flex-1'>
+      <div className="flex flex-col justify-between items-center flex-1 pr-2">
+        <div className="flex flex-row justify-between items-center w-full">
+          <p className="pl-2">Materia</p>
+          <p className='pr-2'>Calificacion</p>
+        </div>
+        <div className='overflow-y-auto w-full'>
+          {data?.qualifications?.map((subjQualification: any) => (
             <QualificationRow
               name={subjQualification.subject_id.subject_name}
-              title={subjQualification.subject_id.subject_name}
+              title={subjQualification.subject_id.subject_name.replace(/_/g, ' ')}
               control={control}
             />
           ))}
         </div>
       </div>
 
-      <div className="my-8">
-        <h1 className="font-bold">Int. Personal y Social</h1>
-        <div>
-          {React.Children.toArray(
-            OBSERVATIONS.map((obs) => <QualificationRow name={obs.key} title={obs.title} control={control} />)
-          )}
-        </div>
-      </div>
+      <div className='flex flex-col flex-1'>
+            <div className="mb-auto">
+              <h1 className="font-bold">Int. Personal y Social</h1>
+              <div>
+                {React.Children.toArray(
+                  OBSERVATIONS.map((obs) => <QualificationRow name={obs.key} title={obs.title} control={control} />)
+                )}
+              </div>
+            </div>
 
-      <div>
-        <h1 className="font-bold mb-2">Observaciones</h1>
-        <Controller
-          name="description"
-          control={control}
-          render={({ field }) => (
-            <TextArea
-              {...field}
-              placeholder="Observaciones del Alumno..."
-              errorMessage={formErrors?.description?.message}
-              className="pt-8"
-            />
-          )}
-        />
+            <div>
+              <h1 className="font-bold mb-2">Observaciones</h1>
+              <Controller
+                name="description"
+                control={control}
+                render={({ field }) => (
+                  <TextArea
+                    {...field}
+                    placeholder="Observaciones del Alumno..."
+                    errorMessage={formErrors?.description?.message}
+                    className="pt-8"
+                  />
+                )}
+              />
+            </div>
+
       </div>
-      <div>
-        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Finalizar</button>
-      </div>
+    </div>
+
+    <div>
+      <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Finalizar</button>
+    </div>
+
     </form>
   );
 };

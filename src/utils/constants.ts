@@ -69,14 +69,14 @@ export const STUDENTS_COLUMNS = [
     sortKey: 'registration_number',
     title: 'Legajo',
   },
-  {
-    sortKey: 'section',
-    title: 'Seccion',
-  },
-  {
-    sortKey: 'shift',
-    title: 'Turno',
-  },
+  // {
+  //   sortKey: 'section',
+  //   title: 'Seccion',
+  // },
+  // {
+  //   sortKey: 'shift',
+  //   title: 'Turno',
+  // },
 ];
 
 export const ATTENDANCES_COLUMNS = [
@@ -336,11 +336,11 @@ export const REPEATING_QUANTITY_OPTIONS = [
 
 export const GENDER_OPTIONS = [
   {
-    value: 'FEMENINO',
+    value: 'FEMALE',
     label: 'Femenino',
   },
   {
-    value: 'MASCULINO',
+    value: 'MALE',
     label: 'Masculino',
   },
 ];

@@ -12,7 +12,7 @@ const MainMenuScreen = () => {
   const redirectAction = () => history.push(NAVIGATOR.sign_in);
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
+    <div className="no-scroll flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
       <button
         className="border text-xs hover:bg-opacity-40 bg-gray-400 absolute top-0 right-1 rounded p-3 my-2 "
         onClick={() => setIsOpenModal(true)}

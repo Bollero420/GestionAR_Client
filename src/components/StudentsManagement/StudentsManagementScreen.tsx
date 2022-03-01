@@ -1,5 +1,4 @@
 import { useState, useCallback } from 'react';
-import { ALL_GRADES_OPTIONS } from '../../utils/constants';
 import GradeSelection from '../UI/Menu/GradeSelection';
 import StudentsTable from '../common/Table/StudentsTable/StudentsTable';
 import { ArrowLeftIcon } from '@heroicons/react/solid';
@@ -23,6 +22,8 @@ const StudentsManagementScreen = () => {
 
   const handleGoBack = () => {
     if (step === 1) {
+      setSelectedGradeId(null);
+      setSelectedGradetitle(null);
       setStep((prevValue) => prevValue - 1);
     } else {
       history.goBack();
@@ -39,13 +40,10 @@ const StudentsManagementScreen = () => {
       <div className="fixed top-2 left-2">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <h1 className="mb-2 text-2xl font-bold uppercase">
-        Gestion de Alumnos{selectedGradeId !== null ? ':' : ''}
+      <h1 className="mb-8 text-2xl font-bold uppercase">
+        Gestion de Alumnos {selectedGradeId !== null ? `: ${selectedGradeTitle}` : ''}
       </h1>
-      <h2 className="mb-8 text-xl font-bold uppercase">
-        {selectedGradeTitle}
-      </h2>
-      {component}
+      <div className="flex justify-center">{component}</div>
     </div>
   );
 };

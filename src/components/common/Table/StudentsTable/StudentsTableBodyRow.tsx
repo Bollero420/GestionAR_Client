@@ -19,12 +19,12 @@ const StudentsTableBodyRow = ({ student, redirectToProfile }: Props) => {
       <td>
         <div className="text-sm">{student.registration_number}</div>
       </td>
-      <td>
+      {/* <td>
         <div className="text-sm">{student.section}</div>
       </td>
       <td className="pr-6">
         <div className="text-sm">{student.shift}</div>
-      </td>
+      </td> */}
     </TableRow>
   );
 };

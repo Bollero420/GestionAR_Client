@@ -233,8 +233,27 @@ const StudentFormScreen = () => {
   };
 
   const onSubmit = (data: any) => {
-    console.log({ registerStudent: data });
-    registerStudent(data);
+    const request = {
+      ...data
+    }
+
+    if (data.cooperator) {
+      request.cooperator = data.cooperator === 'YES'
+    }
+    if (data.disability) {
+      request.disability = data.disability === 'YES'
+    }
+    if (data.integrated) {
+      request.integrated = data.integrated === 'YES'
+    }
+    if (data.school_radio) {
+      request.school_radio = data.school_radio === 'YES'
+    }
+    if (data.has_siblings) {
+      request.has_siblings = data.has_siblings === 'YES'
+    }
+    
+    registerStudent(request);
   };
 
   const watchDisability = watch('disability', 'NO');

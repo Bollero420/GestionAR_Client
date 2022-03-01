@@ -3,7 +3,7 @@ import { axios } from '../config/axiosConfig';
 
 const getStudentQualificationAndObservations = async (studentId: string, date: Date | string) => {
   try {
-    const response = await axios.get(`/students/qualAndObs${studentId}`, {
+    const response = await axios.get(`/students/qualAndObs/${studentId}`, {
       params: {
         date,
       },

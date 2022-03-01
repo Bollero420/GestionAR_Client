@@ -19,7 +19,9 @@ const SignInScreen = () => {
     await signIn(data);
   };
 
+
   useEffect(() => {
+    //! TO.DO FINDOUT WHY IT DOESN'T RETURN ERROR FROM SERVER
     if (isSuccess) {
       history.push(NAVIGATOR.main);
     }
@@ -27,7 +29,7 @@ const SignInScreen = () => {
 
   return (
     <form
-      className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100"
+      className="no-scroll flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100"
       onSubmit={handleSubmit(onSubmit)}
     >
       <h1 className="mb-10 text-2xl font-bold uppercase">Bienvenido a RAEP</h1>

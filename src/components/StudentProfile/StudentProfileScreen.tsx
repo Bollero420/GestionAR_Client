@@ -5,6 +5,7 @@ import { RadioBoxRow } from '../UI/RadioBoxRow/RadioBoxRow';
 import { useState } from 'react';
 import Modal from '../common/Modal/Modal';
 import { DeleteStudentModal } from '../common/Modal/DeleteStudentModal';
+import { getEducationalLevel, getOtherInfo } from '../../utils/helper';
 
 type PathParams = {
   id: string;
@@ -20,7 +21,7 @@ const StudentProfile = () => {
 
   const handleGoBack = () => history.goBack();
 
-  // if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div className="flex flex-col flex-1 h-screen bg-yellow-100 px-4 gap-6">
@@ -89,36 +90,39 @@ const StudentProfile = () => {
         <div className="flex flex-row flex-1 items-start justify-between pt-2">
           <div className="flex flex-col pr-2 border-r border-black">
             <p className="font-bold italic text-left">Nombre</p>
-            <p>
-              {student?.student_tutors[0]?.lastName}, {student?.student_tutors[0]?.firstName}
-            </p>
-            <p>
-              {student?.student_tutors[1]?.lastName}, {student?.student_tutors[1]?.firstName}
-            </p>
+            {student?.student_tutors.map(st => (
+              <p>
+                {st.lastName}, {st.firstName}
+              </p>
+            ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">DNI</p>
-            <p className="text-left">{student?.student_tutors[0]?.dni}</p>
-            <p className="text-left">{student?.student_tutors[1]?.dni}</p>
+            {student?.student_tutors.map(st => (
+              <p className="text-left">{st.dni}</p>
+            ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">Telefono</p>
-            <p className="text-left">{student?.student_tutors[0]?.phone}</p>
-            <p className="text-left">{student?.student_tutors[1]?.phone}</p>
+            {student?.student_tutors.map(st => (
+              <p className="text-left">{st.phone}</p>
+            ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">Educacion</p>
-            <p className="text-left">{student?.student_tutors[0]?.educational_level}</p>
-            <p className="text-left">{student?.student_tutors[1]?.educational_level}</p>
+            {student?.student_tutors.map(st => (
+              <p className="text-left">{getEducationalLevel(st.educational_level)}</p>
+            ))}
           </div>
 
           <div className="flex flex-col pl-2 ">
             <p className="font-bold italic text-center">Otros datos</p>
-            <p className="text-left">{student?.student_tutors[0]?.other_info}</p>
-            <p className="text-left">{student?.student_tutors[1]?.other_info}</p>
+            {student?.student_tutors.map(st => (
+              <p className="text-left">{getOtherInfo(st.other_info)}</p>
+            ))}
           </div>
         </div>
       </div>
@@ -132,3 +136,4 @@ const StudentProfile = () => {
 };
 
 export default StudentProfile;
+

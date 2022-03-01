@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { useHistory } from 'react-router';
 import { GRADES_COLUMNS } from '../../../../utils/constants';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import GradesTableBodyRow from './GradesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
 import { useGrades } from '../../../../hooks/useGrades';
+import { parseGradeName } from '../../../../utils/helper';
 
 type Props = {
   handleGradePick: (grade: any) => void;
@@ -18,8 +18,13 @@ const GradesTable = ({ handleGradePick }: Props) => {
   const { data, isLoading, isSuccess, isError } = useGrades();
 
   const grades = useMemo(() => {
-    return data ?? [];
-  }, [data]);
+    if (!data) return [];
+    return data?.map(grade => ({
+      ...grade,
+      title: parseGradeName(grade)
+    }))
+  }, [data])
+  
 
   /**
    * Called when table heading is clicked.
@@ -47,46 +52,48 @@ const GradesTable = ({ handleGradePick }: Props) => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {GRADES_COLUMNS.map((column, index) =>
-            column.sortKey ? (
-              <ColumnHeader
-                key={index}
-                sortKey={column.sortKey}
-                sortingBy={sortBy}
-                sortDirection={sortOrder}
-                sortColumn={handleSort}
-                className={classNames(
-                  'cursor-pointer',
-                  index === 0 && 'pl-6',
-                  index === GRADES_COLUMNS.length - 1 && 'pr-6'
-                )}
-              >
-                {column.title}
-              </ColumnHeader>
-            ) : (
-              <ColumnHeader key={index} isAction={true} className={index === GRADES_COLUMNS.length - 1 && 'pr-6'}>
-                {column.title}
-              </ColumnHeader>
-            )
+    <div className='h-96 max-h-96 overflow-y-scroll no-scroll'>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {GRADES_COLUMNS.map((column, index) =>
+              column.sortKey ? (
+                <ColumnHeader
+                  key={index}
+                  sortKey={column.sortKey}
+                  sortingBy={sortBy}
+                  sortDirection={sortOrder}
+                  sortColumn={handleSort}
+                  className={classNames(
+                    'cursor-pointer',
+                    index === 0 && 'pl-6',
+                    index === GRADES_COLUMNS.length - 1 && 'pr-2'
+                  )}
+                >
+                  {column.title}
+                </ColumnHeader>
+              ) : (
+                <ColumnHeader key={index} isAction={true} className={index === GRADES_COLUMNS.length - 1 && 'pr-6'}>
+                  {column.title}
+                </ColumnHeader>
+              )
+            )}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {!grades.length && (
+            <tr>
+              <td colSpan={GRADES_COLUMNS.length}>
+                <div className="p-4 text-sm text-center font-bold">No Data Found</div>
+              </td>
+            </tr>
           )}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {!grades.length && (
-          <tr>
-            <td colSpan={GRADES_COLUMNS.length}>
-              <div className="p-4 text-sm text-center font-bold">No Data Found</div>
-            </td>
-          </tr>
-        )}
-        {grades.map((grade) => (
-          <GradesTableBodyRow key={grade.id} grade={grade} handleGradePick={handleGradePick} />
-        ))}
-      </TableBody>
-    </Table>
+          {grades.length > 0 && grades?.map((grade) => (
+            <GradesTableBodyRow key={grade._id} grade={grade} handleGradePick={handleGradePick} />
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
