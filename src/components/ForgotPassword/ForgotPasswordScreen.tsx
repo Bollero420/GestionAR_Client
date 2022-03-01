@@ -43,6 +43,8 @@ const ForgotPasswordScreen = () => {
           className="border-black border h-10 p-2 w-full"
           {...register('username', { required: 'Requerido' })}
         />
+        {formErrors?.username?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.username?.message}</span>}
+
       </div>
 
       <div className="flex-col items-center max-w-xs w-full mt-8">

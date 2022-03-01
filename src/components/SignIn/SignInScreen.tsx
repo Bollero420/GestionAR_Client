@@ -42,6 +42,7 @@ const SignInScreen = () => {
           className="border-black border h-10 p-2 w-full"
           {...register('username', { required: 'Requerido' })}
         />
+        {formErrors?.username?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.username?.message}</span>}
       </div>
 
       <div className="flex-col items-start max-w-xs w-full mt-8">
@@ -54,6 +55,7 @@ const SignInScreen = () => {
           className="border-black border h-10 p-2 w-full"
           {...register('password', { required: 'Requerido' })}
         />
+        {formErrors?.password?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.password?.message}</span>}
         <p className="text-right text-xs cursor-pointer" onClick={() => history.push(NAVIGATOR.forgot_password)}>
           Has olvidado la contraseña?
         </p>

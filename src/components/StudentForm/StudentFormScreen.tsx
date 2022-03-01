@@ -1,4 +1,4 @@
-import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/solid';
+import { MinusCircleIcon } from '@heroicons/react/solid';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useStudentRegistration } from '../../hooks/useStudentRegistration';
 import {
@@ -663,7 +663,6 @@ const StudentFormScreen = () => {
                     label="Calle"
                     rules={requiredValidation}
                     name={`student_tutors.${i}.address`}
-
                     errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.address?.message}
                   />
                   <Input
@@ -671,7 +670,6 @@ const StudentFormScreen = () => {
                     label="Piso"
                     rules={requiredValidation}
                     name={`student_tutors.${i}.floor`}
-
                     errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.floor?.message}
                   />
                   <Input
@@ -679,7 +677,6 @@ const StudentFormScreen = () => {
                     label="Depto"
                     rules={requiredValidation}
                     name={`student_tutors.${i}.apartment`}
-
                     errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.apartment?.message}
                   />
                 </div>
