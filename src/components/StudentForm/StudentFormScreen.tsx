@@ -1,11 +1,16 @@
-import { MinusCircleIcon } from '@heroicons/react/solid';
+import { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
+import { MinusCircleIcon } from '@heroicons/react/solid';
+
 import { useStudentRegistration } from '../../hooks/useStudentRegistration';
+
 import {
   CIVIL_STATUS_OPTIONS,
   EDUCATIONAL_LEVEL_OPTIONS,
   GENDER_OPTIONS,
   GRADES_SELECT_OPTIONS,
+  NAVIGATOR,
   OTHER_INFO_OPTIONS,
   REPEATING_QUANTITY_OPTIONS,
   requiredEmailValidation,
@@ -15,6 +20,7 @@ import {
   SHIFT_SELECT_OPTIONS,
   YES_AND_NO_OPTIONS,
 } from '../../utils/constants';
+
 import DatePicker from '../UI/DatePicker';
 import Select from '../UI/Select';
 
@@ -85,6 +91,7 @@ type Form = {
 };
 
 const StudentFormScreen = () => {
+  const history = useHistory();
   const { mutateAsync: registerStudent, isLoading, isSuccess, isError } = useStudentRegistration();
 
   const {
@@ -261,10 +268,18 @@ const StudentFormScreen = () => {
   const siblings_items = watch('siblings');
   const tutors_items = watch('student_tutors');
 
+  useEffect(() => {
+    if (isSuccess) {
+      setTimeout(() => {
+        history.push(NAVIGATOR.sign_in);
+      }, 3000);
+    }
+  }, [isSuccess])
+
   if (isSuccess)
     return (
-      <div className="flex flex-col items-center h-screen bg-yellow-100 max-h-screen">
-        <div className="bg-white flex flex-col space-y-4">
+      <div className="flex flex-col justify-center items-center h-screen max-h-screen">
+        <div className="bg-white flex flex-col space-y-4 p-5">
           <p>TU SOLICITUD DE INCRIPCION DE CICLO LECTIVO 2021 HA SIDO REGISTRADA CON EXITO!</p>
           <p>PRONTO RECIBIRAS NOTICIAS EN LAS DIRECCIONES DE MAIL PROPORCIONADAS.</p>
           <p>GRACIAS!</p>
