@@ -23,7 +23,6 @@ export const useSubjectQualifications = (gradeId: string, subjectId: string, dat
     ['subject_qualifications', { gradeId, subjectId, date }],
     () => getSubjectQualifications(gradeId, subjectId, date),
     {
-      keepPreviousData: true,
       enabled: !!subjectId && !!gradeId && !!date,
       staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
     }

@@ -12,7 +12,6 @@ const getGrades = async () => {
 
 export const useGrades = () => {
   return useQuery<any[], Error>(['grades'], () => getGrades(), {
-    keepPreviousData: true,
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
   });
 };

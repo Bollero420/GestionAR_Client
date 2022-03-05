@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
 const BASE_URL = '/students/qualAndObs/';
@@ -11,7 +11,7 @@ type Request = {
 
 const generateStudentQualificationAndObservations = async (req: Request, student_id: string) => {
   try {
-    const url = req.isEdit ? `${BASE_URL}:${student_id}/update` : `${BASE_URL}:${student_id}/add`;
+    const url = req.isEdit ? `${BASE_URL}${student_id}/update` : `${BASE_URL}${student_id}/create`;
 
     const request = {
       qualifications: req.qualifications,
@@ -31,10 +31,12 @@ const generateStudentQualificationAndObservations = async (req: Request, student
 };
 
 export const useGenerateStudentQualificationAndObservations = (student_id: string) => {
+  const queryClient = useQueryClient();
   return useMutation<any, Error, Request>(
     (req) => generateStudentQualificationAndObservations(req, student_id),
     {
       mutationKey: 'generateAttendances',
+      onSuccess: () => queryClient.invalidateQueries('student_qualification_and_observations')
     }
   );
 };

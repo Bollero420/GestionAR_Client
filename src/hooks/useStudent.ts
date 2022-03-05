@@ -12,7 +12,6 @@ const getStudent = async (studentId: string) => {
 
 export const useStudent = (studentId?: string) => {
   return useQuery<any, Error>(['students', { studentId }], () => getStudent(studentId), {
-    keepPreviousData: true,
     enabled: !!studentId,
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
   });

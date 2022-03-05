@@ -10,6 +10,7 @@ type Props = {
   handleSelectOnChange?: (id: string, value: QUALIFICATION) => void;
   studentQualification?: any;
   handleClick?: (student: any) => void;
+  isCompleted?: boolean;
 };
 
 const StudentsQualificationTableBodyRow = ({
@@ -17,6 +18,7 @@ const StudentsQualificationTableBodyRow = ({
   handleSelectOnChange,
   studentQualification,
   handleClick,
+  isCompleted
 }: Props) => {
   const { student_id, student_name, registration_number, qualification } = studentQualification;
 
@@ -50,11 +52,11 @@ const StudentsQualificationTableBodyRow = ({
         <td className="pr-6">
           <Badge
             size={Size.SMALL}
-            variant={qualification !== null ? Variant.SUCCESS : Variant.ERROR}
+            variant={isCompleted ? Variant.SUCCESS : Variant.ERROR}
             handleBadgeClick={onBadgeClick}
           >
             <p className="font-sen-bold capitalize text-gray-600">
-              {qualification !== null ? 'Completado' : 'Incompleto'}
+              {isCompleted ? 'Completado' : 'Incompleto'}
             </p>
           </Badge>
         </td>

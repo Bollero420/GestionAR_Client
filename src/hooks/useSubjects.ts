@@ -8,7 +8,6 @@ const getSubjects = async () => {
 
 export const useSubjects = () => {
   return useQuery<any[], Error>(['subjects'], getSubjects, {
-    keepPreviousData: true,
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
   });
 };

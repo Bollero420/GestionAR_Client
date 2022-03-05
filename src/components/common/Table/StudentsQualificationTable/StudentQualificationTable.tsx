@@ -94,6 +94,7 @@ const StudentsQualificationTable = ({ grade, handleStudentPick }: Props) => {
                 registration_number: student.registration_number,
                 qualification: null,
               }}
+              isCompleted={student.isCompleted}
             />
           ))}
         </TableBody>

@@ -20,10 +20,9 @@ const getAttendances = async (gradeId: string, subjectId: string, date: string |
 
 export const useAttendances = (gradeId: string, subjectId: string, date: string | Date) => {
   return useQuery<{ attendances: []; isEdit: boolean }, Error>(
-    ['grades', { gradeId, subjectId, date }],
+    ['atendances', { gradeId, subjectId, date }],
     () => getAttendances(gradeId, subjectId, date),
     {
-      keepPreviousData: true,
       enabled: !!subjectId && !!gradeId && !!date,
       staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
     }

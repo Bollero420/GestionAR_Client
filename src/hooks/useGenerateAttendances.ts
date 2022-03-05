@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
 const BASE_URL = '/attendances';
@@ -28,7 +28,9 @@ const generateAttendances = async (req: Request, isEdit: boolean) => {
 };
 
 export const useGenerateAttendances = (isEdit: boolean) => {
+  const queryClient = useQueryClient();
   return useMutation<any, Error, Request>((req) => generateAttendances(req, isEdit), {
     mutationKey: 'generateAttendances',
+    onSuccess: () => queryClient.invalidateQueries('atendances')
   });
 };

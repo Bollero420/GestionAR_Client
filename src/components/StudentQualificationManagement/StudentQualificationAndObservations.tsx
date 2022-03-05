@@ -42,7 +42,7 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
         (accum: any, current: any) => {
           return {
             ...accum,
-            [current.subject_id.subject_name.toLowerCase()]: current.value,
+            [current.subject_id?.subject_name.toLowerCase()]: current.value,
           };
         },
         {}
@@ -63,20 +63,22 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
     }
   }, [isSuccess]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (formData: any) => {
     const request: any = {
       isEdit: false,
       observation: {
-        description: data.description,
-        worry_and_effort: data.worry_and_effort,
-        respect_rules: data.respect_rules,
-        solidarity_and_collaboration: data.solidarity_and_collaboration,
-        group_responsibility: data.group_responsibility,
+        description: formData.description,
+        worry_and_effort: formData.worry_and_effort,
+        respect_rules: formData.respect_rules,
+        solidarity_and_collaboration: formData.solidarity_and_collaboration,
+        group_responsibility: formData.group_responsibility,
+        bimonthly_date: data.observation.bimonthly_date ?? new Date(),
+        subject_id: data.observation.subject_id
       },
       qualifications: data.qualifications.map((q) => ({
         _id: q._id ?? null,
         subject_id: q.subject_id._id,
-        value: data[q.subject_id.subject_name.toLowerCase()],
+        value: formData[q.subject_id.subject_name.toLowerCase()],
         bimonthly_date: q.bimonthly_date ?? new Date(),
       })),
     };
@@ -85,8 +87,7 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
       request.observation._id = data.observation._id;
       request.isEdit = true;
     }
-
-    await generateStudentQualificationAndObservations(data);
+    await generateStudentQualificationAndObservations(request);
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -103,8 +104,9 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
         <div className='overflow-y-auto w-full'>
           {data?.qualifications?.map((subjQualification: any) => (
             <QualificationRow
-              name={subjQualification.subject_id.subject_name}
-              title={subjQualification.subject_id.subject_name.replace(/_/g, ' ')}
+              key={subjQualification?.subject_id?.subject_name}
+              name={subjQualification?.subject_id?.subject_name}
+              title={subjQualification?.subject_id?.subject_name.replace(/_/g, ' ')}
               control={control}
             />
           ))}
