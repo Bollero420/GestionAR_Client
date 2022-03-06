@@ -10,23 +10,19 @@ type Request = {
 };
 
 const generateStudentQualificationAndObservations = async (req: Request, student_id: string) => {
-  try {
-    const url = req.isEdit ? `${BASE_URL}${student_id}/update` : `${BASE_URL}${student_id}/create`;
+  const url = req.isEdit ? `${BASE_URL}${student_id}/update` : `${BASE_URL}${student_id}/create`;
 
-    const request = {
-      qualifications: req.qualifications,
-      observation: req.observation,
-    };
+  const request = {
+    qualifications: req.qualifications,
+    observation: req.observation,
+  };
 
-    if (req.isEdit) {
-      const response = await axios.put(url, request);
-      return response.data;
-    } else {
-      const response = await axios.post(url, request);
-      return response.data;
-    }
-  } catch (error) {
-    console.log('generateAttendances - error ->', error);
+  if (req.isEdit) {
+    const response = await axios.put(url, request);
+    return response.data;
+  } else {
+    const response = await axios.post(url, request);
+    return response.data;
   }
 };
 
@@ -36,7 +32,8 @@ export const useGenerateStudentQualificationAndObservations = (student_id: strin
     (req) => generateStudentQualificationAndObservations(req, student_id),
     {
       mutationKey: 'generateAttendances',
-      onSuccess: () => queryClient.invalidateQueries('student_qualification_and_observations')
+      onSuccess: () => queryClient.invalidateQueries('student_qualification_and_observations'),
+      onError: (error) => console.log('generateStudentQualificationAndObservations - error ->', error)
     }
   );
 };

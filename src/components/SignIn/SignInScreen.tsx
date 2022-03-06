@@ -5,7 +5,8 @@ import { useSignIn } from '../../hooks/useSignIn';
 import { NAVIGATOR } from '../../utils/constants';
 
 const SignInScreen = () => {
-  const { mutateAsync: signIn, isLoading, isSuccess, isError } = useSignIn();
+  const { mutateAsync: signIn, isLoading, isSuccess, isError, error } = useSignIn();
+
   const history = useHistory();
   const {
     handleSubmit,
@@ -18,7 +19,6 @@ const SignInScreen = () => {
   const onSubmit = async (data) => {
     await signIn(data);
   };
-
 
   useEffect(() => {
     //! TO.DO FINDOUT WHY IT DOESN'T RETURN ERROR FROM SERVER
@@ -58,6 +58,7 @@ const SignInScreen = () => {
           {...register('password', { required: 'Requerido' })}
         />
         {formErrors?.password?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.password?.message}</span>}
+        {isError && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{error?.response?.data}</span>}
         <p className="text-right text-xs cursor-pointer" onClick={() => history.push(NAVIGATOR.forgot_password)}>
           Has olvidado la contraseña?
         </p>
