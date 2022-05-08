@@ -39,7 +39,7 @@ const DatePickerInput = React.forwardRef<HTMLButtonElement, Props>(
         className={classNames(
           'w-full h-full pl-2 pr-10 py-3 border-black border leading-none shadow-sm focus:outline-none ' +
             'focus:shadow-outline font-sen text-black text-sm' +
-            'focus:border-gray-400 focus:ring-transparent placeholder-gray-500 rounded',
+            'focus:border-gray-400 focus:ring-transparent placeholder-gray-500 rounded-xl',
           borderLeft && 'md:rounded-l-md',
           borderRight && 'md:rounded-r-md',
           children && dateInputInnerClassName

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
@@ -27,52 +28,75 @@ const SignInScreen = () => {
   }, [isSuccess]);
 
   return (
-    <form
-      className="no-scroll flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h1 className="mb-10 text-2xl font-bold uppercase">Bienvenido a GAEP</h1>
+    <div className="no-scroll flex-col flex flex-1 w-full justify-center items-center">
+      <form className="flex flex-col w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="mt-8 mb-4 text-2xl font-bold">Ingresá a tu cuenta</h1>
 
-      <div className="flex-col items-start max-w-xs w-full">
-        <p className="pb-2">Username</p>
-        <input
-          id="123"
-          name="username"
-          disabled={false}
-          type="text"
-          className="border-black border h-10 p-2 w-full"
-          {...register('username', { required: 'Requerido' })}
-        />
-        {formErrors?.username?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.username?.message}</span>}
-      </div>
-
-      <div className="flex-col items-start max-w-xs w-full mt-8">
-        <p className="pb-2">Password</p>
-        <input
-          id="124"
-          name="password"
-          disabled={false}
-          type="password"
-          className="border-black border h-10 p-2 w-full"
-          {...register('password', { required: 'Requerido' })}
-        />
-        {formErrors?.password?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.password?.message}</span>}
-        {isError && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{error?.response?.data}</span>}
-        <p className="text-right text-xs cursor-pointer" onClick={() => history.push(NAVIGATOR.forgot_password)}>
-          Has olvidado la contraseña?
-        </p>
-      </div>
-
-      <div className="flex-col items-center max-w-xs w-full mt-8">
-        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Ingresar</button>
-        <p>
-          No tienes una cuenta?
-          <span className="ml-2 font-bold cursor-pointer" onClick={() => history.push(NAVIGATOR.student_form)}>
-            Crea una.
+        <div className="flex-col items-start w-full">
+          <p className="pb-2">Usuario</p>
+          <input
+            id="123"
+            name="username"
+            disabled={false}
+            type="text"
+            className="border-black border rounded-xl h-10 p-2 w-full"
+            {...register('username', { required: 'Requerido' })}
+          />
+          <span
+            className={classNames(
+              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              formErrors?.username?.message ? 'visible' : 'invisible'
+            )}
+          >
+            {formErrors?.username?.message ?? '-'}
           </span>
-        </p>
+        </div>
+
+        <div className="flex-col items-start w-full mt-6">
+          <p className="pb-2">Contraseña</p>
+          <input
+            id="124"
+            name="password"
+            disabled={false}
+            type="password"
+            className="border-black border rounded-xl h-10 p-2 w-full"
+            {...register('password', { required: 'Requerido' })}
+          />
+          <span
+            className={classNames(
+              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              formErrors?.password?.message ? 'visible' : 'invisible'
+            )}
+          >
+            {formErrors?.password?.message ?? '-'}
+          </span>
+          {isError && (
+            <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{error?.response?.data}</span>
+          )}
+          <p
+            className="text-right text-xs cursor-pointer underline text-blue-400"
+            onClick={() => history.push(NAVIGATOR.forgot_password)}
+          >
+            ¿Olvidaste tu contraseña?
+          </p>
+        </div>
+
+        <div className="flex-col items-center w-full mt-4">
+          <button className="border bg-green-400 rounded-3xl min-w-max w-full p-3 my-8 text-white font-bold text-xl">
+            Ingresar
+          </button>
+        </div>
+      </form>
+      <div className="flex-col items-center w-full max-w-lg">
+        <p className="font-bold text-black text-xl">¿No tenés cuenta?</p>
+        <button
+          className="border bg-blue-400 rounded-3xl min-w-max w-full p-3 my-8 text-white font-bold text-xl"
+          onClick={() => history.push(NAVIGATOR.student_form)}
+        >
+          Creá tu cuenta
+        </button>
       </div>
-    </form>
+    </div>
   );
 };
 

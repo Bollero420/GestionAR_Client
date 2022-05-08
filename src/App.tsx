@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
@@ -7,7 +6,7 @@ import Routes from './Routes';
 
 import { useSignOut } from './hooks/useSignOut';
 import { useRefreshToken } from './hooks/useRefreshToken';
-// import './hooks/mockedHooks';
+import './hooks/mockedHooks';
 
 import { getCookie } from './utils/helper';
 import { NAVIGATOR } from './utils/constants';
@@ -22,14 +21,12 @@ const queryClient = new QueryClient({
 });
 
 const App = () => (
-    <QueryClientProvider client={queryClient}>
-      <Token />
-      <Router>
-        <Routes />
-      </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  );
+  <QueryClientProvider client={queryClient}>
+    <Routes />
+    <Token />
+    <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>
+);
 
 const Token = () => {
   const { mutateAsync: signOut } = useSignOut();
@@ -45,6 +42,6 @@ const Token = () => {
     }
   }, []);
   return <></>;
-}
+};
 
 export default App;

@@ -42,7 +42,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
             ref={ref}
             onBlur={onBlur}
             className="
-            relative py-2 pl-2 w-full bg-white-400 rounded h-10  bg-white border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
+            relative py-2 pl-2 w-full bg-white-400 rounded-xl h-10  bg-white border border-solid text-xs text-left border-black focus:outline-none focus:ring focus:border-blue-500 leading-none"
           >
             <span className={classNames('py-2 text-xs text-black placeholder-black', !selected && 'text-gray-400')}>
               {selected?.label || placeholder}
@@ -51,7 +51,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
               <SelectorIcon className="text-gray-500 w-5 h-5" />
             </span>
           </Listbox.Button>
-          <Listbox.Options className="absolute w-full top-12 z-10 bg-white rounded-md overflow-y-scroll mt-1 space-y-1 shadow-sm border border-gray-300 focus:outline-none focus-visible:outline-none">
+          <Listbox.Options className="absolute w-full top-12 z-10 bg-white rounded-xl overflow-y-scroll mt-1 space-y-1 shadow-sm border border-gray-300 focus:outline-none focus-visible:outline-none">
             {options.map((option) => (
               <Listbox.Option key={option.value as Key} value={option} as={Fragment}>
                 {({ active, selected }) => (

@@ -26,17 +26,19 @@ const ReportsManagementScreen = () => {
 
   let component = <></>;
   //! TO.DO Agregar <ReportSubSection /> para Reportes que sean por año.
-  //   if (step === 0) component = <ReportSelection handleReportPick={handleReportPick} />;
+  if (step === 0) component = <ReportSelection handleReportPick={handleReportPick} />;
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
-      <div className="fixed top-2 left-2">
+    <div className="flex flex-col flex-1 px-6 pt-6">
+      <div className="flex flex-row w-full justify-start h-10 py-2 mb-6">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <h1 className="mb-10 text-2xl font-bold uppercase">Gestion de Reportes</h1>
-      <div className="flex justify-center">
-        <ReportSelection handleReportPick={handleReportPick} />;
+      <div className="flex flex-col mb-10 px-24">
+        <div className="flex flex-row items-center justify-between flex-wrap">
+          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Reportes</h1>
+        </div>
       </div>
+      <div className="flex justify-center">{component}</div>
     </div>
   );
 };

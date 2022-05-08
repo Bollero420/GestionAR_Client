@@ -24,7 +24,7 @@ const StudentProfile = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col flex-1 h-screen bg-yellow-100 px-4 gap-6">
+    <div className="flex flex-col flex-1 px-4 gap-6">
       <div className="flex w-full flex-row items-start justify-between pt-3">
         <div className="flex flex-1">
           <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
@@ -90,7 +90,7 @@ const StudentProfile = () => {
         <div className="flex flex-row flex-1 items-start justify-between pt-2">
           <div className="flex flex-col pr-2 border-r border-black">
             <p className="font-bold italic text-left">Nombre</p>
-            {student?.student_tutors.map(st => (
+            {student?.student_tutors.map((st) => (
               <p>
                 {st.lastName}, {st.firstName}
               </p>
@@ -99,28 +99,28 @@ const StudentProfile = () => {
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">DNI</p>
-            {student?.student_tutors.map(st => (
+            {student?.student_tutors.map((st) => (
               <p className="text-left">{st.dni}</p>
             ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">Telefono</p>
-            {student?.student_tutors.map(st => (
+            {student?.student_tutors.map((st) => (
               <p className="text-left">{st.phone}</p>
             ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
             <p className="font-bold italic text-center">Educacion</p>
-            {student?.student_tutors.map(st => (
+            {student?.student_tutors.map((st) => (
               <p className="text-left">{getEducationalLevel(st.educational_level)}</p>
             ))}
           </div>
 
           <div className="flex flex-col pl-2 ">
             <p className="font-bold italic text-center">Otros datos</p>
-            {student?.student_tutors.map(st => (
+            {student?.student_tutors.map((st) => (
               <p className="text-left">{getOtherInfo(st.other_info)}</p>
             ))}
           </div>
@@ -136,4 +136,3 @@ const StudentProfile = () => {
 };
 
 export default StudentProfile;
-

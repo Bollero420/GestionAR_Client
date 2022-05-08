@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
@@ -27,30 +28,37 @@ const ForgotPasswordScreen = () => {
   }, [isSuccess]);
 
   return (
-    <form
-      className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <h1 className="mb-10 text-2xl font-bold uppercase">Recuperar Contraseña</h1>
+    <div className="no-scroll flex flex-1 w-full justify-center items-center">
+      <form className="flex flex-col flex-1 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="mb-10 text-2xl font-bold uppercase">Recuperar Contraseña</h1>
 
-      <div className="flex-col items-start max-w-xs w-full">
-        <p className="pb-2">Username</p>
-        <input
-          id="123"
-          name="username"
-          disabled={false}
-          type="text"
-          className="border-black border h-10 p-2 w-full"
-          {...register('username', { required: 'Requerido' })}
-        />
-        {formErrors?.username?.message && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{formErrors?.username?.message}</span>}
+        <div className="flex-col items-start w-full mb-4">
+          <p className="pb-2">Username</p>
+          <input
+            id="123"
+            name="username"
+            disabled={false}
+            type="text"
+            className="border-black border h-10 p-2 w-full mb-1 rounded-xl"
+            {...register('username', { required: 'Requerido' })}
+          />
+          <span
+            className={classNames(
+              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              formErrors?.username?.message ? 'visible' : 'invisible'
+            )}
+          >
+            {formErrors?.username?.message ?? '-'}
+          </span>
+        </div>
 
-      </div>
-
-      <div className="flex-col items-center max-w-xs w-full mt-8">
-        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Recuperar Contraseña</button>
-      </div>
-    </form>
+        <div className="flex-col items-center w-full mt-6">
+          <button className="border bg-blue-400 rounded-3xl text-white font-bold text-xl min-w-max w-full p-3 my-8">
+            Recuperar Contraseña
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

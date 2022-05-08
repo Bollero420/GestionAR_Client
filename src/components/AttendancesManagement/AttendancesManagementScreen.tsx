@@ -6,6 +6,7 @@ import SubjectSelection from '../UI/Menu/SubjectSelection';
 import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
 import DatePicker from '../UI/DatePicker';
+import classNames from 'classnames';
 
 const AttendancesManagementScreen = () => {
   const history = useHistory();
@@ -41,7 +42,7 @@ const AttendancesManagementScreen = () => {
   const handleGoBack = () => {
     if (step === 1 || step === 2) {
       if (step === 1) {
-        setSelectedGrade(null)
+        setSelectedGrade(null);
       }
       setStep((prevValue) => prevValue - 1);
     } else {
@@ -52,25 +53,31 @@ const AttendancesManagementScreen = () => {
   let component = <></>;
 
   if (step === 0) component = <GradesTable handleGradePick={handleGradePick} />;
-  if (step === 1)
-    component = <SubjectSelection handleSubjectPick={handleSubjectPick} />;
+  if (step === 1) component = <SubjectSelection handleSubjectPick={handleSubjectPick} />;
   if (step === 2) component = <AttendancesTable grade={selectedGrade} subject={selectedSubject} date={selectedDate} />;
 
   return (
-    <div className="no-scroll flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
-      <div className="fixed top-2 left-2">
+    <div className="flex flex-col flex-1 px-6 pt-6">
+      <div className="flex flex-row w-full justify-start h-10 py-2 mb-6">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <div className=" flex flex-row items-center mb-10">
-        <h1 className="text-2xl font-bold uppercase pr-4">
-          Gestion de Asistencias{selectedGrade !== null ? ` - ${handleGrade()}` : ''}
-        </h1>
-        {step === 2 && (
-          <div className="py-4 max-w-xs">
+      <div className="flex flex-col mb-10 px-24">
+        <div className="flex flex-row items-center justify-between flex-wrap">
+          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Asistencias</h1>
+          <div
+            className={classNames(
+              'py-4 max-w-xs',
+              step === 2 ? 'visible pointer-events-auto' : 'invisible pointer-events-none'
+            )}
+          >
             <DatePicker onChange={(date) => setSelectedDate(date)} selected={selectedDate} borderRight />
           </div>
-        )}
+        </div>
+        <div className={classNames('bg-gray-300 rounded-xl mt-2', selectedGrade !== null ? 'visible' : 'invisible')}>
+          <p className="text-left pl-4 py-1">{selectedGrade !== null ? `${handleGrade()}` : ''}</p>
+        </div>
       </div>
+
       <div className="flex justify-center">{component}</div>
     </div>
   );

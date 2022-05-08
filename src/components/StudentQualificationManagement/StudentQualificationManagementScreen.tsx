@@ -8,6 +8,7 @@ import StudentQualificationTable from '../common/Table/StudentsQualificationTabl
 import StudentQualificationAndObservations from './StudentQualificationAndObservations';
 import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
 
 const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
   const history = useHistory();
@@ -61,8 +62,7 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
 
   if (step === 0) component = <GradesTable handleGradePick={handleGradePick} />;
   if (isTeacher) {
-    if (step === 1)
-      component = <SubjectSelection handleSubjectPick={handleSubjectPick} />;
+    if (step === 1) component = <SubjectSelection handleSubjectPick={handleSubjectPick} />;
     if (step === 2)
       component = (
         <StudentsQualificationFormTable grade={selectedGrade} subject={selectedSubject} date={selectedDate} />
@@ -70,25 +70,33 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
   } else {
     if (step === 1)
       component = <StudentQualificationTable grade={selectedGrade} handleStudentPick={handleStudentPick} />;
-    if (step === 2) component = <StudentQualificationAndObservations selectedStudent={selectedStudent} date={selectedDate}/>;
+    if (step === 2)
+      component = <StudentQualificationAndObservations selectedStudent={selectedStudent} date={selectedDate} />;
   }
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center h-screen bg-yellow-100">
-      <div className="fixed top-2 left-2">
+    <div className="flex flex-col flex-1 px-6 pt-6">
+      <div className="flex flex-row w-full justify-start h-10 py-2 mb-6">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <div className=" flex flex-row items-center mb-10">
-        <h1 className="text-2xl font-bold uppercase pr-4">
-          {!isTeacher && step === 2
-            ? `ALUMNO: ${selectedStudent.fullName}`
-            : `Gestion de Calificaciones${selectedGrade !== null ? `- ${handleGrade()}` : ''}`}
-        </h1>
-        {step === 2 && (
-          <div className="py-4 max-w-xs">
+
+      <div className="flex flex-col mb-10 px-24">
+        <div className="flex flex-row items-center justify-between flex-wrap">
+          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Calificaciones</h1>
+          <div
+            className={classNames(
+              'py-4 max-w-xs',
+              step === 2 ? 'visible pointer-events-auto' : 'invisible pointer-events-none'
+            )}
+          >
             <DatePicker onChange={(date) => setSelectedDate(date)} selected={selectedDate} borderRight />
           </div>
-        )}
+        </div>
+        <div className={classNames('bg-gray-300 rounded-xl mt-2', selectedGrade !== null ? 'visible' : 'invisible')}>
+          <p className="text-left pl-4 py-1">
+            {!isTeacher && step === 2 ? selectedStudent.fullName : selectedGrade !== null ? handleGrade() : ''}
+          </p>
+        </div>
       </div>
       <div className="flex justify-center">{component}</div>
     </div>

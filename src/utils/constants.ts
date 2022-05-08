@@ -1,3 +1,8 @@
+import { ReactComponent as ListIcon } from '../assets/icons/ListIcon.svg';
+import { ReactComponent as QualificationIcon } from '../assets/icons/QualificationIcon.svg';
+import { ReactComponent as ReportIcon } from '../assets/icons/ReportIcon.svg';
+import { ReactComponent as UsersIcon } from '../assets/icons/UsersIcon.svg';
+
 import { QUALIFICATION } from '../components/common/Table/StudentsQualificationTable/StudentsQualificationFormTable';
 
 export const NAVIGATOR = {
@@ -43,20 +48,24 @@ export const ALL_REPORTS_OPTIONS = [
 
 export const MAIN_MENU_OPTIONS = [
   {
+    title: 'Gestion de Alumnos',
+    nextScreen: NAVIGATOR.students,
+    Icon: UsersIcon,
+  },
+  {
     title: 'Gestion de Asistencias',
     nextScreen: NAVIGATOR.attendances,
+    Icon: ListIcon,
   },
   {
     title: 'Gestion de Calificaciones',
     nextScreen: NAVIGATOR.student_qualification,
-  },
-  {
-    title: 'Gestion de Alumnos',
-    nextScreen: NAVIGATOR.students,
+    Icon: QualificationIcon,
   },
   {
     title: 'Gestion de Reportes',
     nextScreen: NAVIGATOR.reports,
+    Icon: ReportIcon,
   },
 ];
 
@@ -408,3 +417,5 @@ export const requiredEmailValidation = {
   ...requiredValidation,
   ...emailValidation,
 };
+
+export const unAuthenticatedRoutes = ['/signin', '/forgotpassword', '/studentform'];

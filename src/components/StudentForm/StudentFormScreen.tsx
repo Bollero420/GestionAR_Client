@@ -241,25 +241,25 @@ const StudentFormScreen = () => {
 
   const onSubmit = (data: any) => {
     const request = {
-      ...data
-    }
+      ...data,
+    };
 
     if (data.cooperator) {
-      request.cooperator = data.cooperator === 'YES'
+      request.cooperator = data.cooperator === 'YES';
     }
     if (data.disability) {
-      request.disability = data.disability === 'YES'
+      request.disability = data.disability === 'YES';
     }
     if (data.integrated) {
-      request.integrated = data.integrated === 'YES'
+      request.integrated = data.integrated === 'YES';
     }
     if (data.school_radio) {
-      request.school_radio = data.school_radio === 'YES'
+      request.school_radio = data.school_radio === 'YES';
     }
     if (data.has_siblings) {
-      request.has_siblings = data.has_siblings === 'YES'
+      request.has_siblings = data.has_siblings === 'YES';
     }
-    
+
     registerStudent(request);
   };
 
@@ -274,7 +274,7 @@ const StudentFormScreen = () => {
         history.push(NAVIGATOR.sign_in);
       }, 3000);
     }
-  }, [isSuccess])
+  }, [isSuccess]);
 
   if (isSuccess)
     return (
@@ -286,12 +286,9 @@ const StudentFormScreen = () => {
         </div>
       </div>
     );
-    
+
   return (
-    <form
-      className="flex flex-col items-center h-screen bg-yellow-100 max-h-screen"
-      onSubmit={reactFormHandleSubmit(onSubmit)}
-    >
+    <form className="flex flex-col items-center h-screen max-h-screen" onSubmit={reactFormHandleSubmit(onSubmit)}>
       <h1 className="text-center">SOLICITUD DE INCRIPCION DE CICLO LECTIVO {new Date().getFullYear()}</h1>
       <div className="flex flex-row items-center justify-center mb-2">
         <div className="flex flex-row items-center">
@@ -374,7 +371,7 @@ const StudentFormScreen = () => {
             />
             <Input
               register={register}
-              rules={requiredValidation}              
+              rules={requiredValidation}
               label="Localidad"
               name="location"
               errorMessage={formErrors?.location?.message}
@@ -450,9 +447,10 @@ const StudentFormScreen = () => {
             <Input
               rules={requiredValidation}
               register={register}
-              label="Telefono" name="phone"
+              label="Telefono"
+              name="phone"
               errorMessage={formErrors?.phone?.message}
-              />
+            />
             <Input
               register={register}
               label="Telefono alt."
@@ -754,7 +752,7 @@ const Input = ({ register, name, label, errorMessage, rules, ...rest }) => (
   <div className="flex flex-col my-2">
     <div className="flex flex-row items-center pl-2">
       <p className="pr-2">{label}</p>
-      <input {...register(name, rules)} {...rest} className="border-black border rounded h-10 p-2 " />
+      <input {...register(name, rules)} {...rest} className="border-black border rounded-xl h-10 p-2 " />
     </div>
     {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
   </div>
@@ -765,7 +763,12 @@ const ControlledSelect = ({ name, control, options, label, errorMessage, rules }
     <div className="flex flex-row items-center pl-2 pr-1">
       <p className="mr-2">{label}</p>
       <div className="min-w-qualification-options">
-        <Controller rules={rules} name={name} control={control} render={({ field }) => <Select {...field} options={options} />} />
+        <Controller
+          rules={rules}
+          name={name}
+          control={control}
+          render={({ field }) => <Select {...field} options={options} />}
+        />
       </div>
     </div>
     {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
