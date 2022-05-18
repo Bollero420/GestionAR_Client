@@ -9,4 +9,5 @@ export interface Person {
   gender: string;
   alternative_phone: string;
   user_id: any;
+  location: string;
 }
