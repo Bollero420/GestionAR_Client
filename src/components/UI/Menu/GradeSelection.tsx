@@ -27,7 +27,7 @@ const GradeSelection = ({ handleGradePick }: Props) => {
           React.Children.toArray(
             grades?.map((grade) => (
               <button
-                className="border border-black rounded-lg bg-white min-w-qualification-options p-3 my-2"
+                className="shadow-xl border border-black rounded-lg bg-white min-w-qualification-options p-3 my-2 hover:bg-black hover:bg-opacity-20"
                 onClick={() => handleGradePick(grade._id, grade.title)}
               >
                 {grade.title}

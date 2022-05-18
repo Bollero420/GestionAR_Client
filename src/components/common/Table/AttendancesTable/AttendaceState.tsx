@@ -14,14 +14,14 @@ export const AttendanceState = ({ student_id, state, handleClick }: Props) => {
         variant={state ? Variant.SUCCESS : Variant.GRAY}
         handleBadgeClick={() => handleClick(student_id, true)}
       >
-        <p className="font-sen-bold capitalize text-gray-600 cursor-pointer">Presente</p>
+        <p className="font-encode-sans capitalize text-gray-600 cursor-pointer">Presente</p>
       </Badge>
       <Badge
         size={Size.SMALL}
         variant={state ? Variant.GRAY : Variant.ERROR}
         handleBadgeClick={() => handleClick(student_id, false)}
       >
-        <p className="font-sen-bold capitalize text-gray-600 cursor-pointer">Ausente</p>
+        <p className="font-encode-sans capitalize text-gray-600 cursor-pointer">Ausente</p>
       </Badge>
     </div>
   );

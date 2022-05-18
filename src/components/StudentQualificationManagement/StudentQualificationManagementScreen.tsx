@@ -47,11 +47,14 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
     const sectionLabel = `"${selectedGrade.section}" `;
     const shiftLabel = `"${selectedGrade.shift}"`;
 
-    return levelLabel + sectionLabel + shiftLabel;
+    const grade = levelLabel + sectionLabel + shiftLabel;
+
+    return selectedSubject ? `${grade} - ${selectedSubject?.subject_name}` : grade;
   };
 
   const handleGoBack = () => {
     if (step !== 0) {
+      step === 1 && setSelectedGrade(null);
       setStep((prevValue) => prevValue - 1);
     } else {
       history.goBack();
@@ -82,7 +85,16 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
 
       <div className="flex flex-col mb-10 px-24">
         <div className="flex flex-row items-center justify-between flex-wrap">
-          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Calificaciones</h1>
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-encode-bold uppercase pr-4">Gestion de Calificaciones</h1>
+            <div
+              className={classNames('bg-gray-300 rounded-xl w-147', selectedGrade !== null ? 'visible' : 'invisible')}
+            >
+              <p className="text-left pl-4 py-1 uppercase">
+                {!isTeacher && step === 2 ? selectedStudent.fullName : selectedGrade !== null ? handleGrade() : ''}
+              </p>
+            </div>
+          </div>
           <div
             className={classNames(
               'py-4 max-w-xs',
@@ -91,11 +103,6 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
           >
             <DatePicker onChange={(date) => setSelectedDate(date)} selected={selectedDate} borderRight />
           </div>
-        </div>
-        <div className={classNames('bg-gray-300 rounded-xl mt-2', selectedGrade !== null ? 'visible' : 'invisible')}>
-          <p className="text-left pl-4 py-1">
-            {!isTeacher && step === 2 ? selectedStudent.fullName : selectedGrade !== null ? handleGrade() : ''}
-          </p>
         </div>
       </div>
       <div className="flex justify-center">{component}</div>

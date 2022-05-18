@@ -19,12 +19,11 @@ const GradesTable = ({ handleGradePick }: Props) => {
 
   const grades = useMemo(() => {
     if (!data) return [];
-    return data?.map(grade => ({
+    return data?.map((grade) => ({
       ...grade,
-      title: parseGradeName(grade)
-    }))
-  }, [data])
-  
+      title: parseGradeName(grade),
+    }));
+  }, [data]);
 
   /**
    * Called when table heading is clicked.
@@ -52,7 +51,8 @@ const GradesTable = ({ handleGradePick }: Props) => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className='h-96 max-h-96 overflow-y-scroll no-scroll'>
+    <div className="overflow-y-scroll">
+      <p className="text-left pb-2 font-encode-bold">Seleccione un grado</p>
       <Table>
         <TableHead>
           <TableRow>
@@ -84,13 +84,14 @@ const GradesTable = ({ handleGradePick }: Props) => {
           {!grades.length && (
             <tr>
               <td colSpan={GRADES_COLUMNS.length}>
-                <div className="p-4 text-sm text-center font-bold">No Data Found</div>
+                <div className="p-4 text-sm text-center font-encode-bold">No Data Found</div>
               </td>
             </tr>
           )}
-          {grades.length > 0 && grades?.map((grade) => (
-            <GradesTableBodyRow key={grade._id} grade={grade} handleGradePick={handleGradePick} />
-          ))}
+          {grades.length > 0 &&
+            grades?.map((grade) => (
+              <GradesTableBodyRow key={grade._id} grade={grade} handleGradePick={handleGradePick} />
+            ))}
         </TableBody>
       </Table>
     </div>

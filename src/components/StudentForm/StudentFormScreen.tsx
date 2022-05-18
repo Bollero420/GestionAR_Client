@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
-import { MinusCircleIcon } from '@heroicons/react/solid';
 
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/solid';
+
+import DatePicker from 'react-datepicker';
+import '../../styles/datepicker.css';
+
+import Select from '../UI/Select';
 import { useStudentRegistration } from '../../hooks/useStudentRegistration';
 
 import {
@@ -20,9 +25,11 @@ import {
   SHIFT_SELECT_OPTIONS,
   YES_AND_NO_OPTIONS,
 } from '../../utils/constants';
+import classNames from 'classnames';
 
-import DatePicker from '../UI/DatePicker';
-import Select from '../UI/Select';
+import { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
+registerLocale('es', es);
 
 type Form = {
   grade: {
@@ -288,14 +295,16 @@ const StudentFormScreen = () => {
     );
 
   return (
-    <form className="flex flex-col items-center h-screen max-h-screen" onSubmit={reactFormHandleSubmit(onSubmit)}>
-      <h1 className="text-center">SOLICITUD DE INCRIPCION DE CICLO LECTIVO {new Date().getFullYear()}</h1>
-      <div className="flex flex-row items-center justify-center mb-2">
-        <div className="flex flex-row items-center">
-          <p className="mr-2 font-bold">Escuela: </p>
-          <p>Escuela Rio Parana n°156</p>
+    <form className="flex flex-col h-screen max-h-screen px-10" onSubmit={reactFormHandleSubmit(onSubmit)}>
+      <h1 className="text-left mt-4 font-encode-bold text-2xl">
+        SOLICITUD DE INCRIPCION DE CICLO LECTIVO {new Date().getFullYear()}
+      </h1>
+      <div className="flex flex-row w-full items-center mb-2 justify-between flex-wrap">
+        <div className="flex flex-col items-start flex-wrap">
+          <p className="mr-2 font-encode-bold pb-2">Escuela </p>
+          <p className="border-black border rounded-xl h-10 p-2 w-147">Escuela Rio Parana n°156</p>
         </div>
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center flex-wrap gap-x-2">
           <ControlledSelect
             control={control}
             label="Grado"
@@ -322,10 +331,10 @@ const StudentFormScreen = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col items-center max-w-student-form-section overflow-y-scroll">
-        <div className="border border-black rounded-lg flex flex-col my-3 p-2 mx-2">
-          <h1 className="text-center font-bold">Datos Personales del Alumno</h1>
-          <div className="flex flex-row flex-wrap">
+      <div className="flex flex-col items-center ">
+        <div className="flex flex-col my-2 py-2">
+          <h2 className="text-left text-xl font-encode-bold pb-3">Datos del Alumno</h2>
+          <div className="flex flex-row flex-wrap gap-1 mb-1">
             <Input
               register={register}
               label="Nombre"
@@ -406,9 +415,144 @@ const StudentFormScreen = () => {
               label="Repitente"
               errorMessage={formErrors?.repeating_quantity?.message}
             />
+
+            <ControlledSelect
+              name="disability"
+              control={control}
+              rules={requiredValidation}
+              options={YES_AND_NO_OPTIONS}
+              label="Discapacidad"
+              errorMessage={formErrors?.disability?.message}
+            />
+
+            {watchDisability?.toUpperCase() === 'YES' && (
+              <Input
+                register={register}
+                label="Tipo de discapacidad"
+                name="disability_type"
+                rules={requiredValidation}
+                errorMessage={formErrors?.disability_type?.message}
+              />
+            )}
+            <ControlledSelect
+              name="school_dining"
+              control={control}
+              options={SERVICE_OPTIONS}
+              rules={requiredValidation}
+              label="Servicio Alimenticio"
+              errorMessage={formErrors?.school_dining?.message}
+            />
+            <ControlledSelect
+              name="cooperator"
+              control={control}
+              options={YES_AND_NO_OPTIONS}
+              rules={requiredValidation}
+              label="Se asocia a cooperadora"
+              errorMessage={formErrors?.cooperator?.message}
+            />
+            <ControlledSelect
+              name="has_siblings"
+              control={control}
+              options={YES_AND_NO_OPTIONS}
+              rules={requiredValidation}
+              label="Tiene hermanos en la escuela?"
+              errorMessage={formErrors?.has_siblings?.message}
+            />
           </div>
-          <div className="flex flex-row flex-wrap items-center">
-            <h2 className="pl-2 pr-2 font-bold">Domicilio:</h2>
+          <div className="flex flex-col justify-center">
+            {watchHasSiblings === 'YES' && (
+              <>
+                <h2 className="text-left text-xl font-encode-bold pb-3">Datos hermano/s</h2>
+                {siblings_fields.map((sibling, i) => (
+                  <div className="flex flex-col" key={'student_sibling -' + i + sibling?.id}>
+                    <div className="flex flex-row mb-2 items-center">
+                      <div className="border border-black rounded-lg flex flex-col flex-wrap bg-white self-center p-2 my-2">
+                        <div className="flex flex-row items-center">
+                          <Input
+                            register={register}
+                            label="Nombre"
+                            name={`siblings.${i}.firstName`}
+                            rules={requiredValidation}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.firstName?.message}
+                          />
+                          <Input
+                            register={register}
+                            label="Apellido"
+                            name={`siblings.${i}.lastName`}
+                            rules={requiredValidation}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.lastName?.message}
+                          />
+                          <Input
+                            register={register}
+                            label="DNI"
+                            name={`siblings.${i}.dni`}
+                            rules={requiredValidation}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.dni?.message}
+                          />
+                          <ControlledSelect
+                            name={`siblings.${i}.gender`}
+                            control={control}
+                            options={GENDER_OPTIONS}
+                            rules={requiredValidation}
+                            label="Sexo"
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.gender?.message}
+                          />
+                          <ControlledDatePicker
+                            name={`siblings.${i}.birth_date`}
+                            control={control}
+                            label="Fecha de Nacimiento"
+                            rules={requiredValidation}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.birth_date?.message}
+                          />
+                          <ControlledSelect
+                            control={control}
+                            label="Grado"
+                            rules={requiredValidation}
+                            options={GRADES_SELECT_OPTIONS}
+                            name={`siblings.${i}.grade.level`}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.level?.message}
+                          />
+                          <ControlledSelect
+                            control={control}
+                            label="Secc."
+                            rules={requiredValidation}
+                            options={SECTION_SELECT_OPTIONS}
+                            name={`siblings.${i}.grade.section`}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.section.message}
+                          />
+                          <ControlledSelect
+                            control={control}
+                            label="Turno"
+                            rules={requiredValidation}
+                            options={SHIFT_SELECT_OPTIONS}
+                            name={`siblings.${i}.grade.shift`}
+                            errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.shift?.message}
+                          />
+                        </div>
+                        {i === siblings_items.length - 1 && siblings_items.length < 4 && (
+                          <div
+                            className="pl-2 flex flex-row items-center text-success-500 cursor-pointer max-w-min hover:opacity-80"
+                            onClick={addSibling}
+                          >
+                            <PlusCircleIcon className="w-6 h-6 text-success-500" />
+                            <p className="font-encode-bold">Agregar</p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="pl-1">
+                        <MinusCircleIcon
+                          className="w-6 h-6 text-red-500 cursor-pointer hover:opacity-80"
+                          onClick={() => removeSibling(i)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+          <h2 className="text-left text-xl font-encode-bold pb-3 pt-3">Domicilio del Alumno</h2>
+          <div className="flex flex-row flex-wrap items-center gap-1">
             <Input
               rules={requiredValidation}
               register={register}
@@ -473,274 +617,160 @@ const StudentFormScreen = () => {
               name="medical_center"
               errorMessage={formErrors?.medical_center?.message}
             />
-
-            <ControlledSelect
-              name="disability"
-              control={control}
-              rules={requiredValidation}
-              options={YES_AND_NO_OPTIONS}
-              label="Discapacidad"
-              errorMessage={formErrors?.disability?.message}
-            />
-
-            {watchDisability?.toUpperCase() === 'YES' && (
-              <Input
-                register={register}
-                label="Tipo de discapacidad"
-                name="disability_type"
-                rules={requiredValidation}
-                errorMessage={formErrors?.disability_type?.message}
-              />
-            )}
-            <ControlledSelect
-              name="school_dining"
-              control={control}
-              options={SERVICE_OPTIONS}
-              rules={requiredValidation}
-              label="Servicio Alimenticio"
-              errorMessage={formErrors?.school_dining?.message}
-            />
-            <ControlledSelect
-              name="cooperator"
-              control={control}
-              options={YES_AND_NO_OPTIONS}
-              rules={requiredValidation}
-              label="Se asocia a cooperadora"
-              errorMessage={formErrors?.cooperator?.message}
-            />
-            <ControlledSelect
-              name="has_siblings"
-              control={control}
-              options={YES_AND_NO_OPTIONS}
-              rules={requiredValidation}
-              label="Tiene hermanos en la escuela?"
-              errorMessage={formErrors?.has_siblings?.message}
-            />
-          </div>
-          <div className="flex flex-col justify-center">
-            {watchHasSiblings === 'YES' &&
-              siblings_fields.map((sibling, i) => (
-                <div className="flex flex-col" key={'student_sibling -' + i + sibling?.id}>
-                  <div className="flex flex-row items-center mb-2">
-                    <div className="border border-black rounded-lg flex flex-row flex-wrap bg-white self-center">
-                      <Input
-                        register={register}
-                        label="Nombre"
-                        name={`siblings.${i}.firstName`}
-                        rules={requiredValidation}
-                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.firstName?.message}
-                      />
-                      <Input
-                        register={register}
-                        label="Apellido"
-                        name={`siblings.${i}.lastName`}
-                        rules={requiredValidation}
-                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.lastName?.message}
-                      />
-                      <Input
-                        register={register}
-                        label="DNI"
-                        name={`siblings.${i}.dni`}
-                        rules={requiredValidation}
-                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.dni?.message}
-                      />
-                      <ControlledSelect
-                        name={`siblings.${i}.gender`}
-                        control={control}
-                        options={GENDER_OPTIONS}
-                        rules={requiredValidation}
-                        label="Sexo"
-                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.gender?.message}
-                      />
-                      <ControlledDatePicker
-                        name={`siblings.${i}.birth_date`}
-                        control={control}
-                        label="Fecha de Nacimiento"
-                        rules={requiredValidation}
-                        errorMessage={formErrors.siblings && formErrors?.siblings[i]?.birth_date?.message}
-                      />
-                      <div className="flex flex-row items-center">
-                        <ControlledSelect
-                          control={control}
-                          label="Grado"
-                          rules={requiredValidation}
-                          options={GRADES_SELECT_OPTIONS}
-                          name={`siblings.${i}.grade.level`}
-                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.level?.message}
-                        />
-                        <ControlledSelect
-                          control={control}
-                          label="Secc."
-                          rules={requiredValidation}
-                          options={SECTION_SELECT_OPTIONS}
-                          name={`siblings.${i}.grade.section`}
-                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.section.message}
-                        />
-                        <ControlledSelect
-                          control={control}
-                          label="Turno"
-                          rules={requiredValidation}
-                          options={SHIFT_SELECT_OPTIONS}
-                          name={`siblings.${i}.grade.shift`}
-                          errorMessage={formErrors.siblings && formErrors?.siblings[i]?.grade?.shift?.message}
-                        />
-                      </div>
-                    </div>
-                    <div className="pl-1">
-                      <MinusCircleIcon
-                        className="w-6 h-6 text-red-500 cursor-pointer"
-                        onClick={() => removeSibling(i)}
-                      />
-                    </div>
-                  </div>
-                  {i === siblings_items.length - 1 && siblings_items.length < 4 && (
-                    <button
-                      className="self-center border bg-green-400 rounded w-44 p-3 mt-2 text-sm"
-                      onClick={addSibling}
-                    >
-                      Agregar Hermano/a
-                    </button>
-                  )}
-                </div>
-              ))}
           </div>
         </div>
-        <div className="flex flex-col border border-black rounded-lg p-2 my-3 mx-2">
-          <h1 className="text-center font-bold">Datos de los Tutores</h1>
+        <div className="flex flex-col py-2 px-1 my-3">
+          <h2 className="text-left text-xl font-encode-bold pb-3">Datos PADRE/MADRE/TUTOR</h2>
           {tutors_fields?.map((tutor, i) => (
             <div className="flex flex-col" key={'student_tutor -' + i + tutor?.id}>
-              <div className="flex flex-row items-center justify-between pr-2">
-                <h2 className="font-bold pl-2">Padre/Madre/Tutor</h2>
-                <MinusCircleIcon className="w-6 h-6 text-red-500 cursor-pointer" onClick={() => removeTutor(i)} />
-              </div>
-              <div className="border border-black rounded-lg flex flex-row items-center mt-2 flex-wrap bg-white">
-                <Input
-                  register={register}
-                  label="Nombre"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.firstName`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.firstName?.message}
-                />
-                <Input
-                  register={register}
-                  label="Apellido"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.lastName`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.lastName?.message}
-                />
-                <Input
-                  register={register}
-                  label="DNI"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.dni`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.dni?.message}
-                />
-                <ControlledSelect
-                  name={`student_tutors.${i}.gender`}
-                  control={control}
-                  options={GENDER_OPTIONS}
-                  rules={requiredValidation}
-                  label="Sexo"
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.gender?.message}
-                />
-                <ControlledDatePicker
-                  name={`student_tutors.${i}.birth_date`}
-                  control={control}
-                  rules={requiredValidation}
-                  label="Fecha de Nacimiento"
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.birth_date?.message}
-                />
-                <Input
-                  register={register}
-                  label="Nacido en"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.location`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.location?.message}
-                />
-                <ControlledSelect
-                  name={`student_tutors.${i}.civil_status`}
-                  control={control}
-                  rules={requiredValidation}
-                  options={CIVIL_STATUS_OPTIONS}
-                  label="Estado Civil"
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.civil_status?.message}
-                />
-                <Input
-                  register={register}
-                  label="Ocupacion"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.job`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.job?.message}
-                />
+              <div className="flex flex-row items-center justify-between pr-2 mb-4">
+                <div className="border border-black p-2 rounded-lg flex flex-col flex-wrap bg-white gap-1">
+                  <div className="flex flex-row flex-wrap items-center gap-1">
+                    <Input
+                      register={register}
+                      label="Nombre"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.firstName`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.firstName?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Apellido"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.lastName`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.lastName?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="DNI"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.dni`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.dni?.message}
+                    />
+                    <ControlledSelect
+                      name={`student_tutors.${i}.gender`}
+                      control={control}
+                      options={GENDER_OPTIONS}
+                      rules={requiredValidation}
+                      label="Sexo"
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.gender?.message}
+                    />
+                    <ControlledDatePicker
+                      name={`student_tutors.${i}.birth_date`}
+                      control={control}
+                      rules={requiredValidation}
+                      label="Fecha de Nacimiento"
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.birth_date?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Nacido en"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.location`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.location?.message}
+                    />
+                    <ControlledSelect
+                      name={`student_tutors.${i}.civil_status`}
+                      control={control}
+                      rules={requiredValidation}
+                      options={CIVIL_STATUS_OPTIONS}
+                      label="Estado Civil"
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.civil_status?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Ocupacion"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.job`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.job?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Telefono Fijo"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.phone`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.phone?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Celular"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.alternative_phone`}
+                      errorMessage={
+                        formErrors.student_tutors && formErrors?.student_tutors[i]?.alternative_phone?.message
+                      }
+                    />
+                  </div>
+                  <h2 className="text-left text-xl font-encode-bold pb-3 pt-3">Domicilio PADRE/MADRE/TUTOR</h2>
+                  <div className="flex flex-row flex-wrap items-center gap-1">
+                    <Input
+                      register={register}
+                      label="Calle"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.address`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.address?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Piso"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.floor`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.floor?.message}
+                    />
+                    <Input
+                      register={register}
+                      label="Depto"
+                      rules={requiredValidation}
+                      name={`student_tutors.${i}.apartment`}
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.apartment?.message}
+                    />
+                    <ControlledSelect
+                      name={`student_tutors.${i}.educational_level`}
+                      control={control}
+                      rules={requiredValidation}
+                      options={EDUCATIONAL_LEVEL_OPTIONS}
+                      label="Tipo Escolaridad"
+                      errorMessage={
+                        formErrors.student_tutors && formErrors?.student_tutors[i]?.educational_level?.message
+                      }
+                    />
 
-                <Input
-                  register={register}
-                  label="Telefono Fijo"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.phone`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.phone?.message}
-                />
-
-                <Input
-                  register={register}
-                  label="Celular"
-                  rules={requiredValidation}
-                  name={`student_tutors.${i}.alternative_phone`}
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.alternative_phone?.message}
-                />
-                <div className="flex flex-row flex-wrap items-center">
-                  <h2 className="pl-2 pr-2 font-bold">Domicilio:</h2>
-                  <Input
-                    register={register}
-                    label="Calle"
-                    rules={requiredValidation}
-                    name={`student_tutors.${i}.address`}
-                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.address?.message}
-                  />
-                  <Input
-                    register={register}
-                    label="Piso"
-                    rules={requiredValidation}
-                    name={`student_tutors.${i}.floor`}
-                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.floor?.message}
-                  />
-                  <Input
-                    register={register}
-                    label="Depto"
-                    rules={requiredValidation}
-                    name={`student_tutors.${i}.apartment`}
-                    errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.apartment?.message}
+                    <ControlledSelect
+                      name={`student_tutors.${i}.other_info`}
+                      control={control}
+                      rules={requiredValidation}
+                      options={OTHER_INFO_OPTIONS}
+                      label="Ocupación Laboral"
+                      errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.other_info?.message}
+                    />
+                  </div>
+                  <>
+                    {i === tutors_items.length - 1 && tutors_items.length < 3 && (
+                      <div
+                        className="pl-2 flex flex-row items-center text-success-500 cursor-pointer hover:opacity-80 max-w-min"
+                        onClick={addTutor}
+                      >
+                        <PlusCircleIcon className="w-6 h-6 text-success-500" />
+                        <p className="font-encode-bold">Agregar</p>
+                      </div>
+                    )}
+                  </>
+                </div>
+                <div className="pl-2">
+                  <MinusCircleIcon
+                    className="w-6 h-6 text-red-500 cursor-pointer hover:opacity-80"
+                    onClick={() => removeTutor(i)}
                   />
                 </div>
-                <ControlledSelect
-                  name={`student_tutors.${i}.educational_level`}
-                  control={control}
-                  rules={requiredValidation}
-                  options={EDUCATIONAL_LEVEL_OPTIONS}
-                  label="Tipo Escolaridad"
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.educational_level?.message}
-                />
-
-                <ControlledSelect
-                  name={`student_tutors.${i}.other_info`}
-                  control={control}
-                  rules={requiredValidation}
-                  options={OTHER_INFO_OPTIONS}
-                  label="Ocupación Laboral"
-                  errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.other_info?.message}
-                />
               </div>
-              {i === tutors_items.length - 1 && tutors_items.length < 3 && (
-                <button className="self-center border bg-green-400 rounded w-56 p-3 mt-2 text-sm" onClick={addTutor}>
-                  Agregar Padre/Madre/Tutor
-                </button>
-              )}
             </div>
           ))}
         </div>
       </div>
       <div>
-        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Enviar Solicitud</button>
+        <button className="border bg-primary-500 font-encode-bold text-white text-xl min-w-max w-full p-3 my-8 rounded-3xl hover:opacity-80">
+          Enviar Solicitud
+        </button>
       </div>
     </form>
   );
@@ -748,46 +778,52 @@ const StudentFormScreen = () => {
 
 export default StudentFormScreen;
 
+const Label = ({ text }: { text: string }) => <p className="pb-2 font-encode-bold text-sm">{text}</p>;
+const ErrorMessage = ({ errorMessage }: { errorMessage?: string }) => (
+  <span
+    className={classNames(
+      "pl-1 text-xs font-encode-bold font-sans text-red-500 mt-1'",
+      errorMessage ? 'visible' : 'invisible'
+    )}
+  >
+    {errorMessage ?? '-'}
+  </span>
+);
+
 const Input = ({ register, name, label, errorMessage, rules, ...rest }) => (
-  <div className="flex flex-col my-2">
-    <div className="flex flex-row items-center pl-2">
-      <p className="pr-2">{label}</p>
-      <input {...register(name, rules)} {...rest} className="border-black border rounded-xl h-10 p-2 " />
-    </div>
-    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+  <div className="flex-col my-1 mr-1 flex flex-1">
+    <Label text={label} />
+    <input {...register(name, rules)} {...rest} className="border-black border rounded-xl h-10 p-2" />
+    <ErrorMessage errorMessage={errorMessage} />
   </div>
 );
 
 const ControlledSelect = ({ name, control, options, label, errorMessage, rules }) => (
-  <div className="flex flex-col my-2">
-    <div className="flex flex-row items-center pl-2 pr-1">
-      <p className="mr-2">{label}</p>
-      <div className="min-w-qualification-options">
-        <Controller
-          rules={rules}
-          name={name}
-          control={control}
-          render={({ field }) => <Select {...field} options={options} />}
-        />
-      </div>
+  <div className="flex flex-col my-1 mr-1">
+    <Label text={label} />
+    <div className="min-w-qualification-options">
+      <Controller
+        rules={rules}
+        name={name}
+        control={control}
+        render={({ field }) => <Select {...field} options={options} />}
+      />
     </div>
-    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+    <ErrorMessage errorMessage={errorMessage} />
   </div>
 );
 
 const ControlledDatePicker = ({ name, control, label, errorMessage, rules }) => (
-  <div className="flex flex-col my-2">
-    <div className="flex flex-row items-center pl-2">
-      <p className="mr-2">{label}</p>
-      <Controller
-        name={name}
-        rules={rules}
-        control={control}
-        render={({ field }) => (
-          <DatePicker {...field} onChange={(date) => field.onChange(date)} selected={field.value} borderRight />
-        )}
-      />
-    </div>
-    {errorMessage && <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{errorMessage}</span>}
+  <div className="flex flex-col my-1 mr-1">
+    <Label text={label} />
+    <Controller
+      name={name}
+      rules={rules}
+      control={control}
+      render={({ field }) => (
+        <DatePicker {...field} onChange={(date) => field.onChange(date)} selected={field.value} locale="es" />
+      )}
+    />
+    <ErrorMessage errorMessage={errorMessage} />
   </div>
 );

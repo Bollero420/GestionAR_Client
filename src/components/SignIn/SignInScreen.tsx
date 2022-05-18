@@ -30,7 +30,7 @@ const SignInScreen = () => {
   return (
     <div className="no-scroll flex-col flex flex-1 w-full justify-center items-center">
       <form className="flex flex-col w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="mt-8 mb-4 text-2xl font-bold">Ingresá a tu cuenta</h1>
+        <h1 className="mt-8 mb-4 text-2xl font-encode-bold">Ingresá a tu cuenta</h1>
 
         <div className="flex-col items-start w-full">
           <p className="pb-2">Usuario</p>
@@ -44,7 +44,7 @@ const SignInScreen = () => {
           />
           <span
             className={classNames(
-              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              "pl-2 text-xs font-encode-bold font-sans text-red-500 mt-1'",
               formErrors?.username?.message ? 'visible' : 'invisible'
             )}
           >
@@ -64,17 +64,17 @@ const SignInScreen = () => {
           />
           <span
             className={classNames(
-              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              "pl-2 text-xs font-encode-bold font-sans text-red-500 mt-1'",
               formErrors?.password?.message ? 'visible' : 'invisible'
             )}
           >
             {formErrors?.password?.message ?? '-'}
           </span>
           {isError && (
-            <span className="pl-2 text-xs font-bold font-sans text-red-500 mt-1'">{error?.response?.data}</span>
+            <span className="pl-2 text-xs font-encode-bold font-sans text-red-500 mt-1'">{error?.response?.data}</span>
           )}
           <p
-            className="text-right text-xs cursor-pointer underline text-blue-400"
+            className="text-right text-xs cursor-pointer underline text-primary-500"
             onClick={() => history.push(NAVIGATOR.forgot_password)}
           >
             ¿Olvidaste tu contraseña?
@@ -82,15 +82,15 @@ const SignInScreen = () => {
         </div>
 
         <div className="flex-col items-center w-full mt-4">
-          <button className="border bg-green-400 rounded-3xl min-w-max w-full p-3 my-8 text-white font-bold text-xl">
+          <button className="border bg-success-500 rounded-3xl min-w-max w-full p-3 my-8 text-white font-encode-bold text-xl hover:opacity-80">
             Ingresar
           </button>
         </div>
       </form>
       <div className="flex-col items-center w-full max-w-lg">
-        <p className="font-bold text-black text-xl">¿No tenés cuenta?</p>
+        <p className="font-encode-bold text-black text-xl">¿No tenés cuenta?</p>
         <button
-          className="border bg-blue-400 rounded-3xl min-w-max w-full p-3 my-8 text-white font-bold text-xl"
+          className="border bg-primary-500 rounded-3xl min-w-max w-full p-3 my-8 text-white font-encode-bold text-xl cursor-pointer hover:opacity-80"
           onClick={() => history.push(NAVIGATOR.student_form)}
         >
           Creá tu cuenta

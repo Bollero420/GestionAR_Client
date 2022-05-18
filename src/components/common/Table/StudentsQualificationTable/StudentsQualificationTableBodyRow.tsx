@@ -18,7 +18,7 @@ const StudentsQualificationTableBodyRow = ({
   handleSelectOnChange,
   studentQualification,
   handleClick,
-  isCompleted
+  isCompleted,
 }: Props) => {
   const { student_id, student_name, registration_number, qualification } = studentQualification;
 
@@ -55,9 +55,7 @@ const StudentsQualificationTableBodyRow = ({
             variant={isCompleted ? Variant.SUCCESS : Variant.ERROR}
             handleBadgeClick={onBadgeClick}
           >
-            <p className="font-sen-bold capitalize text-gray-600">
-              {isCompleted ? 'Completado' : 'Incompleto'}
-            </p>
+            <p className="font-encode-bold capitalize text-gray-600">{isCompleted ? 'Completado' : 'Incompleto'}</p>
           </Badge>
         </td>
       )}

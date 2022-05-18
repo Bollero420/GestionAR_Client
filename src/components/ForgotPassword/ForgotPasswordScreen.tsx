@@ -30,7 +30,7 @@ const ForgotPasswordScreen = () => {
   return (
     <div className="no-scroll flex flex-1 w-full justify-center items-center">
       <form className="flex flex-col flex-1 max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="mb-10 text-2xl font-bold uppercase">Recuperar Contraseña</h1>
+        <h1 className="mb-10 text-2xl font-encode-bold uppercase">Recuperar Contraseña</h1>
 
         <div className="flex-col items-start w-full mb-4">
           <p className="pb-2">Username</p>
@@ -44,7 +44,7 @@ const ForgotPasswordScreen = () => {
           />
           <span
             className={classNames(
-              "pl-2 text-xs font-bold font-sans text-red-500 mt-1'",
+              "pl-2 text-xs font-encode-bold font-sans text-red-500 mt-1'",
               formErrors?.username?.message ? 'visible' : 'invisible'
             )}
           >
@@ -53,7 +53,7 @@ const ForgotPasswordScreen = () => {
         </div>
 
         <div className="flex-col items-center w-full mt-6">
-          <button className="border bg-blue-400 rounded-3xl text-white font-bold text-xl min-w-max w-full p-3 my-8">
+          <button className="border bg-primary-500 rounded-3xl text-white font-encode-bold text-xl min-w-max w-full p-3 my-8 hover:opacity-80">
             Recuperar Contraseña
           </button>
         </div>

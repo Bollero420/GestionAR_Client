@@ -141,7 +141,7 @@ const StudentsQualificationFormTable = ({ grade, subject, date }: Props) => {
           {!formValues.length && (
             <tr>
               <td colSpan={6}>
-                <div className="p-4 text-sm text-center font-bold">No Data Found</div>
+                <div className="p-4 text-sm text-center font-encode-bold">No Data Found</div>
               </td>
             </tr>
           )}
@@ -156,7 +156,10 @@ const StudentsQualificationFormTable = ({ grade, subject, date }: Props) => {
         </TableBody>
       </Table>
       <div>
-        <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8" onClick={handleSubmit}>
+        <button
+          className="border bg-primary-500 rounded-3xl min-w-max w-full p-3 my-8 text-white font-encode-bold text-xl"
+          onClick={handleSubmit}
+        >
           Finalizar Calificación
         </button>
       </div>

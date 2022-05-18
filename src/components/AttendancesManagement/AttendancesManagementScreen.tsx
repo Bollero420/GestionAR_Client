@@ -58,23 +58,30 @@ const AttendancesManagementScreen = () => {
 
   return (
     <div className="flex flex-col flex-1 px-6 pt-6">
-      <div className="flex flex-row w-full justify-start h-10 py-2 mb-6">
+      <div className="flex flex-row w-full justify-start h-10 py-2 mb-2">
         <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
       </div>
-      <div className="flex flex-col mb-10 px-24">
+      <div className="flex flex-col mb-6 px-24">
         <div className="flex flex-row items-center justify-between flex-wrap">
-          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Asistencias</h1>
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-encode-bold uppercase pr-4 pb-2">Gestion de Asistencias</h1>
+            <div
+              className={classNames(
+                'bg-gray-300 rounded-xl w-147 uppercase',
+                selectedGrade !== null ? 'visible' : 'invisible'
+              )}
+            >
+              <p className="text-left pl-4 py-1">{selectedGrade !== null ? `${handleGrade()}` : ''}</p>
+            </div>
+          </div>
           <div
             className={classNames(
-              'py-4 max-w-xs',
+              'py-2 max-w-xs',
               step === 2 ? 'visible pointer-events-auto' : 'invisible pointer-events-none'
             )}
           >
             <DatePicker onChange={(date) => setSelectedDate(date)} selected={selectedDate} borderRight />
           </div>
-        </div>
-        <div className={classNames('bg-gray-300 rounded-xl mt-2', selectedGrade !== null ? 'visible' : 'invisible')}>
-          <p className="text-left pl-4 py-1">{selectedGrade !== null ? `${handleGrade()}` : ''}</p>
         </div>
       </div>
 

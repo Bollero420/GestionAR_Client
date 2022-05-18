@@ -7,7 +7,7 @@ type Props = {
 
 const TableRow = ({ children, ...rest }: Props) => {
   return (
-    <tr className="dark:bg-gray-900 dark:hover:bg-primary-900 " {...rest}>
+    <tr className="dark:bg-gray-900 dark:hover:bg-primary-900 mt-2" {...rest}>
       {children}
     </tr>
   );

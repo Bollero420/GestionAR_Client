@@ -25,7 +25,7 @@ const AttendancesTableBodyRow = ({ attendance, isForm, handleClick }: Props) => 
       ) : (
         <td>
           <Badge size={Size.SMALL} variant={state ? Variant.SUCCESS : Variant.ERROR}>
-            <p className="font-sen-bold capitalize text-gray-600">{state ? 'Presente' : 'Ausente'}</p>
+            <p className="font-encode-sans capitalize text-gray-600">{state ? 'Presente' : 'Ausente'}</p>
           </Badge>
         </td>
       )}

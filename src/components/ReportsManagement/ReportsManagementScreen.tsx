@@ -35,7 +35,7 @@ const ReportsManagementScreen = () => {
       </div>
       <div className="flex flex-col mb-10 px-24">
         <div className="flex flex-row items-center justify-between flex-wrap">
-          <h1 className="text-2xl font-bold uppercase pr-4">Gestion de Reportes</h1>
+          <h1 className="text-2xl font-encode-bold uppercase pr-4">Gestion de Reportes</h1>
         </div>
       </div>
       <div className="flex justify-center">{component}</div>

@@ -25,11 +25,11 @@ const SubjectSelection = ({ handleSubjectPick }: SubjectSelectionProps) => {
 
   return (
     <div className="flex flex-col">
-      <p className="text-left">Materia</p>
+      <p className="text-left pb-2 font-encode-bold">Seleccione una materia</p>
       {React.Children.toArray(
         subjects?.map((subject) => (
           <button
-            className="border capitalize border-black rounded-lg bg-white min-w-max w-full p-3 my-2 hover:bg-black hover:bg-opacity-20"
+            className="shadow-xl border capitalize border-black rounded-lg bg-white min-w-max w-full p-3 my-2 hover:bg-black hover:bg-opacity-20"
             onClick={() => handleSubjectPick(subject)}
           >
             {subject.name}

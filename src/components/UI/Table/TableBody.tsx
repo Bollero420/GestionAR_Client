@@ -5,7 +5,7 @@ type Props = {
 };
 
 const TableBody: FC<Props> = ({ children }: Props) => {
-  return <tbody className="bg-white divide-y divide-gray-400 dark:bg-gray-900 dark:divide-gray-700">{children}</tbody>;
+  return <tbody className="bg-white dark:bg-gray-900 dark:divide-gray-700">{children}</tbody>;
 };
 
 export default TableBody;

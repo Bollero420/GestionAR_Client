@@ -79,7 +79,7 @@ const StudentsQualificationTable = ({ grade, handleStudentPick }: Props) => {
           {!students?.length && (
             <tr>
               <td colSpan={6}>
-                <div className="p-4 text-sm text-center font-bold">No Data Found</div>
+                <div className="p-4 text-sm text-center font-encode-bold">No Data Found</div>
               </td>
             </tr>
           )}

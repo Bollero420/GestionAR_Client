@@ -1,10 +1,14 @@
+import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useStudent } from '../../hooks/useStudent';
 import { PencilIcon, TrashIcon, ArrowLeftIcon } from '@heroicons/react/solid';
-import { RadioBoxRow } from '../UI/RadioBoxRow/RadioBoxRow';
-import { useState } from 'react';
+
+import { useStudent } from '../../hooks/useStudent';
+
 import Modal from '../common/Modal/Modal';
 import { DeleteStudentModal } from '../common/Modal/DeleteStudentModal';
+
+import { STUDENT_PROFILE_FIRST_COLUMN, STUDENT_PROFILE_SECOND_COLUMN } from '../../utils/constants';
+
 import { getEducationalLevel, getOtherInfo } from '../../utils/helper';
 
 type PathParams = {
@@ -24,72 +28,58 @@ const StudentProfile = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col flex-1 px-4 gap-6">
-      <div className="flex w-full flex-row items-start justify-between pt-3">
-        <div className="flex flex-1">
-          <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
+    <div className="flex flex-col flex-1 px-6 gap-6 overflow-y-auto no-scroll">
+      <div className="flex flex-row w-full justify-start h-10 py-2 mb-2">
+        <ArrowLeftIcon className="w-8 h-8 text-gray-500 cursor-pointer" onClick={handleGoBack} />
+      </div>
+      <div className="flex w-full flex-1 flex-row justify-between flex-wrap gap-1">
+        <div className="flex flex-1 flex-row items-center">
+          <div className="w-20 h-20 border border-black rounded-md"></div>
+          <h1 className="text-2xl font-encode-bold pl-2">
+            {student?.firstName} {student?.lastName}
+          </h1>
         </div>
-        <div className="flex flex-1 flex-row items-start justify-end">
-          <div className="flex flex-col gap-1 content-between">
-            <h1 className="text-2xl font-bold align-top">
-              {student?.firstName} {student?.lastName}
-            </h1>
-            <div className="flex flex-row items-center justify-between">
-              <PencilIcon className="w-6 h-6 text-gray-500 cursor-pointer" onClick={() => setEditing(true)} />
-              <TrashIcon className="w-6 h-6 text-gray-500 cursor-pointer" onClick={() => setIsOpenModal(true)} />
-            </div>
+        <div className="flex flex-row items-center justify-between flex-wrap gap-1">
+          <div
+            className="flex flex-row items-center text-gray-500 cursor-pointer hover:opacity-80 rounded-2xl bg-white py-2 px-3 border shadow-xl border-gray-500"
+            onClick={() => setEditing(true)}
+          >
+            <PencilIcon className="w-6 h-6 text-gray-500 cursor-pointer" />
+            <p className="pl-2 font-encode-sans">Editar</p>
           </div>
-          <div className="ml-4 w-24 h-24 border border-black rounded-md"></div>
+          <div
+            className="flex flex-row items-center text-gray-500 cursor-pointer hover:opacity-80 rounded-2xl bg-white py-2 px-3 shadow-xl border border-gray-500"
+            onClick={() => setIsOpenModal(true)}
+          >
+            <TrashIcon className="w-6 h-6 text-gray-500 cursor-pointer" />
+            <p className="pl-2 font-encode-sans">Eliminar</p>
+          </div>
         </div>
       </div>
-      <div className="flex flex-row flex-1 justify-between items-start">
-        <div className="flex flex-col flex-1 space-y-2">
-          <p className="font-bold">Datos Personales:</p>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">DNI:</p>
-            <p>{student?.dni}</p>
+      <div className="flex flex-col flex-1 border rounded-xl border-black p-6">
+        <p className="text-left text-xl font-encode-bold pb-3">Datos Personales</p>
+        <div className="flex flex-row flex-1 items-start justify-between flex-wrap">
+          <div className="flex flex-col flex-1">
+            {React.Children.toArray(
+              STUDENT_PROFILE_FIRST_COLUMN.map(({ label, value }) => (
+                <StudentRowData label={label} value={(student && student[value]) ?? '---'} />
+              ))
+            )}
           </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Fech.Nac:</p>
-            <p>{student?.birth_date}</p>
+          <div className="flex flex-col flex-1">
+            {React.Children.toArray(
+              STUDENT_PROFILE_SECOND_COLUMN.map(({ label, value }) => (
+                <StudentRowData label={label} value={(student && student[value]) ?? '---'} />
+              ))
+            )}
           </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Legajo:</p>
-            <p>{student?.registration_number}</p>
-          </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Grado:</p>
-            <p>{student?.grade_id?.shift}</p>
-          </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Sección:</p>
-            <p>{student?.grade_id?.section}</p>
-          </div>
-          <RadioBoxRow formProp="repeating_quantity" label="Repitente" value={student?.repeating_quantity > 0} />
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Teléfono:</p>
-            <p>{student?.phone}</p>
-          </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Calle:</p>
-            <p>{student?.address}</p>
-          </div>
-          <div className="flex flex-row items-center">
-            <p className="font-bold">Barrio:</p>
-            <p>{student?.neighborhood}</p>
-          </div>
-        </div>
-        <div className="flex flex-col flex-1 space-y-2">
-          <p className="font-bold">Comedor Escolar:</p>
-          <RadioBoxRow formProp="milk_cup" label="Copa de leche" value={student?.milk_cup} />
-          <RadioBoxRow formProp="school_dining" label="Almuerzo" value={student?.school_dining} />
         </div>
       </div>
       <div className="flex flex-col flex-1">
         <p>A Cargo</p>
         <div className="flex flex-row flex-1 items-start justify-between pt-2">
           <div className="flex flex-col pr-2 border-r border-black">
-            <p className="font-bold italic text-left">Nombre</p>
+            <p className="font-encode-bold italic text-left">Nombre</p>
             {student?.student_tutors.map((st) => (
               <p>
                 {st.lastName}, {st.firstName}
@@ -98,28 +88,28 @@ const StudentProfile = () => {
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
-            <p className="font-bold italic text-center">DNI</p>
+            <p className="font-encode-bold italic text-center">DNI</p>
             {student?.student_tutors.map((st) => (
               <p className="text-left">{st.dni}</p>
             ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
-            <p className="font-bold italic text-center">Telefono</p>
+            <p className="font-encode-bold italic text-center">Telefono</p>
             {student?.student_tutors.map((st) => (
               <p className="text-left">{st.phone}</p>
             ))}
           </div>
 
           <div className="flex flex-col px-2 border-r border-black">
-            <p className="font-bold italic text-center">Educacion</p>
+            <p className="font-encode-bold italic text-center">Educacion</p>
             {student?.student_tutors.map((st) => (
               <p className="text-left">{getEducationalLevel(st.educational_level)}</p>
             ))}
           </div>
 
           <div className="flex flex-col pl-2 ">
-            <p className="font-bold italic text-center">Otros datos</p>
+            <p className="font-encode-bold italic text-center">Otros datos</p>
             {student?.student_tutors.map((st) => (
               <p className="text-left">{getOtherInfo(st.other_info)}</p>
             ))}
@@ -136,3 +126,18 @@ const StudentProfile = () => {
 };
 
 export default StudentProfile;
+
+const StudentRowData = ({ label, value }: { label: string; value: any }) => {
+  let formattedData = value;
+
+  if (label === 'REPITENTE') {
+    formattedData = value > 0 ? 'SI' : 'NO';
+  }
+
+  return (
+    <div className="flex flex-row items-center justify-between max-w-xs py-2 border-b border-black flex-wrap">
+      <p className="font-encode-bold">{label}</p>
+      <p>{formattedData}</p>
+    </div>
+  );
+};

@@ -14,12 +14,7 @@ type Props = {
 };
 
 const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) => {
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useStudentQualificationAndObservations(selectedStudent?._id, date);
+  const { data, isLoading, isSuccess, isError } = useStudentQualificationAndObservations(selectedStudent?._id, date);
 
   const {
     mutateAsync: generateStudentQualificationAndObservations,
@@ -38,15 +33,12 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
 
   useEffect(() => {
     if (isSuccess && data.qualifications && data.observation) {
-      const qualificationsInitialData = data?.qualifications?.reduce(
-        (accum: any, current: any) => {
-          return {
-            ...accum,
-            [current.subject_id?.subject_name.toLowerCase()]: current.value,
-          };
-        },
-        {}
-      );
+      const qualificationsInitialData = data?.qualifications?.reduce((accum: any, current: any) => {
+        return {
+          ...accum,
+          [current.subject_id?.subject_name.toLowerCase()]: current.value,
+        };
+      }, {});
 
       const observationsInitialData = {
         worry_and_effort: data?.observation.worry_and_effort,
@@ -73,7 +65,7 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
         solidarity_and_collaboration: formData.solidarity_and_collaboration,
         group_responsibility: formData.group_responsibility,
         bimonthly_date: data.observation.bimonthly_date ?? new Date(),
-        subject_id: data.observation.subject_id
+        subject_id: data.observation.subject_id,
       },
       qualifications: data.qualifications.map((q) => ({
         _id: q._id ?? null,
@@ -94,58 +86,57 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
 
   return (
     <form onSubmit={reactFormHandleSubmit(onSubmit)}>
-
-    <div className='flex flex-row flex-1'>
-      <div className="flex flex-col justify-between items-center flex-1 pr-2">
-        <div className="flex flex-row justify-between items-center w-full">
-          <p className="pl-2">Materia</p>
-          <p className='pr-2'>Calificacion</p>
-        </div>
-        <div className='overflow-y-auto w-full'>
-          {data?.qualifications?.map((subjQualification: any) => (
-            <QualificationRow
-              key={subjQualification?.subject_id?.subject_name}
-              name={subjQualification?.subject_id?.subject_name}
-              title={subjQualification?.subject_id?.subject_name.replace(/_/g, ' ')}
-              control={control}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className='flex flex-col flex-1'>
-            <div className="mb-auto">
-              <h1 className="font-bold">Int. Personal y Social</h1>
-              <div>
-                {React.Children.toArray(
-                  OBSERVATIONS.map((obs) => <QualificationRow name={obs.key} title={obs.title} control={control} />)
-                )}
-              </div>
-            </div>
-
-            <div>
-              <h1 className="font-bold mb-2">Observaciones</h1>
-              <Controller
-                name="description"
+      <div className="flex flex-row flex-1">
+        <div className="flex flex-col justify-between items-center flex-1 pr-2">
+          <div className="flex flex-row justify-between items-center w-full">
+            <p className="pl-2">Materia</p>
+            <p className="pr-2">Calificacion</p>
+          </div>
+          <div className="overflow-y-auto w-full">
+            {data?.qualifications?.map((subjQualification: any) => (
+              <QualificationRow
+                key={subjQualification?.subject_id?.subject_name}
+                name={subjQualification?.subject_id?.subject_name}
+                title={subjQualification?.subject_id?.subject_name.replace(/_/g, ' ')}
                 control={control}
-                render={({ field }) => (
-                  <TextArea
-                    {...field}
-                    placeholder="Observaciones del Alumno..."
-                    errorMessage={formErrors?.description?.message}
-                    className="pt-8"
-                  />
-                )}
               />
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-col flex-1">
+          <div className="mb-auto">
+            <h1 className="font-encode-bold">Int. Personal y Social</h1>
+            <div>
+              {React.Children.toArray(
+                OBSERVATIONS.map((obs) => <QualificationRow name={obs.key} title={obs.title} control={control} />)
+              )}
             </div>
+          </div>
 
+          <div>
+            <h1 className="font-encode-bold mb-2">Observaciones</h1>
+            <Controller
+              name="description"
+              control={control}
+              render={({ field }) => (
+                <TextArea
+                  {...field}
+                  placeholder="Observaciones del Alumno..."
+                  errorMessage={formErrors?.description?.message}
+                  className="pt-8"
+                />
+              )}
+            />
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div>
-      <button className="border bg-blue-400 rounded min-w-max w-full p-3 my-8">Finalizar</button>
-    </div>
-
+      <div>
+        <button className="border bg-primary-500 rounded-3xl min-w-max w-full p-3 my-8 text-white font-encode-bold text-xl">
+          Finalizar
+        </button>
+      </div>
     </form>
   );
 };

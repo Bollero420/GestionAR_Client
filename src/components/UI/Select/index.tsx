@@ -1,7 +1,11 @@
 import React, { forwardRef, Fragment, Key, SelectHTMLAttributes, useMemo } from 'react';
+
 import { Listbox } from '@headlessui/react';
+
 import CheckIcon from '@heroicons/react/solid/CheckIcon';
 import SelectorIcon from '@heroicons/react/solid/SelectorIcon';
+import ChevronDownIcon from '@heroicons/react/solid/ChevronDownIcon';
+
 import classNames from 'classnames';
 
 type Option = {
@@ -48,7 +52,7 @@ const Select = forwardRef<HTMLButtonElement, Props>(
               {selected?.label || placeholder}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon className="text-gray-500 w-5 h-5" />
+              <ChevronDownIcon className="text-gray-500 w-5 h-5" />
             </span>
           </Listbox.Button>
           <Listbox.Options className="absolute w-full top-12 z-10 bg-white rounded-xl overflow-y-scroll mt-1 space-y-1 shadow-sm border border-gray-300 focus:outline-none focus-visible:outline-none">
@@ -57,9 +61,9 @@ const Select = forwardRef<HTMLButtonElement, Props>(
                 {({ active, selected }) => (
                   <div
                     className={classNames(
-                      'flex flex-row items-center cursor-pointer justify-between text-black text-xs px-3 py-2 w-full hover:bg-black hover:bg-opacity-40',
-                      selected && 'font-bold',
-                      active && 'bg-blue-400 bg-opacity-10'
+                      'flex flex-row items-center cursor-pointer justify-between text-black text-xs px-3 py-2 w-full hover:bg-black hover:opacity-80',
+                      selected && 'font-encode-bold',
+                      active && 'bg-primary-500 bg-opacity-10'
                     )}
                   >
                     <p className="text-black">{option.label}</p>

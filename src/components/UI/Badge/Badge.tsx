@@ -25,7 +25,7 @@ const DOT_COLOR: Record<Variant, string> = {
   [Variant.GRAY]: 'text-gray-400',
   [Variant.PRIMARY]: 'text-red-800',
   [Variant.SECONDARY]: 'text-secondary-800',
-  [Variant.SUCCESS]: 'text-green-400',
+  [Variant.SUCCESS]: 'text-success-500',
   [Variant.ERROR]: 'text-red-500',
   [Variant.INFO]: 'text-blue-800',
   [Variant.WARNING]: 'text-yellow-800',

@@ -5,13 +5,13 @@ type Props = {
   handleReportPick: (report: string) => void;
 };
 
-const GradeSelection = ({ handleReportPick }: Props) => {
+const ReportSelection = ({ handleReportPick }: Props) => {
   return (
     <div>
       {React.Children.toArray(
         ALL_REPORTS_OPTIONS.map((menu_option) => (
           <button
-            className="border border-black rounded-lg bg-white min-w-max w-full p-3 my-2"
+            className="shadow-xl border border-black rounded-lg bg-white min-w-max w-full p-3 my-2 hover:bg-black hover:bg-opacity-20"
             onClick={() => handleReportPick(menu_option.title)}
           >
             {menu_option.title}
@@ -22,4 +22,4 @@ const GradeSelection = ({ handleReportPick }: Props) => {
   );
 };
 
-export default GradeSelection;
+export default ReportSelection;

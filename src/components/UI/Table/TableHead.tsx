@@ -5,7 +5,7 @@ type Props = {
 };
 
 const TableHead: FC<Props> = ({ children }: Props) => {
-  return <thead className="border-b border-gray-400 border-solid bg-gray-50 dark:bg-gray-900">{children}</thead>;
+  return <thead className="border-gray-400 border-solid bg-gray-500 dark:bg-gray-900">{children}</thead>;
 };
 
 export default TableHead;

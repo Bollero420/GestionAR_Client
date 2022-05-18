@@ -419,3 +419,81 @@ export const requiredEmailValidation = {
 };
 
 export const unAuthenticatedRoutes = ['/signin', '/forgotpassword', '/studentform'];
+
+export const STUDENT_PROFILE_FIRST_COLUMN = [
+  {
+    label: 'APELLIDO',
+    value: 'lastName',
+  },
+  {
+    label: 'NOMBRE',
+    value: 'firstName',
+  },
+  {
+    label: 'DNI',
+    value: 'dni',
+  },
+  {
+    label: 'SEXO',
+    value: 'gender',
+  },
+  {
+    label: 'REPITENTE',
+    value: 'repeating_quantity',
+  },
+  {
+    label: 'FECHA DE NACIMIENTO',
+    value: 'birth_date',
+  },
+  {
+    label: 'NACIONALIDAD',
+    value: 'country',
+  },
+  {
+    label: 'ESCUELA A LA QUE ASISTIO',
+    value: 'previous_school',
+  },
+  {
+    label: 'TELEFONO',
+    value: 'phone',
+  },
+  {
+    label: 'TELEFONO ALT.',
+    value: 'alternative_phone',
+  },
+];
+
+export const STUDENT_PROFILE_SECOND_COLUMN = [
+  {
+    label: 'DISCAPACIDAD',
+    value: 'disability_type',
+  },
+  {
+    label: 'TIPO DISCAPACIDAD',
+    value: 'disability_type',
+  },
+  {
+    label: 'COMEDOR ESC.',
+    value: 'school_dining',
+  },
+  {
+    label: 'COOPERADORA',
+    value: 'cooperator',
+  },
+  {
+    label: 'DIRECCION',
+    value: 'address',
+  },
+  {
+    label: 'BARRIO',
+    value: 'neighborhood',
+  },
+  {
+    label: 'LOCALIDAD',
+    value: 'location',
+  },
+  {
+    label: 'CENTRO DE SALUD',
+    value: 'medical_center',
+  },
+];

@@ -47,7 +47,7 @@ const DatePickerCalendar = React.forwardRef((props: Props, ref: any) => {
           'text-sm leading-none text-center transition duration-100 ease-in-out rounded-full cursor-pointer',
           isToday && 'bg-blue-200',
           !isToday && !isSelectedDate && 'text-gray-600 hover:bg-blue-200',
-          isSelectedDate && 'bg-blue-400 text-white hover:bg-opacity-75'
+          isSelectedDate && 'bg-primary-500 text-white hover:bg-opacity-75'
         )}
       >
         {day}
@@ -65,7 +65,7 @@ const DatePickerCalendar = React.forwardRef((props: Props, ref: any) => {
     >
       <div className="flex items-center justify-between mb-2">
         <div>
-          <span className="text-lg font-bold text-gray-800">{month}</span>
+          <span className="text-lg font-encode-bold text-gray-800">{month}</span>
           <span className="ml-1 text-lg font-normal text-gray-600">{year}</span>
         </div>
         <div>

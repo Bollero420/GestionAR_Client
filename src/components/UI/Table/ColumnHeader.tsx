@@ -23,7 +23,7 @@ const ColumnHeader = ({
 }: ColumnHeaderProps) => {
   const rootClassName = classNames(
     className,
-    'py-3 bg-white text-left text-xs font-sen-bold uppercase tracking-wider dark:bg-gray-900 dark:text-primary-100'
+    'py-3 bg-white text-left text-xs font-encode-bold uppercase tracking-wider dark:bg-gray-900 dark:text-primary-100'
   );
 
   return (

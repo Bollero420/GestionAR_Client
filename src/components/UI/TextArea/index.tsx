@@ -29,7 +29,9 @@ const TextArea = ({ errorMessage, disabled, children, childrenClassName, isProce
     <div>
       {TextAreaElement}
       {errorMessage && (
-        <span className={classNames('text-xs font-bold font-sans text-red-500 mt-1', className)}>{errorMessage}</span>
+        <span className={classNames('text-xs font-encode-bold font-sans text-red-500 mt-1', className)}>
+          {errorMessage}
+        </span>
       )}
     </div>
   );
