@@ -55,13 +55,13 @@ const Select = forwardRef<HTMLButtonElement, Props>(
               <ChevronDownIcon className="text-gray-500 w-5 h-5" />
             </span>
           </Listbox.Button>
-          <Listbox.Options className="absolute w-full top-12 z-10 bg-white rounded-xl overflow-y-scroll mt-1 space-y-1 shadow-sm border border-gray-300 focus:outline-none focus-visible:outline-none">
+          <Listbox.Options className="absolute max-h-48 w-full top-12 z-10 bg-white rounded-xl overflow-y-scroll mt-1 space-y-1 shadow-sm border border-gray-300 focus:outline-none focus-visible:outline-none">
             {options.map((option) => (
               <Listbox.Option key={option.value as Key} value={option} as={Fragment}>
                 {({ active, selected }) => (
                   <div
                     className={classNames(
-                      'flex flex-row items-center cursor-pointer justify-between text-black text-xs px-3 py-2 w-full hover:bg-black hover:opacity-80',
+                      'flex flex-row items-center cursor-pointer justify-between text-black text-xs px-3 py-2 w-full hover:opacity-80',
                       selected && 'font-encode-bold',
                       active && 'bg-primary-500 bg-opacity-10'
                     )}
