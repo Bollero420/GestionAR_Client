@@ -1546,7 +1546,7 @@ export const STUDENT_TUTOR_FIRST_COLUMN = [
     value: 'civil_status',
   },
   {
-    label: 'FECHA NACIMIENTO',
+    label: 'FECHA DE NACIMIENTO',
     value: 'birth_date',
   },
   {

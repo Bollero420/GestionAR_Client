@@ -88,7 +88,7 @@ const StudentsTable = ({ gradeId }: Props) => {
             </tr>
           )}
           {students.map((student) => (
-            <StudentsTableBodyRow key={student.id} student={student} redirectToProfile={redirectToProfile} />
+            <StudentsTableBodyRow key={student._id} student={student} redirectToProfile={redirectToProfile} />
           ))}
         </TableBody>
       </Table>

@@ -8,7 +8,7 @@ type Props = {
 
 export const AttendanceState = ({ student_id, state, handleClick }: Props) => {
   return (
-    <div key={student_id} className="flex flex-row justify-between">
+    <div key={student_id} className="flex flex-row justify-around">
       <Badge
         size={Size.SMALL}
         variant={state ? Variant.SUCCESS : Variant.GRAY}

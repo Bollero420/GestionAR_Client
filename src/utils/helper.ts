@@ -1,4 +1,6 @@
-import { EDUCATIONAL_LEVEL_OPTIONS, OTHER_INFO_OPTIONS } from "./constants";
+import { format as formater } from 'date-fns';
+
+import { CIVIL_STATUS_OPTIONS, EDUCATIONAL_LEVEL_OPTIONS, GENDER_OPTIONS, OTHER_INFO_OPTIONS } from './constants';
 
 export const getArrayNumber = (limit: number): number[] => {
   const array = [];
@@ -24,14 +26,14 @@ export const getCookie = (cname: string) => {
   return '';
 };
 
-export const parseGradeName = (grade:any) => {
+export const parseGradeName = (grade: any) => {
   let name = '';
   switch (grade.level) {
     case '1':
       name = '1ero';
       break;
     case '2':
-      name = '2ndo'; 
+      name = '2ndo';
       break;
     case '3':
       name = '3ero';
@@ -49,10 +51,15 @@ export const parseGradeName = (grade:any) => {
       name = '7to';
       break;
   }
-  const shift = grade.shift === 'M' ? 'Mañana' : 'Tarde'
-  const result = `${name} ${grade.section} Turno ${shift}`
-  return result
-}
+  const shift = grade.shift === 'M' ? 'Mañana' : 'Tarde';
+  const result = `${name} ${grade.section} Turno ${shift}`;
+  return result;
+};
 
-export const getEducationalLevel = (value:string) => EDUCATIONAL_LEVEL_OPTIONS.find(ed_lvl => ed_lvl.value === value).label
-export const getOtherInfo = (value:string) => OTHER_INFO_OPTIONS.find(ot_info => ot_info.value === value).label
+export const getEducationalLevel = (value: string) =>
+  EDUCATIONAL_LEVEL_OPTIONS.find((ed_lvl) => ed_lvl.value === value).label;
+export const getOtherInfo = (value: string) => OTHER_INFO_OPTIONS.find((ot_info) => ot_info.value === value).label;
+export const getGender = (value: string) => GENDER_OPTIONS.find((gdr_op) => gdr_op.value === value).label;
+export const getCivilStatus = (value: string) => CIVIL_STATUS_OPTIONS.find((cvl) => cvl.value === value).label;
+
+export const formatSlashDate = (date: Date): string => formater(new Date(date), 'MM/dd/yyyy');

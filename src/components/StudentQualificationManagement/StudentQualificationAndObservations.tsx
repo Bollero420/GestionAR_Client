@@ -87,7 +87,7 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
   return (
     <form onSubmit={reactFormHandleSubmit(onSubmit)}>
       <div className="flex flex-row flex-1">
-        <div className="flex flex-col justify-between items-center flex-1 pr-2">
+        <div className="flex flex-col justify-between items-center flex-1 pr-5">
           <div className="flex flex-row justify-between items-center w-full">
             <p className="pl-2">Materia</p>
             <p className="pr-2">Calificacion</p>

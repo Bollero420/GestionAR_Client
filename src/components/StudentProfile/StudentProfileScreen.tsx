@@ -15,6 +15,7 @@ import {
 } from '../../utils/constants';
 
 import { getEducationalLevel } from '../../utils/helper';
+import { handleCommonValues } from './profileHelper';
 
 type PathParams = {
   id: string;
@@ -120,8 +121,10 @@ const StudentRowData = ({ label, value }: { label: string; value: any }) => {
   let formattedData = value;
 
   if (label === 'REPITENTE') {
-    formattedData = value > 0 ? 'SI' : 'NO';
+    formattedData = value > 0 ? 'Si' : 'No';
   }
+
+  formattedData = handleCommonValues(label, value);
 
   return <RowContent label={label} formattedData={formattedData} />;
 };
@@ -133,12 +136,14 @@ const StudentTutorRowData = ({ label, value }: { label: string; value: any }) =>
     formattedData = getEducationalLevel(value);
   }
 
+  formattedData = handleCommonValues(label, value);
+
   return <RowContent label={label} formattedData={formattedData} />;
 };
 
 const RowContent = ({ label, formattedData }: { label: string; formattedData: any }) => (
   <div className="flex flex-row items-center justify-between py-2 border-b border-solid-gray-100 flex-wrap">
-    <p className=" text-sm font-encode-bold text-solid-gray-500 mr-2">{label}</p>
-    <p>{formattedData}</p>
+    <p className="text-sm font-encode-bold text-solid-gray-500 mr-2">{label}</p>
+    <p className="capitalize">{formattedData}</p>
   </div>
 );

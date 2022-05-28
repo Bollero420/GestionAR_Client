@@ -6,7 +6,7 @@ import Routes from './Routes';
 
 import { useSignOut } from './hooks/useSignOut';
 import { useRefreshToken } from './hooks/useRefreshToken';
-import './hooks/mockedHooks';
+// import './hooks/mockedHooks';
 
 import { getCookie } from './utils/helper';
 import { NAVIGATOR } from './utils/constants';

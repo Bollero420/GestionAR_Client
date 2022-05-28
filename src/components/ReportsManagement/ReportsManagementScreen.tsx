@@ -2,16 +2,23 @@ import { useCallback, useState } from 'react';
 import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
 import ReportSelection from '../UI/Menu/ReportSelection';
+import { MonthlyReport } from '../Reports/MonthlyReport';
+import { BiMonthlyReport } from '../Reports/BiMonthlyReport';
+import { AnnuallyReport } from '../Reports/AnnuallyReport';
 
 const ReportsManagementScreen = () => {
   const history = useHistory();
+
   const [step, setStep] = useState(0);
   const [selectedReport, setSelectedReport] = useState<string>(null);
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());
+  const [selectedGrade, setSelectedGrade] = useState<string>(null);
 
   const handleReportPick = useCallback(
     (report: string) => {
       setSelectedReport(report);
-      //   setStep((prevValue) => prevValue + 1);
+      setStep((prevValue) => prevValue + 1);
     },
     [setStep, setSelectedReport]
   );
@@ -25,9 +32,29 @@ const ReportsManagementScreen = () => {
   };
 
   let component = <></>;
-  //! TO.DO Agregar <ReportSubSection /> para Reportes que sean por año.
+  //! TO.DO create and add month selector and year selector for monthly and bimonthly reports
+  //! Add grade dropdown??
   if (step === 0) component = <ReportSelection handleReportPick={handleReportPick} />;
-
+  if (step === 1) {
+    switch (selectedReport) {
+      case 'Reportes Mensuales':
+        component = <MonthlyReport month={selectedMonth} year={selectedYear} />;
+        break;
+      case 'Reportes Bimestrales':
+        // Add grade selection flow
+        component = <BiMonthlyReport month={selectedMonth} year={selectedYear} grade_id={selectedGrade} />;
+        break;
+      case 'Reportes Anual - Inicial':
+        component = <AnnuallyReport />;
+        break;
+      case 'Reportes Anual - Final':
+        component = <AnnuallyReport />;
+        break;
+      default:
+        component = <></>;
+        break;
+    }
+  }
   return (
     <div className="flex flex-col flex-1 px-6 pt-6">
       <div className="flex flex-row w-full justify-start h-10 py-2 mb-6">

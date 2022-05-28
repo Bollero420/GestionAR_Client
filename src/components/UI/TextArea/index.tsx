@@ -12,7 +12,7 @@ type Props = {
 
 const TextArea = ({ errorMessage, disabled, children, childrenClassName, isProcessing, className, ...rest }: Props) => {
   const commonClassName = classNames(
-    'w-full px-3 py-4 text-sm font-sen border border-gray-400 rounded-md focus:outline-none resize-none',
+    'w-full px-3 py-4 text-sm font-sen border border-solid-gray-200 rounded-md focus:outline-none resize-none',
     isProcessing && 'animate-pulse'
   );
 

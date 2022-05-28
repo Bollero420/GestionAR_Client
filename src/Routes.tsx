@@ -41,7 +41,7 @@ const Routes = () => (
           <StudentProfile />
         </Route>
         <Route exact path={NAVIGATOR.student_qualification}>
-          <StudentQualificationManagementScreen isTeacher={false} />
+          <StudentQualificationManagementScreen isTeacher={true} />
         </Route>
         {/* <Route exact path={`${NAVIGATOR.student_qualification}/:id`}>
         <StudentQualificationManagementScreen isTeacher={false} />

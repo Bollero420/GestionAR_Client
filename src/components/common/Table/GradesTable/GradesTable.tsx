@@ -51,7 +51,7 @@ const GradesTable = ({ handleGradePick }: Props) => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="overflow-y-scroll">
+    <div className="overflow-y-scroll max-h-96 no-scroll">
       <p className="text-left pb-2 font-encode-bold">Seleccione un grado</p>
       <Table>
         <TableHead>
