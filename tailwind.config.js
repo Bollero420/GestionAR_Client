@@ -28,6 +28,11 @@ module.exports = {
         success: {
           500: '#1BBB1F',
         },
+        'solid-gray': {
+          100: '#E8E8E8',
+          200: '#D2D2D2',
+          500: '#707070',
+        },
       },
     },
   },

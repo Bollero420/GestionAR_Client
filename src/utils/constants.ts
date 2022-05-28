@@ -1523,3 +1523,69 @@ export const STUDENT_PROFILE_SECOND_COLUMN = [
     value: 'medical_center',
   },
 ];
+
+export const STUDENT_TUTOR_FIRST_COLUMN = [
+  {
+    label: 'APELLIDO',
+    value: 'lastName',
+  },
+  {
+    label: 'NOMBRE',
+    value: 'firstName',
+  },
+  {
+    label: 'DNI',
+    value: 'dni',
+  },
+  {
+    label: 'SEXO',
+    value: 'gender',
+  },
+  {
+    label: 'ESTADO CIVIL',
+    value: 'civil_status',
+  },
+  {
+    label: 'FECHA NACIMIENTO',
+    value: 'birth_date',
+  },
+  {
+    label: 'NACIONALIDAD',
+    value: 'country',
+  },
+  {
+    label: 'EMAIL',
+    value: 'email_address',
+  },
+];
+
+export const STUDENT_TUTOR_SECOND_COLUMN = [
+  {
+    label: 'TELEFONO FIJO',
+    value: 'phone',
+  },
+  {
+    label: 'CELULAR',
+    value: 'alternative_phone',
+  },
+  {
+    label: 'TIPO ESCOLARIDAD',
+    value: 'educational_level',
+  },
+  {
+    label: 'OCUPACION LABORAL',
+    value: 'job',
+  },
+  {
+    label: 'DIRECCION',
+    value: 'address',
+  },
+  {
+    label: 'LOCALIDAD',
+    value: 'location',
+  },
+  {
+    label: 'EMAIL',
+    value: 'email_address',
+  },
+];
