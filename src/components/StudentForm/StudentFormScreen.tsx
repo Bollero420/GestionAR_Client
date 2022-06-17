@@ -31,6 +31,7 @@ import {
   requiredDniValidation,
   requiredOnlyNumbersValidation,
   requiredLetterAndSpacesValidation,
+  onlyNumbersValidation,
 } from '../../utils/constants';
 
 import classNames from 'classnames';
@@ -293,7 +294,7 @@ const StudentFormScreen = () => {
     return (
       <div className="flex flex-col justify-center items-center h-screen max-h-screen">
         <div className="bg-white flex flex-col space-y-4 p-5">
-          <p>TU SOLICITUD DE INCRIPCION DE CICLO LECTIVO 2021 HA SIDO REGISTRADA CON EXITO!</p>
+          <p>TU SOLICITUD DE INCRIPCION DE CICLO LECTIVO 2022 HA SIDO REGISTRADA CON EXITO!</p>
           <p>PRONTO RECIBIRAS NOTICIAS EN LAS DIRECCIONES DE MAIL PROPORCIONADAS.</p>
           <p>GRACIAS!</p>
         </div>
@@ -569,16 +570,16 @@ const StudentFormScreen = () => {
               errorMessage={formErrors?.address?.message}
             />
             <Input
-              rules={requiredOnlyNumbersValidation}
+              rules={onlyNumbersValidation}
               register={register}
-              label="Piso*"
+              label="Piso"
               name="floor"
               errorMessage={formErrors?.floor?.message}
             />
             <Input
-              rules={requiredValidation}
+              rules={undefined}
               register={register}
-              label="Depto*"
+              label="Depto"
               name="apartment"
               errorMessage={formErrors?.apartment?.message}
             />
@@ -720,15 +721,15 @@ const StudentFormScreen = () => {
                     />
                     <Input
                       register={register}
-                      label="Piso*"
-                      rules={requiredOnlyNumbersValidation}
+                      label="Piso"
+                      rules={onlyNumbersValidation}
                       name={`student_tutors.${i}.floor`}
                       errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.floor?.message}
                     />
                     <Input
                       register={register}
-                      label="Depto*"
-                      rules={requiredValidation}
+                      label="Depto"
+                      rules={undefined}
                       name={`student_tutors.${i}.apartment`}
                       errorMessage={formErrors.student_tutors && formErrors?.student_tutors[i]?.apartment?.message}
                     />

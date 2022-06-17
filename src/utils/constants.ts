@@ -1407,9 +1407,9 @@ export const requiredDniValidation = {
   ...dniValidation,
 };
 
-const onlyNumbersValidation = {
+export const onlyNumbersValidation = {
   pattern: {
-    value: /^[0-9]$/,
+    value: /^[0-9]*$/,
     message: 'Ingrese solo numeros',
   },
 };
