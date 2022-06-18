@@ -1,10 +1,14 @@
 import { useCallback, useState } from 'react';
-import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
+
+import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
+
 import ReportSelection from '../UI/Menu/ReportSelection';
+
 import { MonthlyReport } from '../Reports/MonthlyReport';
 import { BiMonthlyReport } from '../Reports/BiMonthlyReport';
-import { AnnuallyReport } from '../Reports/AnnuallyReport';
+import { InitialAnnuallyReport } from '../Reports/InitialAnnuallyReport';
+import { FinalAnnuallyReport } from '../Reports/FinalAnnuallyReport';
 
 const ReportsManagementScreen = () => {
   const history = useHistory();
@@ -38,17 +42,17 @@ const ReportsManagementScreen = () => {
   if (step === 1) {
     switch (selectedReport) {
       case 'Reportes Mensuales':
-        component = <MonthlyReport month={selectedMonth} year={selectedYear} />;
+        component = <MonthlyReport month={1} year={selectedYear} />;
         break;
       case 'Reportes Bimestrales':
         // Add grade selection flow
         component = <BiMonthlyReport month={selectedMonth} year={selectedYear} grade_id={selectedGrade} />;
         break;
       case 'Reportes Anual - Inicial':
-        component = <AnnuallyReport />;
+        component = <InitialAnnuallyReport />;
         break;
       case 'Reportes Anual - Final':
-        component = <AnnuallyReport />;
+        component = <FinalAnnuallyReport />;
         break;
       default:
         component = <></>;

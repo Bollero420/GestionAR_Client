@@ -63,7 +63,6 @@ table tr td:first-child {
 table tr th {
   background: #eee;
   border-top: 1px solid #bbb;
-  text-align: left;
 }
 table tr td {
   background: #fff;
@@ -91,4 +90,15 @@ table tbody td:first-child {
 table tbody td:last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+}
+
+.txt-vertical {
+  writing-mode: vertical-rl;
+  text-align: left;
+}
+
+.txt-vertical p {
+  transform: rotate(180deg);
+  word-break: break-word;
+  max-height: 270px;
 }

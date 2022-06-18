@@ -9,6 +9,7 @@ const getMonthlyReport = async (month: number, year: number) => {
       year,
     },
   });
+  console.log('useMonthlyReport ->', response.data);
   return response.data;
 };
 
