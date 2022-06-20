@@ -43,7 +43,7 @@ const STUDENTS_BIMONTHLY_CELL_CONTENT = [
   { txt: 'Asistencia', css: 'txt-vertical' },
   { txt: 'Inasistencia', css: 'txt-vertical' },
   { txt: '% Asistencia', css: 'txt-vertical' },
-  { txt: 'Observaciones', css: 'txt-vertical' },
+  { txt: 'Observaciones', css: 'txt-center align-bottom' },
 ];
 export const StudentsBiMonthlySubHeaders = () => (
   <>

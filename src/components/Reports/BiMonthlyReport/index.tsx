@@ -18,7 +18,7 @@ export const BiMonthlyReport = ({ grade_id, month, year }) => {
         <StudentBiMonthlyReportHeader />
         <TableBody>
           {report.data.map((studentReport, index) => (
-            <ReportTableBodyRow data={studentReport} index={index} />
+            <ReportTableBodyRow data={studentReport} index={index} key={studentReport._id} />
           ))}
         </TableBody>
       </Table>

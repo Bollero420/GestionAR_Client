@@ -19,6 +19,7 @@ const getBiMonthlyReport = async (month: number, year: number, grade_id: string)
       grade_id,
     },
   });
+  console.log('getBiMonthlyReport ->', response.data);
   return response.data;
 };
 
@@ -27,7 +28,9 @@ export const useBiMonthlyReport = (month: number, year: number, grade_id: string
     ['report_bimonthly', { month, year, grade_id }],
     () => getBiMonthlyReport(month, year, grade_id),
     {
-      staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      refetchOnWindowFocus: false,
       onError: (error) => console.log('getBiMonthlyReport - error ->', error),
     }
   );

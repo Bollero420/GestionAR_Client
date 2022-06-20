@@ -10,7 +10,9 @@ const getAnnuallyReport = async (type: 'initial' | 'final') => {
 
 export const useAnnuallyReport = (type: 'initial' | 'final') => {
   return useQuery<any[], Error>(['report_annually', type], () => getAnnuallyReport(type), {
-    staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
+    staleTime: Infinity,
+    cacheTime: Infinity,
+    refetchOnWindowFocus: false,
     onError: (error) => console.log('getAnnuallyReport - error ->', error),
   });
 };

@@ -15,8 +15,6 @@ const reportName = [
   'attendancesThisMonth',
   'unAttendancesThisMonth',
   'attendancesAverage',
-  'gradeAndSection',
-  'shift',
 ];
 
 const ReportTableBodyRow = ({ data }: Props) => {
