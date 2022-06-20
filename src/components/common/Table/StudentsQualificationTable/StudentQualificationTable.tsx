@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import classNames from 'classnames';
-import { SUBJECT_QUALIFICATION_COLUMNS } from '../../../../utils/constants';
+import { SUBJECT_QUALIFICATION_COLUMNS } from '../../../../utils/constants/columns';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';

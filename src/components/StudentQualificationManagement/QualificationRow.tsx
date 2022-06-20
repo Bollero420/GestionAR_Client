@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { QUALIFICATION_OPTIONS } from '../../utils/constants';
+import { QUALIFICATION_OPTIONS } from '../../utils/constants/selectOptions';
 import Select from '../UI/Select';
 
 export const QualificationRow = ({ name, control, title }) => (

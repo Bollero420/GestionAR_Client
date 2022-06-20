@@ -1,6 +1,11 @@
 import { format as formater } from 'date-fns';
 
-import { CIVIL_STATUS_OPTIONS, EDUCATIONAL_LEVEL_OPTIONS, GENDER_OPTIONS, OTHER_INFO_OPTIONS } from './constants';
+import {
+  CIVIL_STATUS_OPTIONS,
+  EDUCATIONAL_LEVEL_OPTIONS,
+  GENDER_OPTIONS,
+  OTHER_INFO_OPTIONS,
+} from './constants/selectOptions';
 
 export const getArrayNumber = (limit: number): number[] => {
   const array = [];
@@ -51,8 +56,7 @@ export const parseGradeName = (grade: any) => {
       name = '7to';
       break;
   }
-  const shift = grade.shift === 'M' ? 'Mañana' : 'Tarde';
-  const result = `${name} ${grade.section} Turno ${shift}`;
+  const result = `${name} ${grade.section} T.${grade.shift}`;
   return result;
 };
 

@@ -13,6 +13,10 @@ type Option = {
   label: string;
 };
 
+export type SelectEventTarget = {
+  target: { value: SelectHTMLAttributes<any>['value']; id: string; label: string };
+};
+
 export type Props = {
   name: string;
   options: Option[];

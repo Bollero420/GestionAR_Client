@@ -3,7 +3,8 @@ import { useHistory } from 'react-router';
 
 import LogoutIcon from '@heroicons/react/outline/LogoutIcon';
 
-import { MAIN_MENU_OPTIONS, NAVIGATOR } from '../../utils/constants';
+import { MAIN_MENU_OPTIONS } from '../../utils/constants/selectOptions';
+import { NAVIGATOR } from '../../utils/constants';
 
 import { LogOutModal } from '../common/Modal/LogOutModal';
 import Modal from '../common/Modal/Modal';

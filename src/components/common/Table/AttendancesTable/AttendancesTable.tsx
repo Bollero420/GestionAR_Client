@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
 
-import { ATTENDANCES_COLUMNS } from '../../../../utils/constants';
+import { ATTENDANCES_COLUMNS } from '../../../../utils/constants/columns';
 
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';

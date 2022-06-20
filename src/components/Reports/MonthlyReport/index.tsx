@@ -1,13 +1,31 @@
+import { Table, TableBody } from '../../UI/Table';
+import ReportLoader from '../../UI/Reports/ReportLoader';
+import { StudentsMonthlyReportHeader } from './ReportsHeaders';
+import ReportTableBodyRow from './ReportTableBodyRow';
+
 import { useMonthlyReport } from '../../../hooks/useMontlhyReport';
 
-import { StudentsMonthlyReportHeader } from './ReportsHeaders';
-
 export const MonthlyReport = ({ month, year }: { month: number; year: number }) => {
-  const { data: report, isLoading, isSuccess } = useMonthlyReport(month, year);
+  const { data: reports, isLoading, isSuccess } = useMonthlyReport(month, year);
 
-  return (
-    <div>
-      <StudentsMonthlyReportHeader />
-    </div>
-  );
+  if (isLoading) {
+    return <ReportLoader />;
+  }
+
+  if (isSuccess) {
+    return (
+      <div>
+        {reports.data.map((report: any, index: number) => (
+          <Table key={reports.grades[index]}>
+            <StudentsMonthlyReportHeader />
+            <TableBody>
+              <ReportTableBodyRow data={report} />
+            </TableBody>
+          </Table>
+        ))}
+      </div>
+    );
+  }
+
+  return <></>;
 };

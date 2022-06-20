@@ -1,5 +1,5 @@
 import React from 'react';
-import { ALL_REPORTS_OPTIONS } from '../../../utils/constants';
+import { ALL_REPORTS_OPTIONS } from '../../../utils/constants/selectOptions';
 
 type Props = {
   handleReportPick: (report: string) => void;

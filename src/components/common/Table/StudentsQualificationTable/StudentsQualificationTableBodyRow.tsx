@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { QUALIFICATION_OPTIONS } from '../../../../utils/constants';
+import { QUALIFICATION_OPTIONS } from '../../../../utils/constants/selectOptions';
 import Badge, { Size, Variant } from '../../../UI/Badge/Badge';
 import Select from '../../../UI/Select';
 import { TableRow } from '../../../UI/Table';

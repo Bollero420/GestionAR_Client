@@ -1,22 +1,11 @@
-import { ReactComponent as ListIcon } from '../assets/icons/ListIcon.svg';
-import { ReactComponent as QualificationIcon } from '../assets/icons/QualificationIcon.svg';
-import { ReactComponent as ReportIcon } from '../assets/icons/ReportIcon.svg';
-import { ReactComponent as UsersIcon } from '../assets/icons/UsersIcon.svg';
+import { ReactComponent as ListIcon } from '../../assets/icons/ListIcon.svg';
+import { ReactComponent as QualificationIcon } from '../../assets/icons/QualificationIcon.svg';
+import { ReactComponent as ReportIcon } from '../../assets/icons/ReportIcon.svg';
+import { ReactComponent as UsersIcon } from '../../assets/icons/UsersIcon.svg';
 
-import { QUALIFICATION } from '../components/common/Table/StudentsQualificationTable/StudentsQualificationFormTable';
+import { QUALIFICATION } from '../../components/common/Table/StudentsQualificationTable/StudentsQualificationFormTable';
 
-export const NAVIGATOR = {
-  main: '/main',
-  attendances: '/management/attendances',
-  grades: '/grades',
-  sign_in: '/signIn',
-  student_form: '/studentForm',
-  reports: '/reports',
-  student_qualification: '/management/studentQualification',
-  students: '/management/students',
-  subjects: '/subjects',
-  forgot_password: '/forgotPassword',
-};
+import { NAVIGATOR } from '.';
 
 export const ALL_GRADES_OPTIONS = [
   {
@@ -69,136 +58,6 @@ export const MAIN_MENU_OPTIONS = [
   },
 ];
 
-export const STUDENTS_COLUMNS = [
-  {
-    sortKey: 'firstName',
-    title: 'Nombre y Apellido',
-  },
-  {
-    sortKey: 'registration_number',
-    title: 'Legajo',
-  },
-  // {
-  //   sortKey: 'section',
-  //   title: 'Seccion',
-  // },
-  // {
-  //   sortKey: 'shift',
-  //   title: 'Turno',
-  // },
-];
-
-export const ATTENDANCES_COLUMNS = [
-  {
-    sortKey: {
-      first: 'student',
-      second: 'firstName',
-    },
-    title: 'Nombre y Apellido',
-  },
-  {
-    sortKey: 'registration_number',
-    title: 'Legajo',
-  },
-  {
-    sortKey: 'state',
-    title: 'Estado',
-  },
-];
-
-export const GRADES_COLUMNS = [
-  {
-    sortKey: 'level',
-    title: 'Grado',
-  },
-  {
-    sortKey: 'section',
-    title: 'Seccion',
-  },
-  {
-    sortKey: 'shift',
-    title: 'Turno',
-  },
-];
-
-export const SUBJECT_QUALIFICATION_FORM_COLUMNS = [
-  {
-    sortKey: {
-      first: 'student',
-      second: 'firstName',
-    },
-    title: 'Nombre y Apellido',
-  },
-  {
-    sortKey: 'registration_number',
-    title: 'Legajo',
-  },
-  {
-    sortKey: 'qualification',
-    title: 'Calificación',
-  },
-];
-
-export const SUBJECT_QUALIFICATION_COLUMNS = [
-  {
-    sortKey: {
-      first: 'student',
-      second: 'firstName',
-    },
-    title: 'Nombre y Apellido',
-  },
-  {
-    sortKey: 'registration_number',
-    title: 'Legajo',
-  },
-  {
-    sortKey: 'state',
-    title: 'Estado',
-  },
-];
-
-export const GRADES = [
-  {
-    _id: '1',
-    level: 1,
-    section: 'A',
-    shift: 'TARDE',
-  },
-  {
-    _id: '2',
-    level: 3,
-    section: 'B',
-    shift: 'TARDE',
-  },
-  {
-    _id: '3',
-    level: 5,
-    section: 'B',
-    shift: 'MAÑANA',
-  },
-  {
-    _id: '4',
-    level: 6,
-    section: 'A',
-    shift: 'TARDE',
-  },
-];
-
-export const SUBJECTS = [
-  {
-    _id: '00',
-    name: 'CS.Naturales',
-  },
-  {
-    _id: '01',
-    name: 'Matematica',
-  },
-  {
-    _id: '02',
-    name: 'Lengua',
-  },
-];
-
 export const QUALIFICATION_OPTIONS = [
   {
     value: QUALIFICATION.EXC,
@@ -219,25 +78,6 @@ export const QUALIFICATION_OPTIONS = [
   {
     value: QUALIFICATION.NS,
     label: QUALIFICATION.NS,
-  },
-];
-
-export const OBSERVATIONS = [
-  {
-    title: 'Demuestra preocupación y esfuerzo personal',
-    key: 'worry_and_effort',
-  },
-  {
-    title: 'Participa con responsabilidad en trabajo grupal',
-    key: 'group_responsibility',
-  },
-  {
-    title: 'Evidencia actitudes de solidaridad y colaboración',
-    key: 'solidarity_and_collaboration',
-  },
-  {
-    title: 'Respeta las normas de convivencia',
-    key: 'respect_rules',
   },
 ];
 
@@ -1393,199 +1233,23 @@ export const LOCATION_OPTIONS = [
   },
 ];
 
-export const requiredValidation = { required: 'Requerido' };
-
-const dniValidation = {
-  pattern: {
-    value: /^[0-9]{8}$/,
-    message: 'Formato de DNI invalido',
-  },
-};
-
-export const requiredDniValidation = {
-  ...requiredValidation,
-  ...dniValidation,
-};
-
-export const onlyNumbersValidation = {
-  pattern: {
-    value: /^[0-9]*$/,
-    message: 'Ingrese solo numeros',
-  },
-};
-
-export const requiredOnlyNumbersValidation = {
-  ...requiredValidation,
-  ...onlyNumbersValidation,
-};
-
-const emailValidation = {
-  pattern: {
-    value:
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    message: 'Mail invalido',
-  },
-};
-
-export const requiredEmailValidation = {
-  ...requiredValidation,
-  ...emailValidation,
-};
-
-const letterAndSpacesValidation = {
-  pattern: {
-    value: /^[a-zA-Z\s]*$/,
-    message: 'Ingrese solo letras y espacios',
-  },
-};
-
-export const requiredLetterAndSpacesValidation = {
-  ...requiredValidation,
-  ...letterAndSpacesValidation,
-};
-
-export const unAuthenticatedRoutes = ['/signin', '/forgotpassword', '/studentform'];
-
-export const STUDENT_PROFILE_FIRST_COLUMN = [
-  {
-    label: 'APELLIDO',
-    value: 'lastName',
-  },
-  {
-    label: 'NOMBRE',
-    value: 'firstName',
-  },
-  {
-    label: 'DNI',
-    value: 'dni',
-  },
-  {
-    label: 'SEXO',
-    value: 'gender',
-  },
-  {
-    label: 'REPITENTE',
-    value: 'repeating_quantity',
-  },
-  {
-    label: 'FECHA DE NACIMIENTO',
-    value: 'birth_date',
-  },
-  {
-    label: 'NACIONALIDAD',
-    value: 'country',
-  },
-  {
-    label: 'ESCUELA A LA QUE ASISTIO',
-    value: 'previous_school',
-  },
-  {
-    label: 'TELEFONO',
-    value: 'phone',
-  },
-  {
-    label: 'TELEFONO ALT.',
-    value: 'alternative_phone',
-  },
+export const YEARS_OPTIONS = [
+  { value: 2021, label: '2021' },
+  { value: 2022, label: '2022' },
+  { value: 2023, label: '2023' },
 ];
 
-export const STUDENT_PROFILE_SECOND_COLUMN = [
-  {
-    label: 'DISCAPACIDAD',
-    value: 'disability_type',
-  },
-  {
-    label: 'TIPO DISCAPACIDAD',
-    value: 'disability_type',
-  },
-  {
-    label: 'COMEDOR ESC.',
-    value: 'school_dining',
-  },
-  {
-    label: 'COOPERADORA',
-    value: 'cooperator',
-  },
-  {
-    label: 'DIRECCION',
-    value: 'address',
-  },
-  {
-    label: 'BARRIO',
-    value: 'neighborhood',
-  },
-  {
-    label: 'LOCALIDAD',
-    value: 'location',
-  },
-  {
-    label: 'CENTRO DE SALUD',
-    value: 'medical_center',
-  },
-];
-
-export const STUDENT_TUTOR_FIRST_COLUMN = [
-  {
-    label: 'APELLIDO',
-    value: 'lastName',
-  },
-  {
-    label: 'NOMBRE',
-    value: 'firstName',
-  },
-  {
-    label: 'DNI',
-    value: 'dni',
-  },
-  {
-    label: 'SEXO',
-    value: 'gender',
-  },
-  {
-    label: 'ESTADO CIVIL',
-    value: 'civil_status',
-  },
-  {
-    label: 'FECHA DE NACIMIENTO',
-    value: 'birth_date',
-  },
-  {
-    label: 'NACIONALIDAD',
-    value: 'country',
-  },
-  {
-    label: 'EMAIL',
-    value: 'email_address',
-  },
-];
-
-export const STUDENT_TUTOR_SECOND_COLUMN = [
-  {
-    label: 'TELEFONO FIJO',
-    value: 'phone',
-  },
-  {
-    label: 'CELULAR',
-    value: 'alternative_phone',
-  },
-  {
-    label: 'TIPO ESCOLARIDAD',
-    value: 'educational_level',
-  },
-  {
-    label: 'OCUPACION LABORAL',
-    value: 'job',
-  },
-  {
-    label: 'DIRECCION',
-    value: 'address',
-  },
-  {
-    label: 'LOCALIDAD',
-    value: 'location',
-  },
-  {
-    label: 'EMAIL',
-    value: 'email_address',
-  },
+export const MONTHS_OPTIONS = [
+  { value: 1, label: 'Enero' },
+  { value: 2, label: 'Febrero' },
+  { value: 3, label: 'Marzo' },
+  { value: 4, label: 'Abril' },
+  { value: 5, label: 'Mayo' },
+  { value: 6, label: 'Junio' },
+  { value: 7, label: 'Julio' },
+  { value: 8, label: 'Agosto' },
+  { value: 9, label: 'Septiembre' },
+  { value: 10, label: 'Octubre' },
+  { value: 11, label: 'Noviembre' },
+  { value: 12, label: 'Diciembre' },
 ];

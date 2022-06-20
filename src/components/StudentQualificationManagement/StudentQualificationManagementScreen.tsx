@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { ALL_GRADES_OPTIONS } from '../../utils/constants';
+import { ALL_GRADES_OPTIONS } from '../../utils/constants/selectOptions';
 import GradesTable from '../common/Table/GradesTable/GradesTable';
 import SubjectSelection from '../UI/Menu/SubjectSelection';
 import DatePicker from '../UI/DatePicker';

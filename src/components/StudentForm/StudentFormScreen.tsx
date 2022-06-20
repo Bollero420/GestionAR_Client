@@ -12,8 +12,18 @@ import '../../styles/datepicker.css';
 import Select from '../UI/Select';
 import { useStudentRegistration } from '../../hooks/useStudentRegistration';
 
+import { NAVIGATOR } from '../../utils/constants';
+
 import {
-  NAVIGATOR,
+  requiredEmailValidation,
+  requiredValidation,
+  requiredDniValidation,
+  requiredOnlyNumbersValidation,
+  requiredLetterAndSpacesValidation,
+  onlyNumbersValidation,
+} from '../../utils/constants/validations';
+
+import {
   CIVIL_STATUS_OPTIONS,
   EDUCATIONAL_LEVEL_OPTIONS,
   GENDER_OPTIONS,
@@ -26,13 +36,7 @@ import {
   YES_AND_NO_OPTIONS,
   COUNTRIES_OPTIONS,
   LOCATION_OPTIONS,
-  requiredEmailValidation,
-  requiredValidation,
-  requiredDniValidation,
-  requiredOnlyNumbersValidation,
-  requiredLetterAndSpacesValidation,
-  onlyNumbersValidation,
-} from '../../utils/constants';
+} from '../../utils/constants/selectOptions';
 
 import classNames from 'classnames';
 

@@ -2,6 +2,15 @@ import { useQuery } from 'react-query';
 
 import { axios } from '../config/axiosConfig';
 
+import { BiMonthlyReport } from '../interfaces/Report';
+
+type QueryResult = {
+  data: BiMonthlyReport;
+  month: string;
+  year: string;
+  grade_id: string;
+};
+
 const getBiMonthlyReport = async (month: number, year: number, grade_id: string) => {
   const response = await axios.get(`/reports/bimonthly`, {
     params: {
@@ -14,8 +23,8 @@ const getBiMonthlyReport = async (month: number, year: number, grade_id: string)
 };
 
 export const useBiMonthlyReport = (month: number, year: number, grade_id: string) => {
-  return useQuery<any[], Error>(
-    ['report_bimonthly', { month, year }],
+  return useQuery<QueryResult, Error>(
+    ['report_bimonthly', { month, year, grade_id }],
     () => getBiMonthlyReport(month, year, grade_id),
     {
       staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale

@@ -12,7 +12,7 @@ import {
   STUDENT_PROFILE_SECOND_COLUMN,
   STUDENT_TUTOR_FIRST_COLUMN,
   STUDENT_TUTOR_SECOND_COLUMN,
-} from '../../utils/constants';
+} from '../../utils/constants/columns';
 
 import { getEducationalLevel } from '../../utils/helper';
 import { handleCommonValues } from './profileHelper';

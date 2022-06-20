@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import classNames from 'classnames';
-import { GRADES_COLUMNS } from '../../../../utils/constants';
+import { GRADES_COLUMNS } from '../../../../utils/constants/columns';
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
 import GradesTableBodyRow from './GradesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
