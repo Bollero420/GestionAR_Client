@@ -1027,210 +1027,30 @@ export const COUNTRIES_OPTIONS = [
 ];
 
 export const LOCATION_OPTIONS = [
-  {
-    value: 'Alejandra',
-    label: 'Alejandra',
-  },
-  {
-    value: 'Armstrong',
-    label: 'Armstrong',
-  },
-  {
-    value: 'Arocena',
-    label: 'Arocena',
-  },
-  {
-    value: 'Arroyo Seco',
-    label: 'Arroyo Seco',
-  },
-  {
-    value: 'Arroyo Leyes',
-    label: 'Arroyo Leyes',
-  },
-  {
-    value: 'Avellaneda',
-    label: 'Avellaneda',
-  },
-  {
-    value: 'Barrancas',
-    label: 'Barrancas',
-  },
-  {
-    value: 'Carcaraña',
-    label: 'Carcaraña',
-  },
-  {
-    value: 'Casilda',
-    label: 'Casilda',
-  },
-  {
-    value: 'Cayasta',
-    label: 'Cayasta',
-  },
-  {
-    value: 'Cañada de Gomez',
-    label: 'Cañada de Gomez',
-  },
-  {
-    value: 'Ceres',
-    label: 'Ceres',
-  },
-  {
-    value: 'Chabas',
-    label: 'Chabas',
-  },
-  {
-    value: 'Coronda',
-    label: 'Coronda',
-  },
-  {
-    value: 'Desvio Arijon',
-    label: 'Desvio Arijon',
-  },
-  {
-    value: 'Elortondo',
-    label: 'Elortondo',
-  },
-  {
-    value: 'Esperanza',
-    label: 'Esperanza',
-  },
-  {
-    value: 'Firmat',
-    label: 'Firmat',
-  },
-  {
-    value: 'Florencia',
-    label: 'Florencia',
-  },
-  {
-    value: 'Franck',
-    label: 'Franck',
-  },
-  {
-    value: 'Funes',
-    label: 'Funes',
-  },
-  {
-    value: 'Granadero Baigorria',
-    label: 'Granadero Baigorria',
-  },
-  {
-    value: 'Helvecia',
-    label: 'Helvecia',
-  },
-  {
-    value: 'Melincue',
-    label: 'Melincue',
-  },
-  {
-    value: 'Monje',
-    label: 'Monje',
-  },
-  {
-    value: 'Oliveros',
-    label: 'Oliveros',
-  },
-  {
-    value: 'Puerto Gaboto',
-    label: 'Puerto Gaboto',
-  },
-  {
-    value: 'Rafaela',
-    label: 'Rafaela',
-  },
-  {
-    value: 'Reconquista',
-    label: 'Reconquista',
-  },
-  {
-    value: 'Romang',
-    label: 'Romang',
-  },
-  {
-    value: 'Rosario',
-    label: 'Rosario',
-  },
-  {
-    value: 'Rufino',
-    label: 'Rufino',
-  },
-  {
-    value: 'San Carlos',
-    label: 'San Carlos',
-  },
-  {
-    value: 'San Cristobal',
-    label: 'San Cristobal',
-  },
-  {
-    value: 'San Javier',
-    label: 'San Javier',
-  },
-  {
-    value: 'San Jorge',
-    label: 'San Jorge',
-  },
-  {
-    value: 'San Jose del Rincon',
-    label: 'San Jose del Rincon',
-  },
-  {
-    value: 'San Justo',
-    label: 'San Justo',
-  },
-  {
-    value: 'San Lorenzo',
-    label: 'San Lorenzo',
-  },
-  {
-    value: 'Santa Fe Capital',
-    label: 'Santa Fe Capital',
-  },
-  {
-    value: 'Santa Rosa de Calchines',
-    label: 'Santa Rosa de Calchines',
-  },
-  {
-    value: 'Santo Tome',
-    label: 'Santo Tome',
-  },
-  {
-    value: 'Sastre',
-    label: 'Sastre',
-  },
-  {
-    value: 'Sauce Viejo',
-    label: 'Sauce Viejo',
-  },
-  {
-    value: 'Sunchales',
-    label: 'Sunchales',
-  },
-  {
-    value: 'Timbues',
-    label: 'Timbues',
-  },
-  {
-    value: 'Tostado',
-    label: 'Tostado',
-  },
-  {
-    value: 'Venado Tuerto',
-    label: 'Venado Tuerto',
-  },
-  {
-    value: 'Villa Cañas',
-    label: 'Villa Cañas',
-  },
-  {
-    value: 'Villa Constitucion',
-    label: 'Villa Constitucion',
-  },
-  {
-    value: 'Villa Ocampo',
-    label: 'Villa Ocampo',
-  },
+  { value: 'Misiones', label: 'Misiones' },
+  { value: 'San Luis', label: 'San Luis' },
+  { value: 'San Juan', label: 'San Juan' },
+  { value: 'Entre Ríos', label: 'Entre Ríos' },
+  { value: 'Santa Cruz', label: 'Santa Cruz' },
+  { value: 'Río Negro', label: 'Río Negro' },
+  { value: 'Chubut', label: 'Chubut' },
+  { value: 'Córdoba', label: 'Córdoba' },
+  { value: 'Mendoza', label: 'Mendoza' },
+  { value: 'La Rioja', label: 'La Rioja' },
+  { value: 'Catamarca', label: 'Catamarca' },
+  { value: 'La Pampa', label: 'La Pampa' },
+  { value: 'Santiago del Estero', label: 'Santiago del Estero' },
+  { value: 'Corrientes', label: 'Corrientes' },
+  { value: 'Santa Fe', label: 'Santa Fe' },
+  { value: 'Tucumán', label: 'Tucumán' },
+  { value: 'Neuquén', label: 'Neuquén' },
+  { value: 'Salta', label: 'Salta' },
+  { value: 'Chaco', label: 'Chaco' },
+  { value: 'Formosa', label: 'Formosa' },
+  { value: 'Jujuy', label: 'Jujuy' },
+  { value: 'Ciudad Autónoma de Buenos Aires', label: 'Ciudad Autónoma de Buenos Aires' },
+  { value: 'Buenos Aires', label: 'Buenos Aires' },
+  { value: 'Tierra del Fuego', label: 'Tierra del Fuego' },
 ];
 
 export const YEARS_OPTIONS = [
