@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { useSubjects } from '../../../hooks/useSubjects';
+import Spinner from '../Spinner';
 
 type SubjectSelectionProps = {
   handleSubjectPick: (subject) => void;
@@ -22,7 +23,14 @@ const SubjectSelection = ({ handleSubjectPick }: SubjectSelectionProps) => {
     return [];
   }, [data]);
 
-  if (isLoading) return <p>loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>Cargando Materias</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

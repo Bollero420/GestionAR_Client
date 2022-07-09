@@ -7,6 +7,7 @@ import { useGenerateStudentQualificationAndObservations } from '../../hooks/useG
 import { OBSERVATIONS } from '../../utils/constants';
 import TextArea from '../UI/TextArea';
 import { QualificationRow } from './QualificationRow';
+import Spinner from '../UI/Spinner';
 
 type Props = {
   selectedStudent?: any;
@@ -82,7 +83,15 @@ const StudentQualificationAndObservations = ({ selectedStudent, date }: Props) =
     await generateStudentQualificationAndObservations(request);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || isLoadingMutation) {
+    const message = isLoading ? 'Cargando Calificaciones y Observaciones' : 'Enviando Formulario';
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>{message}</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={reactFormHandleSubmit(onSubmit)}>

@@ -10,7 +10,7 @@ import ArrowLeftIcon from '@heroicons/react/solid/ArrowLeftIcon';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';
 
-const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
+const StudentQualificationManagementScreen = ({ isTeacher = false }) => {
   const history = useHistory();
   const [step, setStep] = useState(0);
   const [selectedGrade, setSelectedGrade] = useState(null);
@@ -105,9 +105,9 @@ const StudentsQualificationManagementScreen = ({ isTeacher = false }) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">{component}</div>
+      <div className="flex justify-center flex-1">{component}</div>
     </div>
   );
 };
 
-export default StudentsQualificationManagementScreen;
+export default StudentQualificationManagementScreen;

@@ -4,6 +4,7 @@ import { PencilIcon, TrashIcon, ArrowLeftIcon } from '@heroicons/react/solid';
 
 import { useStudent } from '../../hooks/useStudent';
 
+import Spinner from '../UI/Spinner';
 import Modal from '../common/Modal/Modal';
 import { DeleteStudentModal } from '../common/Modal/DeleteStudentModal';
 
@@ -31,7 +32,14 @@ const StudentProfile = () => {
 
   const handleGoBack = () => history.goBack();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 items-center justify-center">
+        <Spinner size={100} />
+        <p>Cargando Estudiante</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-1 px-6 gap-6 overflow-y-auto no-scroll">

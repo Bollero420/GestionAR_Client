@@ -3,6 +3,7 @@ import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
@@ -10,6 +11,8 @@ import es from 'date-fns/locale/es';
 import '../../styles/datepicker.css';
 
 import Select from '../UI/Select';
+import Spinner from '../UI/Spinner';
+
 import { useStudentRegistration } from '../../hooks/useStudentRegistration';
 
 import { NAVIGATOR } from '../../utils/constants';
@@ -37,8 +40,6 @@ import {
   COUNTRIES_OPTIONS,
   LOCATION_OPTIONS,
 } from '../../utils/constants/selectOptions';
-
-import classNames from 'classnames';
 
 registerLocale('es', es);
 
@@ -304,6 +305,15 @@ const StudentFormScreen = () => {
         </div>
       </div>
     );
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col justify-center items-center h-screen max-h-screen">
+        <Spinner size={100} />
+        <p>Cargando</p>
+      </div>
+    );
+  }
 
   return (
     <form className="flex flex-col h-screen max-h-screen px-10" onSubmit={reactFormHandleSubmit(onSubmit)}>

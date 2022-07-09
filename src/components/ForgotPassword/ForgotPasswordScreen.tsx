@@ -1,9 +1,13 @@
-import classNames from 'classnames';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import { useForm } from 'react-hook-form';
+import classNames from 'classnames';
+
 import { useResetPassword } from '../../hooks/useResetPassword';
+
 import { NAVIGATOR } from '../../utils/constants';
+
+import Spinner from '../UI/Spinner';
 
 const ForgotPasswordScreen = () => {
   const { mutateAsync: resetPassword, isLoading, isSuccess, isError } = useResetPassword();
@@ -26,6 +30,15 @@ const ForgotPasswordScreen = () => {
       history.push(NAVIGATOR.sign_in);
     }
   }, [isSuccess]);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 max-w-xl items-center">
+        <Spinner size={100} />
+        <p>Cargando</p>
+      </div>
+    );
+  }
 
   return (
     <div className="no-scroll flex flex-1 w-full justify-center items-center">

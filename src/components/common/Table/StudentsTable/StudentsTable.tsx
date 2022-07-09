@@ -1,11 +1,17 @@
 import { useMemo, useState } from 'react';
-import classNames from 'classnames';
 import { useHistory } from 'react-router';
+import classNames from 'classnames';
+
 import { useStudents } from '../../../../hooks/useStudents';
+
 import { STUDENTS_COLUMNS } from '../../../../utils/constants/columns';
 import { NAVIGATOR } from '../../../../utils/constants';
+
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import Spinner from '../../../UI/Spinner';
+
 import { SortKey } from '../../../../interfaces/Table';
+
 import StudentsTableBodyRow from './StudentsTableBodyRow';
 
 type Props = {
@@ -49,7 +55,14 @@ const StudentsTable = ({ gradeId }: Props) => {
   const redirectToProfile = (studentId: string) =>
     history.push(`${NAVIGATOR.students}/${studentId}`, { from: NAVIGATOR.students });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>Cargando Estudiantes</p>
+      </div>
+    );
+  }
 
   return (
     <div>

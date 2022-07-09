@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import classNames from 'classnames';
+
 import { SUBJECT_QUALIFICATION_COLUMNS } from '../../../../utils/constants/columns';
+
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import Spinner from '../../../UI/Spinner';
+
 import StudentsQualificationTableBodyRow from './StudentsQualificationTableBodyRow';
+
 import { SortKey } from '../../../../interfaces/Table';
+
 import { useStudents } from '../../../../hooks/useStudents';
 
 type Props = {
@@ -40,7 +46,14 @@ const StudentsQualificationTable = ({ grade, handleStudentPick }: Props) => {
     setSortOrder(newSortDirection);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>Cargando Estudiantes</p>
+      </div>
+    );
+  }
 
   return (
     <div>

@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { ATTENDANCES_COLUMNS } from '../../../../utils/constants/columns';
 
 import { ColumnHeader, Table, TableBody, TableHead, TableRow } from '../../../UI/Table';
+import Spinner from '../../../UI/Spinner';
 import AttendancesTableBodyRow from './AttendancesTableBodyRow';
 
 import { SortKey } from '../../../../interfaces/Table';
@@ -100,7 +101,15 @@ const AttendancesTable = ({ grade, subject, date }: Props) => {
     setSortOrder(newSortDirection);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || isLoadingMutation) {
+    const message = isLoading ? 'Cargando Asistencias' : 'Enviando Formulario';
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>{message}</p>
+      </div>
+    );
+  }
 
   return (
     <div>

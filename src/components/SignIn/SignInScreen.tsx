@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import { useSignIn } from '../../hooks/useSignIn';
 import { NAVIGATOR } from '../../utils/constants';
+import Spinner from '../UI/Spinner';
 
 const SignInScreen = () => {
   const { mutateAsync: signIn, isLoading, isSuccess, isError, error } = useSignIn();
@@ -26,6 +27,15 @@ const SignInScreen = () => {
       history.push(NAVIGATOR.main);
     }
   }, [isSuccess]);
+
+  if (isLoading) {
+    return (
+      <div className="no-scroll flex-col flex flex-1 w-full justify-center items-center">
+        <Spinner size={100} />
+        <p>Iniciando Sesion</p>
+      </div>
+    );
+  }
 
   return (
     <div className="no-scroll flex-col flex flex-1 w-full justify-center items-center">

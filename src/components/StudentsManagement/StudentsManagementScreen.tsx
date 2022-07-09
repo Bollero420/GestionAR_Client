@@ -52,7 +52,7 @@ const StudentsManagementScreen = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">{component}</div>
+      <div className="flex justify-center flex-1">{component}</div>
     </div>
   );
 };

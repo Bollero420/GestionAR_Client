@@ -6,6 +6,7 @@ import GradesTableBodyRow from './GradesTableBodyRow';
 import { SortKey } from '../../../../interfaces/Table';
 import { useGrades } from '../../../../hooks/useGrades';
 import { parseGradeName } from '../../../../utils/helper';
+import Spinner from '../../../UI/Spinner';
 
 type Props = {
   handleGradePick: (grade: any) => void;
@@ -48,7 +49,14 @@ const GradesTable = ({ handleGradePick }: Props) => {
     setSortOrder(newSortDirection);
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Spinner size={100} />
+        <p>Cargando Grados</p>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-y-scroll max-h-96 no-scroll">
