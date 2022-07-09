@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import { axios } from '../config/axiosConfig';
@@ -9,7 +10,7 @@ const getAnnuallyReport = async (type: 'initial' | 'final') => {
 };
 
 export const useAnnuallyReport = (type: 'initial' | 'final') => {
-  return useQuery<any[], Error>(['report_annually', type], () => getAnnuallyReport(type), {
+  return useQuery<any[], AxiosError>(['report_annually', type], () => getAnnuallyReport(type), {
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,

@@ -163,7 +163,7 @@ const StudentsQualificationFormTable = ({ grade, subject, date }: Props) => {
             <StudentsQualificationTableBodyRow
               isTeacher
               handleSelectOnChange={handleSelectOnChange}
-              key={student_qualification.id}
+              key={student_qualification._id}
               studentQualification={student_qualification}
             />
           ))}

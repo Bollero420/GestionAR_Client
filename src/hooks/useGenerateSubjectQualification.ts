@@ -2,6 +2,7 @@ import { useMutation } from 'react-query';
 
 import { axios } from '../config/axiosConfig';
 import { QUALIFICATION } from '../components/common/Table/StudentsQualificationTable/StudentsQualificationFormTable';
+import { AxiosError } from 'axios';
 
 const BASE_URL = '/subjectQualifications';
 
@@ -27,8 +28,8 @@ const generateSubjectQualification = async (req: Request, isEdit: boolean) => {
 };
 
 export const useGenerateSubjectQualification = (isEdit: boolean) => {
-  return useMutation<any, Error, Request>((req) => generateSubjectQualification(req, isEdit), {
+  return useMutation<any, AxiosError, Request>((req) => generateSubjectQualification(req, isEdit), {
     mutationKey: 'generateSubjectQualification',
-    onError: (error) => console.log('generateSubjectQualification - error ->', error)
+    onError: (error) => console.log('generateSubjectQualification - error ->', error),
   });
 };

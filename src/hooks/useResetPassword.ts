@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
@@ -9,8 +10,8 @@ const resetPassword = async (req) => {
 };
 
 export const useResetPassword = () => {
-  return useMutation<any, Error, any>((req) => resetPassword(req), {
+  return useMutation<any, AxiosError, any>((req) => resetPassword(req), {
     mutationKey: 'resetPassword',
-    onError: (error) => console.log('resetPassword - error ->', error)
+    onError: (error) => console.log('resetPassword - error ->', error),
   });
 };

@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 
 import { axios } from '../config/axiosConfig';
@@ -10,8 +11,8 @@ const refreshToken = async () => {
 };
 
 export const useRefreshToken = () => {
-  return useMutation<any, Error, any>(refreshToken, {
+  return useMutation<any, AxiosError, any>(refreshToken, {
     mutationKey: 'signIn',
-    onError: (error) => console.log('refreshToken - error ->', error)
+    onError: (error) => console.log('refreshToken - error ->', error),
   });
 };

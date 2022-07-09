@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
@@ -7,8 +8,8 @@ const getSubjects = async () => {
 };
 
 export const useSubjects = () => {
-  return useQuery<any[], Error>(['subjects'], getSubjects, {
+  return useQuery<any[], AxiosError>(['subjects'], getSubjects, {
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
-    onError: (error) => console.log('getSubjects - error ->', error)
+    onError: (error) => console.log('getSubjects - error ->', error),
   });
 };

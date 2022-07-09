@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { axios } from '../config/axiosConfig';
 
@@ -7,8 +8,7 @@ const getGrades = async () => {
 };
 
 export const useGrades = () => {
-  return useQuery<any[], Error>(['grades'], () => getGrades(), {
+  return useQuery<any[], AxiosError>(['grades'], () => getGrades(), {
     staleTime: 1000 * 60 * 5, // Amount of time (5m) before the data is considered as Stale
-    onError: (error) => console.log('getGrades - error ->', error)
   });
 };
