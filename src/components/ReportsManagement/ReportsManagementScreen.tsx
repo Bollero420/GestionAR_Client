@@ -74,7 +74,14 @@ const ReportsManagementScreen = () => {
   }
 
   if (step === 2 && selectedReport === 'Reportes Bimestrales') {
-    component = <BiMonthlyReport month={selectedMonth} year={selectedYear} grade_id={selectedGrade} />;
+    component = (
+      <BiMonthlyReport
+        month={selectedMonth}
+        year={selectedYear}
+        grade_id={selectedGrade}
+        selectedGradeTitle={selectedGradeTitle}
+      />
+    );
   }
 
   return (

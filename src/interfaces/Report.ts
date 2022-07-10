@@ -35,7 +35,7 @@ export type StudentBiMonthlyReport = {
   ciencias_sociales: string;
   ciencias_naturales: string;
   matematica: string;
-  plasitca: string;
+  plastica: string;
   musica: string;
 };
 

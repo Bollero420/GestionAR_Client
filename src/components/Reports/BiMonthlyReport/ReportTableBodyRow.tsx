@@ -18,7 +18,7 @@ const reportName = [
   'tecnologia',
   'formacion_etica_y_ciudadana',
   'educacion_fisica',
-  'plasitca',
+  'plastica',
   'musica',
   'integrated',
   'worry_and_effort',
