@@ -43,19 +43,21 @@ export const InitialAnnuallyReport = () => {
   }
 
   if (isSuccess && report) {
-    {
-      Object.keys(report).map((reportName) => {
-        const data = report[reportName];
-        return (
-          <Table>
-            {Headers[reportName]}
-            <TableBody>
-              {data.map((data, index) => Body[reportName]({ data, index, key: reportName + '_' + index }))}
-            </TableBody>
-          </Table>
-        );
-      });
-    }
+    return (
+      <div className="flex flex-row flex-wrap flex-1 gap-1">
+        {Object.keys(report).map((reportName) => {
+          const data = report[reportName];
+          return (
+            <Table>
+              {Headers[reportName]}
+              <TableBody>
+                {data.map((data, index) => Body[reportName]({ data, index, key: reportName + '_' + index }))}
+              </TableBody>
+            </Table>
+          );
+        })}
+      </div>
+    );
   }
 
   return <></>;

@@ -41,11 +41,6 @@ export const GenderByGradesHeader = () => (
       </th>
     </TableRow>
   </TableHead>
-  // {/*
-  //     F
-  //     M
-  //     T
-  // */}
 );
 
 export const ServiceHeader = () => (
@@ -72,10 +67,6 @@ export const ServiceHeader = () => (
       </th>
     </TableRow>
   </TableHead>
-  // {/*
-  //     Almuerzo
-  //     Copa de Leche
-  // */}
 );
 
 export const RepeatingQuantityByGradesAndGender = () => (
@@ -98,13 +89,6 @@ export const RepeatingQuantityByGradesAndGender = () => (
       <GendersSubHeaders />
     </TableRow>
   </TableHead>
-  // {/*
-  //  Total
-  //  Por 1° vez
-  //  Por 2° vez
-  //  Por 3° vez
-  //  Por 4° vez
-  // */}
 );
 
 export const AgeByGradesAndGender = () => (
@@ -131,22 +115,6 @@ export const AgeByGradesAndGender = () => (
       <GendersSubHeaders />
     </TableRow>
   </TableHead>
-  // {/*
-  //  5
-  //  6
-  //  7
-  //  8
-  //  9
-  //  10
-  //  11
-  //  12
-  //  13
-  //  14
-  //  15
-  //  16
-  //  17
-  //  18+
-  // */}
 );
 
 export const CountriesByGradesAndGender = () => (
@@ -173,7 +141,4 @@ export const CountriesByGradesAndGender = () => (
       <GendersSubHeaders />
     </TableRow>
   </TableHead>
-  // {/*
-  //   Argentina
-  // */}
 );

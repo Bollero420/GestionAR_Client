@@ -15,9 +15,6 @@ export const GenderByGradesTableBodyRow = ({ data }) => {
       <td>
         <div className="text-center">{keyByRow}</div>
       </td>
-      <td>
-        <div className="text-sm text-center">{}</div>
-      </td>
       {React.Children.toArray(
         colNames.map((col) => (
           <td>
@@ -134,25 +131,33 @@ export const StudentsByCountryAndGenderTableBodyRow = ({ data }) => {
   const { row } = data;
   const colNames = ['total', '1', '2', '3', '4', '5', '6', '7'];
 
+  const availableValues = Object.keys(data);
+
   return (
     <TableRow className="cursor-pointer hover:bg-black hover:bg-opacity-20">
       <td>
-        <div className="text-center">{row}</div>
+        <div className="text-center capitalize">{row}</div>
       </td>
       {React.Children.toArray(
-        colNames.map((col) => (
-          <>
-            <td>
-              <div className="text-sm text-center">{data[`_${col}_female`]}</div>
-            </td>
-            <td>
-              <div className="text-sm text-center">{data[`_${col}_male`]}</div>
-            </td>
-            <td>
-              <div className="text-sm text-center">{data[`_${col}_total`]}</div>
-            </td>
-          </>
-        ))
+        colNames.map((col) => {
+          const hasFMT =
+            availableValues.includes(`_${col}_female`) ||
+            availableValues.includes(`_${col}_male`) ||
+            availableValues.includes(`_${col}total`);
+          return (
+            <>
+              <td>
+                <div className="text-sm text-center">{hasFMT ? data[`_${col}_female`] : '-'}</div>
+              </td>
+              <td>
+                <div className="text-sm text-center">{hasFMT ? data[`_${col}_male`] : '-'}</div>
+              </td>
+              <td>
+                <div className="text-sm text-center">{hasFMT ? data[`_${col}_total`] : '-'}</div>
+              </td>
+            </>
+          );
+        })
       )}
     </TableRow>
   );
