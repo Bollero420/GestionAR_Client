@@ -185,3 +185,36 @@ export const generateCSVData = (type: string, dataFromQuery: any[]) => {
     csvRows,
   };
 };
+
+export const getAgeKey = (age: string) => {
+  switch (age) {
+    case 'five':
+      return '5';
+    case 'six':
+      return '6';
+    case 'seven':
+      return '7';
+    case 'eight':
+      return '8';
+    case 'nine':
+      return '9';
+    case 'ten':
+      return '10';
+    case 'eleven':
+      return '11';
+    case 'twelve':
+      return '12';
+    case 'thirteen':
+      return '13';
+    case 'fourteen':
+      return '14';
+    case 'fifteen':
+      return '15';
+    case 'sixteen':
+      return '16';
+    case 'seventeen':
+      return '17';
+    default:
+      return '18+';
+  }
+};
